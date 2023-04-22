@@ -59,12 +59,12 @@ public class Main {
         
         // Bundleリソースを解析
         logger.info("Bundle type:{}", bundle.getType().getDisplay());
-        // BundleからEntityを取得
-        List<BundleEntryComponent> entities = bundle.getEntry();
+        // BundleからEntryを取得
+        List<BundleEntryComponent> entries = bundle.getEntry();
         String subjectRefId = null;
-        // Entity内のResourceを取得
-        for (BundleEntryComponent entity : entities) {
-            Resource resource = entity.getResource();
+        // Entry内のResourceを取得
+        for (BundleEntryComponent entry : entries) {
+            Resource resource = entry.getResource();
             ResourceType resourceType = resource.getResourceType();
             logger.info("Resource Type: {}", resourceType.name());
             switch (resourceType) {
@@ -82,7 +82,7 @@ public class Main {
                 break;
             case Patient:
                 // Patientリソースを解析する例
-                if (!entity.getFullUrl().equals(subjectRefId)) {
+                if (!entry.getFullUrl().equals(subjectRefId)) {
                     break;
                 }
                 logger.info("Composition.subjectの参照先のPatient:{}", subjectRefId);
