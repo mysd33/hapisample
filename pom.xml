@@ -1,0 +1,47 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example</groupId>
+  <artifactId>hapisample</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+<properties>
+	<java.version>17</java.version>
+	<hapi.version>6.4.4</hapi.version>
+	<logback.version>1.4.7</logback.version>
+</properties>  
+<dependencies>
+    <dependency>
+        <groupId>ca.uhn.hapi.fhir</groupId>
+        <artifactId>hapi-fhir-structures-dstu2</artifactId>
+        <version>${hapi.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>ca.uhn.hapi.fhir</groupId>
+        <artifactId>hapi-fhir-structures-r4</artifactId>
+        <version>${hapi.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>ca.uhn.hapi.fhir</groupId>
+        <artifactId>hapi-fhir-validation-resources-dstu2</artifactId>
+        <version>${hapi.version}</version>
+    </dependency>
+	<dependency>
+	    <groupId>ca.uhn.hapi.fhir</groupId>
+	    <artifactId>hapi-fhir-validation-resources-r4</artifactId>
+	    <version>${hapi.version}</version>
+	</dependency>    
+	
+	<dependency>
+	    <groupId>ch.qos.logback</groupId>
+	    <artifactId>logback-classic</artifactId>
+	    <version>${logback.version}</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>ch.qos.logback</groupId>
+	    <artifactId>logback-core</artifactId>
+	    <version>${logback.version}</version>
+	</dependency>
+</dependencies>
+  
+</project>
