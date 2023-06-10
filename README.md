@@ -1,6 +1,6 @@
 # HAPI FHIRのサンプル
 
-- [HAPI FHIR](https://hapifhir.io/)を使って、[診療情報提供書HL7FHIR記述仕様](https://std.jpfhir.jp/)に基づくサンプルデータ（Bundle-BundleReferralExample01.json）の検証、パースするサンプルプログラムです。
+- [HAPI FHIR](https://hapifhir.io/)を使って、[診療情報提供書HL7FHIR記述仕様](https://std.jpfhir.jp/)に基づくサンプルデータ（Bundle-BundleReferralExample01.json）に対して検証、パースするサンプルプログラムです。
 
 - FHIRプロファイルでの検証
     - [HAPI FHIRのバリデータの機能](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html)を使用して、検証しています。
@@ -10,8 +10,8 @@
     - [JPCoreプロファイル](https://jpfhir.jp/fhir/core/)のサイトにJPCoreプロファイルの構造定義ファイルがあります。
     - また、[https://std.jpfhir.jp/](https://std.jpfhir.jp/)のサイトに、JPCoreを含むスナップショット形式の[診療情報提供書の文書プロファイル（IGpackage2023.4.27 snapshot形式: jp-ereferral-0.9.6-snap.tgz）](https://jpfhir.jp/fhir/eReferral/jp-ereferral-0.9.7-snap.tgz)があります。
     - いずれも、[FHIR package仕様](https://registry.fhir.org/learn)に従ったパッケージです。
-    - [NpmPackageValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#npmpackagevalidationsupport)クラスにより、パッケージを読み込み、検証できます。
-    - NpmPackageValidationSupportクラスによる、パッケージを使ったバリデーションについては、[HAPI FHIRのドキュメントの「Validating Using Packages」](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html#packages)を参考に実装しています。
+    - HAPIのバリデータでは、[NpmPackageValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#npmpackagevalidationsupport)クラスにより、パッケージを読み込み、検証できます。
+    - NpmPackageValidationSupportクラスによる、パッケージを使ったバリデーションの実装方法については、[HAPI FHIRのドキュメントの「Validating Using Packages」](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html#packages)を参考に実装しています。
 
 - FHIRデータのパース
     - [HAPI FHIRのパース機能](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、パースをしています。    
@@ -22,7 +22,8 @@
 
 - 実行結果の例
     - パース処理はうまくいっていますが、文書プロファイルおよびJPCoreプロファイルに対するバリデーションで大量のエラーメッセージが出てしまっています。
-```
+
+```sh
 23:00:05.791 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
 23:00:05.791 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
 23:00:07.535 [main] INFO  ca.uhn.fhir.util.XmlUtil - Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
@@ -37,6 +38,8 @@
 23:00:13.715 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
 23:00:13.715 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
 23:00:13.835 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+
+#このあたりから、JPCore、文書プロファイルのバリデーションの結果、エラーメッセージがログに出てしまっているのが分かる
 23:00:14.789 [main] WARN  hapisample.Main - [Bundle.entry[0]] Slicing cannot be evaluated: Problem evaluating slicing expression for element in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5 path Bundle.entry[0] (fhirPath = true and resource.conformsTo('http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory')): Unable to resolve the reference http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory
 23:00:14.789 [main] WARN  hapisample.Main - [Bundle.entry[1]] Slicing cannot be evaluated: Problem evaluating slicing expression for element in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5 path Bundle.entry[1] (fhirPath = true and resource.conformsTo('http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory')): Unable to resolve the reference http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory
 23:00:14.789 [main] WARN  hapisample.Main - [Bundle.entry[2]] Slicing cannot be evaluated: Problem evaluating slicing expression for element in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5 path Bundle.entry[2] (fhirPath = true and resource.conformsTo('http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory')): Unable to resolve the reference http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory
@@ -259,6 +262,8 @@
 23:00:14.808 [main] WARN  hapisample.Main - [Bundle.entry[16].resource.encounter] Unable to resolve the profile reference 'http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter'
 23:00:14.808 [main] WARN  hapisample.Main - [Bundle.entry[16].resource.encounter] Invalid Resource target type. Found Encounter, but expected one of ([])
 23:00:14.808 [main] WARN  hapisample.Main - [Bundle.entry[17].resource.ofType(Observation).meta.profile[0]] Profile reference 'http://jpfhir.jp/fhir/core/StructureDefinition/JP_Observation_Common' has not been checked because it is unknown
+
+#このあたりから、パース処理のログが出ているがうまくいっているのが分かる
 23:00:14.810 [main] INFO  hapisample.Main - Bundle type:Document
 23:00:14.813 [main] INFO  hapisample.Main - Resource Type: Composition
 23:00:14.813 [main] INFO  hapisample.Main - 文書名: 診療情報提供書
