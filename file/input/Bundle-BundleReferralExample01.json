@@ -416,7 +416,7 @@
               }
             ],
             "use": "official",
-            "text": "田中　太郎",
+            "text": "田中 太郎",
             "family": "田中",
             "given": [
               "太郎"
@@ -430,7 +430,7 @@
               }
             ],
             "use": "official",
-            "text": "タナカ　タロウ",
+            "text": "タナカ タロウ",
             "family": "タナカ",
             "given": [
               "タロウ"
@@ -461,6 +461,7 @@
         "resourceType": "Encounter",
         "id": "encounterReferralExample01Inline",
         "meta": {
+          "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
             "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter",
             "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Encounter_eClinicalSummary"
@@ -498,6 +499,7 @@
         "resourceType": "Practitioner",
         "id": "referralFromPractitionerExample01Inline",
         "meta": {
+          "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
             "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner",
             "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Practitioner_eClinicalSummary"
@@ -512,7 +514,7 @@
               }
             ],
             "use": "official",
-            "text": "大河内　勘三郎",
+            "text": "大河内 勘三郎",
             "family": "大河内",
             "given": [
               "勘三郎"
@@ -526,7 +528,7 @@
               }
             ],
             "use": "official",
-            "text": "オオコウチ　カンザブロウ",
+            "text": "オオコウチ カンザブロウ",
             "family": "オオコウチ",
             "given": [
               "カンザブロウ"
@@ -541,6 +543,7 @@
         "resourceType": "Practitioner",
         "id": "referralToPractitionerExample01Inline",
         "meta": {
+          "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
             "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner",
             "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Practitioner_eClinicalSummary"
@@ -555,7 +558,7 @@
               }
             ],
             "use": "official",
-            "text": "野口　英世丸",
+            "text": "野口 英世丸",
             "family": "野口",
             "given": [
               "英世丸"
@@ -569,7 +572,7 @@
               }
             ],
             "use": "official",
-            "text": "ノグチ　ヒデヨマル",
+            "text": "ノグチ ヒデヨマル",
             "family": "ノグチ",
             "given": [
               "ヒデヨマル"
@@ -718,6 +721,7 @@
         "resourceType": "Organization",
         "id": "referralToOrganizationDeptExample01Inline",
         "meta": {
+          "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
             "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Organization",
             "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Organization_eClinicalSummary_department"
@@ -753,6 +757,7 @@
         "resourceType": "Organization",
         "id": "referralFromOrganizationDeptExample01Inline",
         "meta": {
+          "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
             "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Organization",
             "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Organization_eClinicalSummary_department"
@@ -864,6 +869,7 @@
         "resourceType": "Condition",
         "id": "cc2ReferralExample01Inline",
         "meta": {
+          "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
             "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Condition",
             "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Condition_eClinicalSummary"
@@ -957,6 +963,7 @@
         "resourceType": "Condition",
         "id": "ph1ReferralExample01Inline",
         "meta": {
+          "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
             "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Condition",
             "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Condition_eClinicalSummary"
@@ -1108,6 +1115,7 @@
         "resourceType": "AllergyIntolerance",
         "id": "alg1ReferralExample02Inline",
         "meta": {
+          "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
             "http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance",
             "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_AllergyIntolerance_eClinicalSummary"
@@ -1159,6 +1167,7 @@
         "resourceType": "Observation",
         "id": "psobsCommonExample01Inline",
         "meta": {
+          "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
             "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Observation_Common"
           ]
