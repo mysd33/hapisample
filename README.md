@@ -6,9 +6,9 @@
     - [HAPI FHIRのバリデータの機能](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html)を使用して、検証しています。
     - デフォルトの組み込みのバリデータである[DefaultProfileValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#defaultprofilevalidationsupport)クラスにより、検証できます。
 
-- JPCoreプロファイル、文書プロファイルでの検証
+- JPCoreプロファイル、文書情報プロファイルでの検証
     - [JPCoreプロファイル](https://jpfhir.jp/fhir/core/)のサイトにJPCoreプロファイルの構造定義ファイルがあります。
-    - また、[https://std.jpfhir.jp/](https://std.jpfhir.jp/)のサイトに、JPCoreを含むスナップショット形式の[診療情報提供書の文書プロファイル（IGpackage2023.4.27 snapshot形式: jp-ereferral-0.9.6-snap.tgz）](https://jpfhir.jp/fhir/eReferral/jp-ereferral-0.9.7-snap.tgz)があります。
+    - また、[https://std.jpfhir.jp/](https://std.jpfhir.jp/)のサイトに、JPCoreを含むスナップショット形式の[診療情報提供書の文書情報プロファイル（IGpackage2023.4.27 snapshot形式: jp-ereferral-0.9.6-snap.tgz）](https://jpfhir.jp/fhir/eReferral/jp-ereferral-0.9.7-snap.tgz)があります。
     - いずれも、[FHIR package仕様](https://registry.fhir.org/learn)に従ったパッケージです。
     - HAPIのバリデータでは、[NpmPackageValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#npmpackagevalidationsupport)クラスにより、パッケージを読み込み、検証できます。
     - NpmPackageValidationSupportクラスによる、パッケージを使ったバリデーションの実装方法については、[HAPI FHIRのドキュメントの「Validating Using Packages」](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html#packages)を参考に実装しています。
@@ -21,7 +21,7 @@
     - 通常は、Eclipse等のIDEを使って実行するのが簡単です。
 
 - 実行結果の例
-    - パース処理はうまくいっていますが、文書プロファイルおよびJPCoreプロファイルに対するバリデーションで大量のエラーメッセージが出てしまっています。
+    - パース処理はうまくいっていますが、文書情報プロファイルおよびJPCoreプロファイルに対するバリデーションで大量のエラーメッセージが出てしまっています。
 
 ```sh
 23:00:05.791 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
@@ -39,7 +39,7 @@
 23:00:13.715 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
 23:00:13.835 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
 
-#このあたりから、JPCore、文書プロファイルのバリデーションの結果、エラーメッセージがログに出てしまっているのが分かる
+#このあたりから、JPCore、文書情報プロファイルのバリデーションの結果、エラーメッセージがログに出てしまっているのが分かる
 23:00:14.789 [main] WARN  hapisample.Main - [Bundle.entry[0]] Slicing cannot be evaluated: Problem evaluating slicing expression for element in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5 path Bundle.entry[0] (fhirPath = true and resource.conformsTo('http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory')): Unable to resolve the reference http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory
 23:00:14.789 [main] WARN  hapisample.Main - [Bundle.entry[1]] Slicing cannot be evaluated: Problem evaluating slicing expression for element in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5 path Bundle.entry[1] (fhirPath = true and resource.conformsTo('http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory')): Unable to resolve the reference http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory
 23:00:14.789 [main] WARN  hapisample.Main - [Bundle.entry[2]] Slicing cannot be evaluated: Problem evaluating slicing expression for element in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5 path Bundle.entry[2] (fhirPath = true and resource.conformsTo('http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory')): Unable to resolve the reference http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory
