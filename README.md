@@ -3,17 +3,18 @@
 - [HAPI FHIR](https://hapifhir.io/)を使って、[診療情報提供書HL7FHIR記述仕様](https://std.jpfhir.jp/)に基づくサンプルデータ（Bundle-BundleReferralExample01.json）の検証、パースするサンプルプログラムです。
 
 - FHIRプロファイルでの検証
-    - [HAPI FHIRのバリデータ](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html)の機能を使用します。
-    - デフォルトの組み込みのValidator機能である[DefaultProfileValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#defaultprofilevalidationsupport)クラスにより、検証できます。
+    - [HAPI FHIRのバリデータの機能](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html)を使用して、検証しています。
+    - デフォルトの組み込みのバリデータである[DefaultProfileValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#defaultprofilevalidationsupport)クラスにより、検証できます。
 
 - JPCoreプロファイル、文書プロファイルでの検証
     - [JPCoreプロファイル](https://jpfhir.jp/fhir/core/)のサイトにJPCoreプロファイルの構造定義ファイルがあります。
     - また、[https://std.jpfhir.jp/](https://std.jpfhir.jp/)のサイトに、JPCoreを含むスナップショット形式の[診療情報提供書の文書プロファイル（IGpackage2023.4.27 snapshot形式: jp-ereferral-0.9.6-snap.tgz）](https://jpfhir.jp/fhir/eReferral/jp-ereferral-0.9.7-snap.tgz)があります。
-    - ですが、いずれも、FHIRプロファイルのようにJSONスキーマ形式では提供されていないようで、Goの場合、JPCoreプロファイルの検証を実施するのが難しそうです。
+    - いずれも、[FHIR package仕様](https://registry.fhir.org/learn)に従ったパッケージです。
+    - [NpmPackageValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#npmpackagevalidationsupport)クラスにより、パッケージを読み込み、検証できます。
+    - NpmPackageValidationSupportクラスによる、パッケージを使ったバリデーションについては、[HAPI FHIRのドキュメントの「Validating Using Packages」](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html#packages)を参考に実装しています。
 
 - FHIRデータのパース
-    - [Golang FHIR Models](https://github.com/samply/golang-fhir-models)を使って、パースをしています。
-    - 上記は、内部では、[Go標準のJSONライブラリ(encoding/json)](https://pkg.go.dev/encoding/json)を使用します。
+    - [HAPI FHIRのパース機能](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、パースをしています。    
 
 - サンプルAPの使い方
     - Java、Mavenでビルドし、Mainクラスを実行してください。
