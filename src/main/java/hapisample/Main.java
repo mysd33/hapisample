@@ -79,7 +79,11 @@ public class Main {
 
             // 検証
             ValidationResult validationResult = validator.validateWithResult(bundle);
-            if (!validationResult.isSuccessful()) {
+            
+            if (validationResult.isSuccessful()) {
+                logger.info("ドキュメントは有効です");
+            } else {
+                logger.warn("ドキュメントに不備があります");
                 // 検証結果の出力
                 for (SingleValidationMessage validationMessage : validationResult.getMessages()) {
                     logger.warn("[{}] {}", validationMessage.getLocationString(), validationMessage.getMessage());
