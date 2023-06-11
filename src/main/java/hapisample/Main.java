@@ -7,7 +7,7 @@ import java.util.List;
 
 import org.hl7.fhir.common.hapi.validation.support.CachingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.CommonCodeSystemsTerminologyService;
-//import org.hl7.fhir.common.hapi.validation.support.InMemoryTerminologyServerValidationSupport;
+import org.hl7.fhir.common.hapi.validation.support.InMemoryTerminologyServerValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.NpmPackageValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.SnapshotGeneratingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.ValidationSupportChain;
@@ -59,8 +59,8 @@ public class Main {
             // TODO: 診療情報提供書の文書プロファイルのnpmパッケージだけだと、JPCoreの定義情報が足りないためかエラーになるため
             // 試しに、JPCoreのnpmパッケージファイルも読み込むようValidationSupport追加
             // ところが、fhirの定義情報が不足している？ためか、別のエラーが発生しまい、原因が分からない状況で一旦コメントアウト
-            // NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
-            // npmPackageEreferralSupport.loadPackageFromClasspath("classpath:package/package.tgz");
+            //NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
+            //npmPackageEreferralSupport.loadPackageFromClasspath("classpath:package/package.tgz");
 
             ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
                     npmPackageEreferralSupport, //
@@ -69,8 +69,8 @@ public class Main {
                     // FHIRプロファイルに基づいているかの組み込みの検証ルール
                     new DefaultProfileValidationSupport(ctx), //
                     new CommonCodeSystemsTerminologyService(ctx), //
-                    // TODO: アウトオブメモリになってしまうためコメントアウト
-                    // new InMemoryTerminologyServerValidationSupport(ctx), //
+                    // TODO: JPCoreのnpmパッケージファイルの読み込みも場合、InMemoryTerminologyServerValidationSupportを使用するとアウトオブメモリになってしまう
+                    new InMemoryTerminologyServerValidationSupport(ctx), //
                     new SnapshotGeneratingValidationSupport(ctx));
             CachingValidationSupport validationSupport = new CachingValidationSupport(validationSupportChain);
             FhirValidator validator = ctx.newValidator();
