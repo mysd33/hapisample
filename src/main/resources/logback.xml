@@ -7,7 +7,23 @@
 		</encoder>
 	</appender>
 
+	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+	    <file>logs/app.log</file>
+	    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+	        <fileNamePattern>logs/app.%d{yyyy-MM-dd}.log.tar.gz</fileNamePattern>
+	        <maxHistory>7</maxHistory>
+	    </rollingPolicy>
+	    <encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>	        
+	    </encoder>
+	</appender>
+	
+	<!-- TODO:　当該クラスからログが大量に出力されるので暫定的にログレベル調整 -->
+	<logger name="org.hl7.fhir.common.hapi.validation.validator.VersionSpecificWorkerContextWrapper" level="WARN"/>
+	<logger name="org.hl7.fhir.common.hapi.validation.support.SnapshotGeneratingValidationSupport" level="ERROR"/>	
+	
 	<root level="info">
 		<appender-ref ref="STDOUT" />
+		<appender-ref ref="FILE" />		
 	</root>
 </configuration>
