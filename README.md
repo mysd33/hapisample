@@ -22,6 +22,8 @@
 
 - 実行結果の例
     - パース処理はうまくいっていますが、文書情報プロファイルおよびJPCoreプロファイルに対するバリデーションで大量のエラーメッセージが出てしまっています。
+    - おそらく、診療情報提供書の文書プロファイルのnpmパッケージだけだと、JPCoreの定義情報が足りないためではないかと推測されます。
+        - ただし、試しに、JPCoreのnpmパッケージファイルを読み込むようにNpmPackageValidationSupportを追加してみたところ、また別のエラーが発生してしまいます。
 
 ```sh
 23:00:05.791 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
