@@ -6,6 +6,8 @@
 
 <properties>
 	<java.version>17</java.version>
+	<maven.compiler.source>${java.version}</maven.compiler.source>
+	<maven.compiler.target>${java.version}</maven.compiler.target>	
 	<hapi.version>6.4.4</hapi.version>
 	<logback.version>1.4.7</logback.version>
 </properties>  
