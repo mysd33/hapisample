@@ -60,7 +60,7 @@ public class Main {
             // 試しに、JPCoreのnpmパッケージファイルも読み込むようValidationSupport追加
             // ところが、fhirの定義情報が不足している？ためか、別のエラーが発生しまい、原因が分からない状況で一旦コメントアウト
             //NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
-            //npmPackageEreferralSupport.loadPackageFromClasspath("classpath:package/package.tgz");
+            //npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/package.tgz");
 
             ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
                     npmPackageEreferralSupport, //
