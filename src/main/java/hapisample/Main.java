@@ -85,8 +85,8 @@ public class Main {
             } else {
                 logger.warn("ドキュメントに不備があります");
                 // 検証結果の出力
-                for (SingleValidationMessage validationMessage : validationResult.getMessages()) {
-                    logger.warn("[{}] {}", validationMessage.getLocationString(), validationMessage.getMessage());
+                for (SingleValidationMessage validationMessage : validationResult.getMessages()) {                    
+                    logger.warn("[{}]:[{}] {}", validationMessage.getSeverity(), validationMessage.getLocationString(), validationMessage.getMessage());
                 }
             }
 
