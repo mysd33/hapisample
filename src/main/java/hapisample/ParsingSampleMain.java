@@ -31,8 +31,11 @@ import ca.uhn.fhir.validation.IValidatorModule;
 import ca.uhn.fhir.validation.SingleValidationMessage;
 import ca.uhn.fhir.validation.ValidationResult;
 
-public class Main {
-    private static Logger logger = LoggerFactory.getLogger(Main.class);
+/**
+ * 診療情報提供書のFHIRサンプルデータをパースする
+ */
+public class ParsingSampleMain {
+    private static Logger logger = LoggerFactory.getLogger(ParsingSampleMain.class);
 
     // （参考）
     // https://hapifhir.io/hapi-fhir/docs/model/parsers.html

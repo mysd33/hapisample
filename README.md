@@ -1,6 +1,8 @@
 # HAPI FHIRのサンプル
 
-- [HAPI FHIR](https://hapifhir.io/)を使って、[診療情報提供書HL7FHIR記述仕様](https://std.jpfhir.jp/)に基づくサンプルデータ（Bundle-BundleReferralExample01.json）に対して検証、パースするサンプルプログラムです。
+- [HAPI FHIR](https://hapifhir.io/)を使って、[診療情報提供書HL7FHIR記述仕様](https://std.jpfhir.jp/)に基づくサンプルデータ（Bundle-BundleReferralExample01.json）に対して検証し、Bundleリソースとしてパースするサンプルプログラムです。
+
+- また、FHIRリソース(Patient)として作成したオブジェクトを、FHIRのJSON文字列で出力（リアライズするサンプルプログラムもあります。
 
 - FHIRプロファイルでの検証
     - [HAPI FHIRのバリデータの機能](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html)を使用して、検証しています。
@@ -15,14 +17,21 @@
     - NpmPackageValidationSupportクラスによる、パッケージを使ったバリデーションの実装方法については、[HAPI FHIRのドキュメントの「Validating Using Packages」](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html#packages)を参考に実装しています。
 
 - FHIRデータのパース
-    - [HAPI FHIRのパース機能](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、パースをしています。    
+    - [HAPI FHIRのパーサ](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、パースをしています。    
 
-- サンプルAPの使い方
-    - Java、Mavenでビルドし、Mainクラスを実行してください。
+- FHIRデータからJSONへのシリアライズ
+    - パース同様、[HAPI FHIRのパーサ](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、シリアライズをしています。  
+
+- 検証・パースするサンプルAPの使い方
+    - Java、Mavenでビルドし、「ParsingSampleMain」クラスを実行してください。
     - 通常は、Eclipse等のIDEを使って実行するのが簡単です。
 
-- 実行結果の例
-    - パース処理はうまくいっていますが、文書情報プロファイルおよびJPCoreプロファイルに対するバリデーションで大量のエラーメッセージが出てしまっています。
+- JSONシリアライズするサンプルAPの使い方
+    - Java、Mavenでビルドし、「SerializingSampleMain」クラスを実行してください。
+    - 通常は、Eclipse等のIDEを使って実行するのが簡単です。
+
+- 検証・パースの実行結果の例
+    - パース処理はうまくいっていますが、文書情報プロファイルおよびJPCoreプロファイルに対する検証（バリデーション）で大量のエラーメッセージが出てしまっています。
     - おそらく、診療情報提供書の文書プロファイルのnpmパッケージだけだと、JPCoreの定義情報が足りないためではないかと推測されます。
         - ただし、試しに、JPCoreのnpmパッケージファイル(package.tgz)を読み込むようにNpmPackageValidationSupportを追加してみたところ、予期せぬ例外（NullPointerException）が発生してしまいます。
 
@@ -293,4 +302,10 @@
 22:32:21.121 [main] INFO  hapisample.Main - Resource Type: DocumentReference
 ```
 
+- JSONシリアライズ実行結果の例
 
+```sh
+12:15:03.300 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
+12:15:03.322 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
+12:15:04.215 [main] INFO  hapisample.SerializingSampleMain - 実行結果: {"resourceType":"Patient","name":[{"family":"山田","given":["太郎"]}]}
+```
