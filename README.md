@@ -55,6 +55,8 @@
 22:32:19.858 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
 22:32:19.859 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
 22:32:19.967 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+
+# ここから、バリデーションの結果。うまくエラーが大量に出ている。
 22:32:21.079 [main] WARN  hapisample.Main - ドキュメントに不備があります
 22:32:21.080 [main] WARN  hapisample.Main - [ERROR]:[Bundle.entry[0]] Slicing cannot be evaluated: Problem evaluating slicing expression for element in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5 path Bundle.entry[0] (fhirPath = true and resource.conformsTo('http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory')): Unable to resolve the reference http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory
 22:32:21.081 [main] WARN  hapisample.Main - [ERROR]:[Bundle.entry[1]] Slicing cannot be evaluated: Problem evaluating slicing expression for element in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5 path Bundle.entry[1] (fhirPath = true and resource.conformsTo('http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory')): Unable to resolve the reference http://jpfhir.jp/fhir/core/StructureDefinition/JP_FamilyMemberHistory
@@ -278,6 +280,8 @@
 22:32:21.110 [main] WARN  hapisample.Main - [ERROR]:[Bundle.entry[16].resource.encounter] Unable to resolve the profile reference 'http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter'
 22:32:21.111 [main] WARN  hapisample.Main - [ERROR]:[Bundle.entry[16].resource.encounter] Invalid Resource target type. Found Encounter, but expected one of ([])
 22:32:21.111 [main] WARN  hapisample.Main - [ERROR]:[Bundle.entry[17].resource.ofType(Observation).meta.profile[0]] Profile reference 'http://jpfhir.jp/fhir/core/StructureDefinition/JP_Observation_Common' has not been checked because it is unknown
+
+# ここから、パース処理の結果。うまくいっている。
 22:32:21.112 [main] INFO  hapisample.Main - Bundle type:Document
 22:32:21.115 [main] INFO  hapisample.Main - Resource Type: Composition
 22:32:21.115 [main] INFO  hapisample.Main - 文書名: 診療情報提供書
@@ -308,7 +312,7 @@
 ```
 
 ## JSONシリアライズ実行結果の例
-- 処方情報のFHIR記述仕様書(https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSON文字列のほんの一部分が生成出来てるのが分かります。
+- [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSON文字列のほんの一部分が生成出来てるのが分かります。
 
 ```sh
 16:35:08.607 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
