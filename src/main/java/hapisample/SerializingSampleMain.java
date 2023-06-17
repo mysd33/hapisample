@@ -19,7 +19,7 @@ public class SerializingSampleMain {
         // FHIRコンテキスト作成
         FhirContext ctx = FhirContext.forR4();
 
-        // シリアライズ対象のPatient（患者）情報をさｋ末井
+        // シリアライズ対象のPatient（患者）情報を作成
         Patient patient = new Patient();
         patient.addName().setFamily("山田").addGiven("太郎");
 
@@ -27,6 +27,7 @@ public class SerializingSampleMain {
         IParser parser = ctx.newJsonParser();
 
         // JSONにシリアライズ
+        // 改行等なしで出力する場合
         //String serialized = parser.encodeResourceToString(patient);
 
         // Pretty Printingで改行等含む文字列に指定
