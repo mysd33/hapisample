@@ -14,7 +14,8 @@ import ca.uhn.fhir.parser.IParser;
 public class SerializingSampleMain {
     private static Logger logger = LoggerFactory.getLogger(SerializingSampleMain.class);
 
-    
+    // （参考）
+    // https://hapifhir.io/hapi-fhir/docs/model/parsers.html#encoding-aka-serializing
     public static void main(String[] args) {
         // FHIRコンテキスト作成
         FhirContext ctx = FhirContext.forR4();
@@ -28,7 +29,7 @@ public class SerializingSampleMain {
 
         // JSONにシリアライズ
         // 改行等なしで出力する場合
-        //String serialized = parser.encodeResourceToString(patient);
+        // String serialized = parser.encodeResourceToString(patient);
 
         // Pretty Printingで改行等含む文字列に指定
         String serialized = parser.setPrettyPrint(true).encodeResourceToString(patient);
