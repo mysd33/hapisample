@@ -305,7 +305,14 @@
 - JSONシリアライズ実行結果の例
 
 ```sh
-12:15:03.300 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
-12:15:03.322 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
-12:15:04.215 [main] INFO  hapisample.SerializingSampleMain - 実行結果: {"resourceType":"Patient","name":[{"family":"山田","given":["太郎"]}]}
+13:33:00.177 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
+13:33:00.196 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
+13:33:01.602 [main] INFO  hapisample.SerializingSampleMain - 実行結果:
+{
+  "resourceType": "Patient",
+  "name": [ {
+    "family": "山田",
+    "given": [ "太郎" ]
+  } ]
+}
 ```
