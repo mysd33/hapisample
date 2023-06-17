@@ -205,7 +205,7 @@ public class SerializingSampleMain {
         String hihokennshaEdaNo = "05";
         patient.addIdentifier()//
                 .setSystem(String.format("http:/jpfhir.jp/fhir/ccs/Idsysmem/JP_Insurance_member/%s", hokenjaNo))//
-                .setValue(String.format("%s:$s:%s:%s", hokenjaNo, hihokennshaKigo, hihokennshaBango, hihokennshaEdaNo));
+                .setValue(String.format("%s:%s:%s:%s", hokenjaNo, hihokennshaKigo, hihokennshaBango, hihokennshaEdaNo));
 
         // name（漢字表記）
         patient.addName()//
