@@ -160,7 +160,9 @@ public class SerializingSampleMain {
 
         // TODO: 項目追加
         // encounter
+        
         // date
+        composition.setDate(NOW);
         // author
 
         // title
