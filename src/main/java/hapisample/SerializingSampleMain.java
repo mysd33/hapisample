@@ -27,8 +27,11 @@ public class SerializingSampleMain {
         IParser parser = ctx.newJsonParser();
 
         // JSONにシリアライズ
-        String serialized = parser.encodeResourceToString(patient);
-        logger.info("実行結果: {}", serialized);
+        //String serialized = parser.encodeResourceToString(patient);
+
+        // Pretty Printingで改行等含む文字列に指定
+        String serialized = parser.setPrettyPrint(true).encodeResourceToString(patient);
+        logger.info("実行結果:\n{}", serialized);
 
     }
 }
