@@ -37,6 +37,7 @@ public class SerializingSampleMain {
     // FHIR形式に変換対象の入力データを疑似したデータクラス
     static record PrescriptionData(//
             String prescriptionNo, // 処方箋番号
+            String patientNo, // 患者番号
             String hokenjaNo, // 保険者番号
             String hihokennshaKigo, // 被保険者記号
             String hihokennshaBango, // 被保険者番号
@@ -62,6 +63,7 @@ public class SerializingSampleMain {
             // FHIR形式に変換対象の入力データ
             PrescriptionData input = new PrescriptionData(//
                     "1311234567-2020-00123456", //
+                    "00000010", //
                     "00012345", "あいう", "１８７", "05", //
                     "東京", "太郎", "トウキョウ", "タロウ", //
                     1, //
@@ -227,7 +229,7 @@ public class SerializingSampleMain {
         // identifier（患者番号）
         patient.addIdentifier()//
                 .setSystem("urn:oid:1.2.392.100495.20.3.51.11311234567")//
-                .setValue("00000010");
+                .setValue(prescriptionData.patientNo());
 
         // identifier（保険個人識別子）
         // https://jpfhir.jp/fhir/ccs/output/#%E4%BF%9D%E9%99%BA%E5%80%8B%E4%BA%BA%E8%AD%98%E5%88%A5%E5%AD%90%E3%81%AE%E6%A0%BC%E7%B4%8D%E6%96%B9%E6%B3%95
