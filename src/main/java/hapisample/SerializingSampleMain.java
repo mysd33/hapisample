@@ -35,7 +35,8 @@ public class SerializingSampleMain {
     private static Logger logger = LoggerFactory.getLogger(SerializingSampleMain.class);
 
     // FHIR形式に変換対象の入力データを疑似したデータクラス
-    static record PrescriptionData(String prescriptionNo, // 処方箋番号
+    static record PrescriptionData(//
+            String prescriptionNo, // 処方箋番号
             String hokenjaNo, // 保険者番号
             String hihokennshaKigo, // 被保険者記号
             String hihokennshaBango, // 被保険者番号
