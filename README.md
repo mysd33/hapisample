@@ -315,25 +315,25 @@
 - [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSON文字列のほんの一部分が生成出来てるのが分かります。
 
 ```sh
-22:30:19.763 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
-22:30:19.771 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
-22:30:21.194 [main] INFO  hapisample.SerializingSampleMain - 実行結果:
+16:36:17.831 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
+16:36:17.840 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
+16:36:19.559 [main] INFO  hapisample.SerializingSampleMain - 実行結果:
 # 処方情報のFHIRのJSON文字列の一部を生成
 {
   "resourceType": "Bundle",
   "meta": {
-    "lastUpdated": "2023-06-17T22:30:19.732+09:00",
+    "lastUpdated": "2023-06-18T16:36:17.799+09:00",
     "profile": [ "http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Bundle_ePrescriptionData" ]
   },
   "type": "document",
-  "timestamp": "2023-06-17T22:30:19.732+09:00",
+  "timestamp": "2023-06-18T16:36:17.799+09:00",
   "entry": [ {
-    "fullUrl": "urn:uuid:6b9e2bec-dd22-4ca6-8392-835d4b5172dd",
+    "fullUrl": "urn:uuid:fb7f6725-b845-47c8-8b2f-6707f3e2747b",
     "resource": {
       "resourceType": "Composition",
       "id": "compositionReferralExample01Inline",
       "meta": {
-        "lastUpdated": "2023-06-17T22:30:19.732+09:00",
+        "lastUpdated": "2023-06-18T16:36:17.799+09:00",
         "profile": [ "http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Composition_ePrescriptionData" ]
       },
       "text": {
@@ -364,17 +364,17 @@
         } ]
       } ],
       "subject": {
-        "reference": "urn:uuid:224a5d95-2a22-433b-889d-5b087568a1c3"
+        "reference": "urn:uuid:a043bae6-d9c7-4c97-aa71-92ca66ab8c16"
       },
-      "date": "2023-06-17T22:30:19+09:00",
+      "date": "2023-06-18T16:36:17+09:00",
       "title": "処方箋"
     }
   }, {
-    "fullUrl": "urn:uuid:224a5d95-2a22-433b-889d-5b087568a1c3",
+    "fullUrl": "urn:uuid:a043bae6-d9c7-4c97-aa71-92ca66ab8c16",
     "resource": {
       "resourceType": "Patient",
       "meta": {
-        "lastUpdated": "2023-06-17T22:30:19.732+09:00",
+        "lastUpdated": "2023-06-18T16:36:17.799+09:00",
         "profile": [ "http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Patient_ePrescriptionData" ]
       },
       "text": {
@@ -385,12 +385,12 @@
         "system": "urn:oid:1.2.392.100495.20.3.51.11311234567",
         "value": "00000010"
       }, {
-        "system": "http:/jpfhir.jp/fhir/ccs/Idsysmem/JP_Insurance_member/00012345",
+        "system": "http://jpfhir.jp/fhir/ccs/Idsysmem/JP_Insurance_member/00012345",
         "value": "00012345:あいう:１８７:05"
       } ],
       "name": [ {
         "extension": [ {
-          "url": "http:// hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+          "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
           "valueString": "IDE"
         } ],
         "use": "official",
@@ -399,7 +399,7 @@
         "given": [ "太郎" ]
       }, {
         "extension": [ {
-          "url": "http:// hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+          "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
           "valueString": "SYL"
         } ],
         "use": "official",
@@ -407,7 +407,7 @@
         "family": "トウキョウ",
         "given": [ "タロウ" ]
       } ],
-      "gender": "male",
+      "gender": "female",
       "birthDate": "1920-01-11",
       "address": [ {
         "text": "神奈川県横浜市港区１－２－３",
