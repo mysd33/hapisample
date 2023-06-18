@@ -66,9 +66,10 @@ public class SerializingSampleMain {
                     "00000010", //
                     "00012345", "あいう", "１８７", "05", //
                     "東京", "太郎", "トウキョウ", "タロウ", //
-                    1, //
+                    0, //
                     new SimpleDateFormat("yyyy-MM-DD").parse("1920-02-11"), //
-                    "123-4567", "神奈川県横浜市港区１－２－３", new Date());
+                    "123-4567", "神奈川県横浜市港区１－２－３"//
+                    , new Date());
 
             // FHIRコンテキスト作成
             FhirContext ctx = FhirContext.forR4();
