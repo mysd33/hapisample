@@ -59,20 +59,20 @@ public class ParsingSampleMain {
             NpmPackageValidationSupport npmPackageEreferralSupport = new NpmPackageValidationSupport(ctx);
             npmPackageEreferralSupport.loadPackageFromClasspath("classpath:package/jp-ereferral-0.9.7-snap.tgz");
 
-            // TODO: 診療情報提供書の文書プロファイルのnpmパッケージだけだと、JPCoreの定義情報が足りないためかエラーになるため
+            // 診療情報提供書の文書プロファイルのnpmパッケージだけだと、JPCoreの定義情報が足りないためかエラーになるため
             // 試しに、JPCoreのnpmパッケージファイルも読み込むようValidationSupport追加
-            // ところが、fhirの定義情報が不足している？ためか、別のエラーが発生しまい、原因が分からない状況で一旦コメントアウト
-            //NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
+            NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
+            // JPCoreのサイト（https://jpfhir.jp/fhir/core/1.1.1/package.tgz）からダウンロードできるpackage.tgzを利用した場合だと、アウトオブメモリエラーになってしまう
             //npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/package.tgz");
+            // simplifier.net（https://simplifier.net/packages/jp-core.r4/1.1.1-rc/snapshots/download）のパッケージならアウトオブメモリにならない
+            npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.1-rc.tgz");
 
             ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
                     npmPackageEreferralSupport, //
-                    // TODO: 一旦コメントアウト
-                    // npmPackageJPCoreSupport, //
+                    npmPackageJPCoreSupport, //
                     // FHIRプロファイルに基づいているかの組み込みの検証ルール
                     new DefaultProfileValidationSupport(ctx), //
                     new CommonCodeSystemsTerminologyService(ctx), //
-                    // TODO: JPCoreのnpmパッケージファイルの読み込みも場合、InMemoryTerminologyServerValidationSupportを使用するとアウトオブメモリになってしまう
                     new InMemoryTerminologyServerValidationSupport(ctx), //
                     new SnapshotGeneratingValidationSupport(ctx));
             CachingValidationSupport validationSupport = new CachingValidationSupport(validationSupportChain);
