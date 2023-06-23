@@ -59,16 +59,22 @@ public class ParsingSampleMain {
             NpmPackageValidationSupport npmPackageEreferralSupport = new NpmPackageValidationSupport(ctx);
             npmPackageEreferralSupport.loadPackageFromClasspath("classpath:package/jp-ereferral-0.9.7-snap.tgz");
 
-            // 診療情報提供書の文書プロファイルのnpmパッケージだけだと、JPCoreの定義情報が足りないためかエラーになるため
-            // 試しに、JPCoreのnpmパッケージファイルも読み込むようValidationSupport追加
+            // 退院時サマリの文書プロファイルのスナップショット形式のnpmパッケージファイルに基づくValidationSuportを追加
+            // 診療情報提供書の文書プロファイルのnpmパッケージだと足りない定義情報あるので
+            NpmPackageValidationSupport npmPackageEdissummarySupport = new NpmPackageValidationSupport(ctx);
+            npmPackageEdissummarySupport.loadPackageFromClasspath("classpath:package/jp-edissummary-0.9.7-snap.tgz");
+
+            // 診療情報提供書の文書プロファイルのnpmパッケージだけだと足りない定義情報があるので
+            // JPCoreのnpmパッケージファイルも読み込むようValidationSupport追加
             NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
             // JPCoreのサイト（https://jpfhir.jp/fhir/core/1.1.1/package.tgz）からダウンロードできるpackage.tgzを利用した場合だと、アウトオブメモリエラーになってしまう
-            //npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/package.tgz");
+            // npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/package.tgz");
             // simplifier.net（https://simplifier.net/packages/jp-core.r4/1.1.1-rc/snapshots/download）のパッケージならアウトオブメモリにならない
             npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.1-rc.tgz");
 
             ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
                     npmPackageEreferralSupport, //
+                    npmPackageEdissummarySupport, //
                     npmPackageJPCoreSupport, //
                     // FHIRプロファイルに基づいているかの組み込みの検証ルール
                     new DefaultProfileValidationSupport(ctx), //
@@ -82,14 +88,15 @@ public class ParsingSampleMain {
 
             // 検証
             ValidationResult validationResult = validator.validateWithResult(bundle);
-            
+
             if (validationResult.isSuccessful()) {
                 logger.info("ドキュメントは有効です");
             } else {
                 logger.warn("ドキュメントに不備があります");
                 // 検証結果の出力
-                for (SingleValidationMessage validationMessage : validationResult.getMessages()) {                    
-                    logger.warn("[{}]:[{}] {}", validationMessage.getSeverity(), validationMessage.getLocationString(), validationMessage.getMessage());
+                for (SingleValidationMessage validationMessage : validationResult.getMessages()) {
+                    logger.warn("[{}]:[{}] {}", validationMessage.getSeverity(), validationMessage.getLocationString(),
+                            validationMessage.getMessage());
                 }
             }
 

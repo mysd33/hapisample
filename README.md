@@ -41,96 +41,86 @@
     - ただし、試しに、JPCoreのnpmパッケージファイル(package.tgz)を読み込むようにNpmPackageValidationSupportを追加してみたところ、予期せぬ例外（NullPointerException）が発生してしまいます。
 
 ```sh
-18:00:22.417 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
-18:00:22.426 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
-18:00:23.917 [main] INFO  ca.uhn.fhir.util.XmlUtil - Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
-18:00:26.211 [main] INFO  c.uhn.fhir.validation.FhirValidator - Ph-schematron library not found on classpath, will not attempt to perform schematron validation
-18:00:26.290 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
-18:00:27.388 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
-18:00:27.471 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
-18:00:27.714 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
-18:00:29.577 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
-18:00:29.966 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-18:00:29.967 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
-18:00:30.354 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-18:00:30.355 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
-18:00:30.518 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+06:57:45.668 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
+06:57:45.678 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
+06:57:47.094 [main] INFO  ca.uhn.fhir.util.XmlUtil - Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
+06:57:50.246 [main] INFO  c.uhn.fhir.validation.FhirValidator - Ph-schematron library not found on classpath, will not attempt to perform schematron validation
+06:57:50.324 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
+06:57:51.558 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
+06:57:51.643 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
+06:57:51.877 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
+06:57:53.740 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
+06:57:54.144 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+06:57:54.147 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
+06:57:54.492 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+06:57:54.492 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
+06:57:54.634 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
 
 
 # ここから、バリデーションの結果。うまくエラーが大量に出ている。
-18:00:31.704 [main] WARN  hapisample.ParsingSampleMain - ドキュメントに不備があります
-18:00:31.705 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.705 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[1]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.705 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[2]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.705 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[3]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.705 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[4]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.705 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[5]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.706 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[6]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.706 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[7]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.706 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[8]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.706 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[9]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.706 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[10]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.706 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[11]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.706 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[12]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.706 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[13]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.707 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[14]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.707 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[15]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.707 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[16]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.707 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[17]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.707 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[18]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.707 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle] Bundle.entry:composition: Found 0 matches, but unable to check minimum required (Bundle.entry) due to lack of slicing validation (from http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
-18:00:31.707 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[0].resource.ofType(Composition).encounter] Details for urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e matching against profile http://hl7.org/fhir/StructureDefinition/Encounter|4.0.1
-18:00:31.708 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0].resource.type] None of the codings provided are in the value set 'valueSet' (http://jpfhir.jp/fhir/Common/ValueSet/doc-typecodes|1.1.5), and a coding from this value set is required) (codes = http://jpfhir.jp/fhir/Common/CodeSystem/doc-typecodes#57133-1)
-18:00:31.708 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0].resource.category[0]] None of the codings provided are in the value set 'valueSet' (http://jpfhir.jp/fhir/Common/ValueSet/doc-typecodes|1.1.5), and a coding from this value set is required) (codes = http://jpfhir.jp/fhir/Common/CodeSystem/doc-typecodes#57133-1)
-18:00:31.708 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[0].resource.encounter] Details for urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e matching against profile http://hl7.org/fhir/StructureDefinition/Encounter|4.0.1
-18:00:31.708 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0].resource.section[2].section[4].entry[0]] Unable to find a match for profile urn:uuid:711b07ae-d20b-40b0-9aa9-c7f1981409e6 among choices: http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance
-18:00:31.708 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[0].resource.section[2].section[4].entry[0]] Details for urn:uuid:711b07ae-d20b-40b0-9aa9-c7f1981409e6 matching against profile http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance|1.1.1
-18:00:31.708 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0].resource.section[2].section[4].entry[1]] Unable to find a match for profile urn:uuid:5a1aae74-f720-415a-ba15-a6c8b5d4c5a1 among choices: http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance
-18:00:31.708 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[0].resource.section[2].section[4].entry[1]] Details for urn:uuid:5a1aae74-f720-415a-ba15-a6c8b5d4c5a1 matching against profile http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance|1.1.1
-18:00:31.708 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0].resource.entry[2].resource.ofType(Encounter)] Encounter.reasonCode: minimum required = 1, but only found 0 (from http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Encounter_eClinicalSummary|1.1.5)
-18:00:31.708 [main] WARN  hapisample.ParsingSampleMain - [WARNING]:[Bundle.entry[5].resource.extension[0].value.ofType(Coding)] Could not confirm that the codes provided are in the value set 'JP Core PrefectureNumber ValueSet' (http://jpfhir.jp/fhir/core/ValueSet/JP_PrefectureNumber_VS|1.1.1), and a code should come from this value set unless it has no suitable code (the validator cannot judge what is suitable)
-18:00:31.708 [main] WARN  hapisample.ParsingSampleMain - [WARNING]:[Bundle.entry[5].resource.extension[1].value.ofType(Coding)] Could not confirm that the codes provided are in the value set 'JP Core MedicalFeeScoreType ValueSet' (http://jpfhir.jp/fhir/core/ValueSet/JP_MedicalFeeScoreType_VS|1.1.1), and a code should come from this value set unless it has no suitable code (the validator cannot judge what is suitable)
-18:00:31.709 [main] WARN  hapisample.ParsingSampleMain - [WARNING]:[Bundle.entry[0].resource.entry[5].resource.ofType(Organization).extension[0].value.ofType(Coding)] Could not confirm that the codes provided are in the value set 'JP Core PrefectureNumber ValueSet' (http://jpfhir.jp/fhir/core/ValueSet/JP_PrefectureNumber_VS|1.1.1), and a code should come from this value set unless it has no suitable code (the validator cannot judge what is suitable)
-18:00:31.709 [main] WARN  hapisample.ParsingSampleMain - [WARNING]:[Bundle.entry[0].resource.entry[5].resource.ofType(Organization).extension[1].value.ofType(Coding)] Could not confirm that the codes provided are in the value set 'JP Core MedicalFeeScoreType ValueSet' (http://jpfhir.jp/fhir/core/ValueSet/JP_MedicalFeeScoreType_VS|1.1.1), and a code should come from this value set unless it has no suitable code (the validator cannot judge what is suitable)
-18:00:31.709 [main] WARN  hapisample.ParsingSampleMain - [WARNING]:[Bundle.entry[6].resource.extension[0].value.ofType(Coding)] Could not confirm that the codes provided are in the value set 'JP Core PrefectureNumber ValueSet' (http://jpfhir.jp/fhir/core/ValueSet/JP_PrefectureNumber_VS|1.1.1), and a code should come from this value set unless it has no suitable code (the validator cannot judge what is suitable)
-18:00:31.709 [main] WARN  hapisample.ParsingSampleMain - [WARNING]:[Bundle.entry[6].resource.extension[1].value.ofType(Coding)] Could not confirm that the codes provided are in the value set 'JP Core MedicalFeeScoreType ValueSet' (http://jpfhir.jp/fhir/core/ValueSet/JP_MedicalFeeScoreType_VS|1.1.1), and a code should come from this value set unless it has no suitable code (the validator cannot judge what is suitable)
-18:00:31.709 [main] WARN  hapisample.ParsingSampleMain - [WARNING]:[Bundle.entry[6].resource.ofType(Organization).extension[0].value.ofType(Coding)] Could not confirm that the codes provided are in the value set 'JP Core PrefectureNumber ValueSet' (http://jpfhir.jp/fhir/core/ValueSet/JP_PrefectureNumber_VS|1.1.1), and a code should come from this value set unless it has no suitable code (the validator cannot judge what is suitable)
-18:00:31.709 [main] WARN  hapisample.ParsingSampleMain - [WARNING]:[Bundle.entry[6].resource.ofType(Organization).extension[1].value.ofType(Coding)] Could not confirm that the codes provided are in the value set 'JP Core MedicalFeeScoreType ValueSet' (http://jpfhir.jp/fhir/core/ValueSet/JP_MedicalFeeScoreType_VS|1.1.1), and a code should come from this value set unless it has no suitable code (the validator cannot judge what is suitable)
-18:00:31.709 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[15].resource.ofType(AllergyIntolerance).encounter] Details for urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e matching against profile http://hl7.org/fhir/StructureDefinition/Encounter|4.0.1
-18:00:31.709 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0].resource.entry[15].resource.ofType(AllergyIntolerance).encounter] Unable to find a match for profile urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e among choices: http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter
-18:00:31.710 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[0].resource.entry[15].resource.ofType(AllergyIntolerance).encounter] Details for urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e matching against profile http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter|1.1.1
-18:00:31.710 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[16].resource.ofType(AllergyIntolerance).encounter] Details for urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e matching against profile http://hl7.org/fhir/StructureDefinition/Encounter|4.0.1
-18:00:31.710 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0].resource.entry[16].resource.ofType(AllergyIntolerance).encounter] Unable to find a match for profile urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e among choices: http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter
-18:00:31.710 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[0].resource.entry[16].resource.ofType(AllergyIntolerance).encounter] Details for urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e matching against profile http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter|1.1.1
+06:57:56.014 [main] WARN  hapisample.ParsingSampleMain - ドキュメントに不備があります
+06:57:56.015 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.015 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[1]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.015 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[2]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.015 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[3]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.015 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[4]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.016 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[5]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.016 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[6]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.016 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[7]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.016 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[8]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.016 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[9]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.016 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[10]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.016 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[11]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.017 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[12]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.017 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[13]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.017 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[14]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.018 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[15]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.018 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[16]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.018 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[17]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.018 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[18]] Slicing cannot be evaluated: Profile based discriminators must have a type with a profile (Bundle.entry:bundleData.resource in profile http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.018 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle] Bundle.entry:composition: Found 0 matches, but unable to check minimum required (Bundle.entry) due to lack of slicing validation (from http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral|1.1.5)
+06:57:56.018 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[0].resource.ofType(Composition).encounter] Details for urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e matching against profile http://hl7.org/fhir/StructureDefinition/Encounter|4.0.1
+06:57:56.018 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[0].resource.encounter] Details for urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e matching against profile http://hl7.org/fhir/StructureDefinition/Encounter|4.0.1
+06:57:56.019 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0].resource.section[2].section[4].entry[0]] Unable to find a match for profile urn:uuid:711b07ae-d20b-40b0-9aa9-c7f1981409e6 among choices: http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance
+06:57:56.019 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[0].resource.section[2].section[4].entry[0]] Details for urn:uuid:711b07ae-d20b-40b0-9aa9-c7f1981409e6 matching against profile http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance|1.1.1
+06:57:56.019 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0].resource.section[2].section[4].entry[1]] Unable to find a match for profile urn:uuid:5a1aae74-f720-415a-ba15-a6c8b5d4c5a1 among choices: http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance
+06:57:56.019 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[0].resource.section[2].section[4].entry[1]] Details for urn:uuid:5a1aae74-f720-415a-ba15-a6c8b5d4c5a1 matching against profile http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance|1.1.1
+06:57:56.019 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0].resource.entry[2].resource.ofType(Encounter)] Encounter.reasonCode: minimum required = 1, but only found 0 (from http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Encounter_eClinicalSummary|1.1.5)
+06:57:56.020 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[15].resource.ofType(AllergyIntolerance).encounter] Details for urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e matching against profile http://hl7.org/fhir/StructureDefinition/Encounter|4.0.1
+06:57:56.020 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0].resource.entry[15].resource.ofType(AllergyIntolerance).encounter] Unable to find a match for profile urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e among choices: http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter
+06:57:56.020 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[0].resource.entry[15].resource.ofType(AllergyIntolerance).encounter] Details for urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e matching against profile http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter|1.1.1
+06:57:56.020 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[16].resource.ofType(AllergyIntolerance).encounter] Details for urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e matching against profile http://hl7.org/fhir/StructureDefinition/Encounter|4.0.1
+06:57:56.020 [main] WARN  hapisample.ParsingSampleMain - [ERROR]:[Bundle.entry[0].resource.entry[16].resource.ofType(AllergyIntolerance).encounter] Unable to find a match for profile urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e among choices: http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter
+06:57:56.020 [main] WARN  hapisample.ParsingSampleMain - [INFORMATION]:[Bundle.entry[0].resource.entry[16].resource.ofType(AllergyIntolerance).encounter] Details for urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e matching against profile http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter|1.1.1
 
 # ここから、パース処理の結果。うまくいっている。
-18:00:31.711 [main] INFO  hapisample.ParsingSampleMain - Bundle type:Document
-18:00:31.713 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Composition
-18:00:31.714 [main] INFO  hapisample.ParsingSampleMain - 文書名: 診療情報提供書
-18:00:31.714 [main] INFO  hapisample.ParsingSampleMain - subject display: 患者リソースPatient
-18:00:31.714 [main] INFO  hapisample.ParsingSampleMain - subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
-18:00:31.714 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Patient
-18:00:31.714 [main] INFO  hapisample.ParsingSampleMain - Composition.subjectの参照先のPatient:urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
-18:00:31.714 [main] INFO  hapisample.ParsingSampleMain - 患者番号:12345
-18:00:31.715 [main] INFO  hapisample.ParsingSampleMain - 患者氏名:田中 太郎
-18:00:31.716 [main] INFO  hapisample.ParsingSampleMain - 患者カナ氏名:タナカ タロウ
-18:00:31.716 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
-18:00:31.716 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
-18:00:31.716 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
-18:00:31.716 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
-18:00:31.716 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
-18:00:31.716 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
-18:00:31.717 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
-18:00:31.717 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
-18:00:31.717 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-18:00:31.717 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-18:00:31.717 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-18:00:31.717 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-18:00:31.717 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-18:00:31.717 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
-18:00:31.718 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
-18:00:31.718 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
-18:00:31.718 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
+06:57:56.022 [main] INFO  hapisample.ParsingSampleMain - Bundle type:Document
+06:57:56.024 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Composition
+06:57:56.024 [main] INFO  hapisample.ParsingSampleMain - 文書名: 診療情報提供書
+06:57:56.025 [main] INFO  hapisample.ParsingSampleMain - subject display: 患者リソースPatient
+06:57:56.025 [main] INFO  hapisample.ParsingSampleMain - subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+06:57:56.025 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Patient
+06:57:56.025 [main] INFO  hapisample.ParsingSampleMain - Composition.subjectの参照先のPatient:urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+06:57:56.025 [main] INFO  hapisample.ParsingSampleMain - 患者番号:12345
+06:57:56.026 [main] INFO  hapisample.ParsingSampleMain - 患者氏名:田中 太郎
+06:57:56.027 [main] INFO  hapisample.ParsingSampleMain - 患者カナ氏名:タナカ タロウ
+06:57:56.027 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
+06:57:56.027 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
+06:57:56.027 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
+06:57:56.027 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+06:57:56.027 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+06:57:56.028 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+06:57:56.028 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+06:57:56.028 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
+06:57:56.028 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+06:57:56.028 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+06:57:56.028 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+06:57:56.029 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+06:57:56.029 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+06:57:56.029 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
+06:57:56.029 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
+06:57:56.029 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
+06:57:56.029 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
 
 ```
 
