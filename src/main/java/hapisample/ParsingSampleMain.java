@@ -46,7 +46,8 @@ public class ParsingSampleMain {
 
             // 診療情報提供書のHL7 FHIRのサンプルデータを読み込み
             InputStream is = new BufferedInputStream(
-                    new FileInputStream("file/input/Bundle-BundleReferralExample01.json"));
+                    //new FileInputStream("file/input/Bundle-BundleReferralExample01.json"));
+                    new FileInputStream("file/input/Bundle-BundleReferralExample01-fixed.json"));
             // FHIRコンテキスト作成
             FhirContext ctx = FhirContext.forR4();
             // パーサを作成
@@ -57,7 +58,8 @@ public class ParsingSampleMain {
             // Validatorの作成
             // 診療情報提供書の文書プロファイルのスナップショット形式のnpmパッケージファイルに基づくValidationSuportを追加
             NpmPackageValidationSupport npmPackageEreferralSupport = new NpmPackageValidationSupport(ctx);
-            npmPackageEreferralSupport.loadPackageFromClasspath("classpath:package/jp-ereferral-0.9.7-snap.tgz");
+            //npmPackageEreferralSupport.loadPackageFromClasspath("classpath:package/jp-ereferral-0.9.7-snap.tgz");
+            npmPackageEreferralSupport.loadPackageFromClasspath("classpath:package/jp-ereferral-0.9.7-snap-fixed.tgz");
 
             // 退院時サマリの文書プロファイルのスナップショット形式のnpmパッケージファイルに基づくValidationSuportを追加
             // 診療情報提供書の文書プロファイルのnpmパッケージだと足りない定義情報あるので

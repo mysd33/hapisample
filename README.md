@@ -36,9 +36,7 @@
     - 通常は、Eclipse等のIDEを使って実行するのが簡単です。
 
 ## 検証・パースの実行結果の例
-- パース処理はうまくいっていますが、文書情報プロファイルおよびJPCoreプロファイルに対する検証（バリデーション）で大量のエラーメッセージが出てしまっています。
-- おそらく、診療情報提供書の文書プロファイルのnpmパッケージだけだと、JPCoreの定義情報が足りないためではないかと推測されます。
-    - ただし、試しに、JPCoreのnpmパッケージファイル(package.tgz)を読み込むようにNpmPackageValidationSupportを追加してみたところ、予期せぬ例外（NullPointerException）が発生してしまいます。
+- 公開されているプロファイル情報およびサンプルデータをそのまま利用すると、パース処理はうまくいっていますが、文書情報プロファイルおよびJPCoreプロファイルに対する検証（バリデーション）で大量のエラーメッセージが出てしまいます。
 
 ```sh
 06:57:45.668 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
@@ -55,7 +53,6 @@
 06:57:54.492 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
 06:57:54.492 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
 06:57:54.634 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-
 
 # ここから、バリデーションの結果。うまくエラーが大量に出ている。
 06:57:56.014 [main] WARN  hapisample.ParsingSampleMain - ドキュメントに不備があります
@@ -123,6 +120,58 @@
 06:57:56.029 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
 
 ```
+
+そこで、エラー箇所を修正したサンプルデータおよび、修正したStructureDefinitionによる診療情報提供書のnpmパッケージを使用すると、バリデーションも終了します。
+```sh
+23:09:47.510 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
+23:09:47.520 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
+23:09:48.915 [main] INFO  ca.uhn.fhir.util.XmlUtil - Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
+23:09:51.862 [main] INFO  c.uhn.fhir.validation.FhirValidator - Ph-schematron library not found on classpath, will not attempt to perform schematron validation
+23:09:51.974 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
+23:09:53.062 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
+23:09:53.143 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
+23:09:53.387 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
+23:09:55.228 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
+23:09:55.572 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+23:09:55.574 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
+23:09:55.913 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+23:09:55.913 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
+23:09:56.010 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+
+# バリデーションの結果が正常に終了している
+23:09:57.196 [main] INFO  hapisample.ParsingSampleMain - ドキュメントは有効です
+
+# 以下、パース処理の結果は同様に正常終了
+23:09:57.197 [main] INFO  hapisample.ParsingSampleMain - Bundle type:Document
+23:09:57.199 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Composition
+23:09:57.199 [main] INFO  hapisample.ParsingSampleMain - 文書名: 診療情報提供書
+23:09:57.200 [main] INFO  hapisample.ParsingSampleMain - subject display: 患者リソースPatient
+23:09:57.200 [main] INFO  hapisample.ParsingSampleMain - subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+23:09:57.200 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Patient
+23:09:57.200 [main] INFO  hapisample.ParsingSampleMain - Composition.subjectの参照先のPatient:urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+23:09:57.200 [main] INFO  hapisample.ParsingSampleMain - 患者番号:12345
+23:09:57.201 [main] INFO  hapisample.ParsingSampleMain - 患者氏名:田中 太郎
+23:09:57.202 [main] INFO  hapisample.ParsingSampleMain - 患者カナ氏名:タナカ タロウ
+23:09:57.202 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
+23:09:57.202 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
+23:09:57.202 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
+23:09:57.202 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+23:09:57.202 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+23:09:57.202 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+23:09:57.203 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+23:09:57.203 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
+23:09:57.203 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+23:09:57.203 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+23:09:57.203 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+23:09:57.203 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+23:09:57.203 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+23:09:57.203 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
+23:09:57.204 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
+23:09:57.204 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
+23:09:57.204 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
+```
+
+
 
 ## JSONシリアライズ実行結果の例
 - [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSON文字列のほんの一部分が生成出来てるのが分かります。
