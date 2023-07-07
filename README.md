@@ -121,7 +121,7 @@
 
 ```
 
-そこで、エラー箇所を修正したサンプルデータおよび、修正したStructureDefinitionによる診療情報提供書のnpmパッケージを使用すると、バリデーションも終了します。
+そこで、エラー箇所を修正したサンプルデータおよび、修正したStructureDefinitionによる診療情報提供書のnpmパッケージを使用すると、バリデーションも正常終了します。
 ```sh
 23:09:47.510 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
 23:09:47.520 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
