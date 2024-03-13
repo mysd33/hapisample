@@ -3,6 +3,8 @@ package hapisample;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.hl7.fhir.common.hapi.validation.support.CachingValidationSupport;
@@ -43,17 +45,8 @@ public class ParsingSampleMain {
     public static void main(String[] args) {
         // あえて分かりやすくするため１つのメソッドに手続き的に書いてあるので、本当に実装したい場合は保守性の高いモジュール化されたコード書くこと
         try {
-
-            // 診療情報提供書のHL7 FHIRのサンプルデータを読み込み
-            InputStream is = new BufferedInputStream(
-                    //new FileInputStream("file/input/Bundle-BundleReferralExample01.json"));
-                    new FileInputStream("file/input/Bundle-BundleReferralExample01-fixed.json"));
             // FHIRコンテキスト作成
             FhirContext ctx = FhirContext.forR4();
-            // パーサを作成
-            IParser parser = ctx.newJsonParser();
-            // サンプルデータをパースしBundleリソースを取得
-            Bundle bundle = parser.parseResource(Bundle.class, is);
 
             // Validatorの作成
             // 診療情報提供書の文書プロファイルのスナップショット形式のnpmパッケージファイルに基づくValidationSuportを追加
@@ -87,9 +80,14 @@ public class ParsingSampleMain {
             FhirValidator validator = ctx.newValidator();
             IValidatorModule module = new FhirInstanceValidator(validationSupport);
             validator.registerValidatorModule(module);
-
-            // 検証
-            ValidationResult validationResult = validator.validateWithResult(bundle);
+            
+            // 診療情報提供書のHL7 FHIRのサンプルデータを読み込み
+            //String filePath = "file/input/Bundle-BundleReferralExample01.json"
+            String filePath = "file/input/Bundle-BundleReferralExample01-fixed.json";                       
+            
+            // 生のFHIRデータ(json文字列）に対して、直接FHIRバリデーション実行
+            String jsonString = Files.readString(Paths.get(filePath));
+            ValidationResult validationResult = validator.validateWithResult(jsonString);
 
             if (validationResult.isSuccessful()) {
                 logger.info("ドキュメントは有効です");
@@ -101,7 +99,13 @@ public class ParsingSampleMain {
                             validationMessage.getMessage());
                 }
             }
-
+            
+            // パーサを作成
+            IParser parser = ctx.newJsonParser();
+            // サンプルデータをパースしBundleリソースを取得
+            InputStream is = new BufferedInputStream(new FileInputStream(filePath));
+            Bundle bundle = parser.parseResource(Bundle.class, is);
+            
             // Bundleリソースを解析
             logger.info("Bundle type:{}", bundle.getType().getDisplay());
             // BundleからEntryを取得
