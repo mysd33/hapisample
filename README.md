@@ -1,5 +1,9 @@
 # HAPI FHIRのサンプル
 
+[!WARNING]
+当時、検証に利用したプロファイルの定義から、新しいバージョンが出ています。
+現在、[https://std.jpfhir.jp/](https://std.jpfhir.jp/)で提供される、最新のものでは試していません。
+
 - [HAPI FHIR](https://hapifhir.io/)を使って、[診療情報提供書HL7FHIR記述仕様](https://std.jpfhir.jp/)に基づくサンプルデータ（Bundle-BundleReferralExample01.json）に対して検証し、Bundleリソースとしてパースするサンプルプログラムです。
 
 - また、FHIRリソース(Bundle)として作成したオブジェクトを、FHIRのJSON文字列で出力（シリアライズ）するサンプルプログラムもあります。
