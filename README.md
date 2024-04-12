@@ -7,48 +7,49 @@
 - また、FHIRリソース(Bundle)として作成したオブジェクトを、FHIRのJSON文字列で出力（シリアライズ）するサンプルプログラムもあります。
     - [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSONのほんの一部分を生成しています。
 
-## プロファイルの検証（FHIRバリデーション）とパース
+## 1. プロファイルの検証（FHIRバリデーション）とパース
+### 1.1. FHIRバリデーション
 - [HAPI FHIRのバリデータの機能](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html)を使用して検証しています。
+    - FHIRベースプロファイルでの検証
+        - デフォルトの組み込みのバリデータである[DefaultProfileValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#defaultprofilevalidationsupport)クラスにより、検証できます。
 
-- FHIRベースプロファイルでの検証
-    - デフォルトの組み込みのバリデータである[DefaultProfileValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#defaultprofilevalidationsupport)クラスにより、検証できます。
+    - JPCoreプロファイル、文書情報プロファイルでの検証
+        - JPCore、診療情報提供書等の文書情報のプロファイル（実装ガイド）は、[FHIR package仕様](https://registry.fhir.org/learn)に従ったnpmパッケージ形式で提供されています。
+        - HAPIのバリデータでは、[NpmPackageValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#npmpackagevalidationsupport)クラスにより、npmパッケージを読み込み、検証することができます。
+            - NpmPackageValidationSupportクラスによる、パッケージを使ったバリデーションの実装方法については、[HAPI FHIRのドキュメントの「Validating Using Packages」](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html#packages)を参考に実装しています。    
+        - npmパッケージには、diff形式とsnapshot形式の2つがありますが、通常は、FHIRが親のプロファイルを継承して定義される思想からdiff形式のパッケージを使いたいのですが、diff形式を使うとエラーになってしまったので、現状はsnapshot形式のパッケージを使って検証しています。
+        - JPCoreのプロファイル
+            - [JPCore実装ガイド](https://jpfhir.jp/fhir/core/)のサイトにJPCoreの実装ガイドとTerminologyのnpmパッケージがあります。
+                - JPCoreのnpmパッケージ(ver1.1.2)
+                    - [snapshot形式](https://jpfhir.jp/fhir/core/1.1.2/jp-core.r4-1.1.2-snap.tgz)
+                    - [diff形式](https://jpfhir.jp/fhir/core/1.1.2/jp-core.r4-1.1.2.tgz) 
+                - [Terminologyのnpmパッケージ(ver1.1.1)](https://jpfhir.jp/fhir/core/terminology/jpfhir-terminology.r4-1.1.1.tgz)
+        - 診療情報提供書の文書情報プロファイル
+            - [診療情報提供書FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eReferral/igv1/)にnpmパッケージがあります。
+                - 診療情報提供のnpmパッケージ(ver1.1.6) 
+                    - [snapshot形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6-snap.tgz)
+                    - [diff形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6.tgz)
 
-- JPCoreプロファイル、文書情報プロファイルでの検証
-    - JPCore、診療情報提供書等の文書情報のプロファイル（実装ガイド）は、[FHIR package仕様](https://registry.fhir.org/learn)に従ったnpmパッケージ形式で提供されています。
-    - HAPIのバリデータでは、[NpmPackageValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#npmpackagevalidationsupport)クラスにより、npmパッケージを読み込み、検証することができます。
-        - NpmPackageValidationSupportクラスによる、パッケージを使ったバリデーションの実装方法については、[HAPI FHIRのドキュメントの「Validating Using Packages」](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html#packages)を参考に実装しています。    
-    - npmパッケージには、diff形式とsnapshot形式の2つがありますが、通常は、FHIRが親のプロファイルを継承して定義される思想からdiff形式のパッケージを使いたいのですが、diff形式を使うとエラーになってしまったので、現状はsnapshot形式のパッケージを使って検証しています。
-    - JPCoreのプロファイル
-        - [JPCore実装ガイド](https://jpfhir.jp/fhir/core/)のサイトにJPCoreの実装ガイドとTerminologyのnpmパッケージがあります。
-            - JPCoreのnpmパッケージ(ver1.1.2)
-                - [snapshot形式](https://jpfhir.jp/fhir/core/1.1.2/jp-core.r4-1.1.2-snap.tgz)
-                - [diff形式](https://jpfhir.jp/fhir/core/1.1.2/jp-core.r4-1.1.2.tgz) 
-            - [Terminologyのnpmパッケージ(ver1.1.1)](https://jpfhir.jp/fhir/core/terminology/jpfhir-terminology.r4-1.1.1.tgz)
-    - 診療情報提供書の文書情報プロファイル
-        - [診療情報提供書FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eReferral/igv1/)にnpmパッケージがあります。
-            - 診療情報提供のnpmパッケージ(ver1.1.6) 
-                - [snapshot形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6-snap.tgz)
-                - [diff形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6.tgz)
+        - 今回は、診療情報提供書ですが、退院時サマリー、健康診断結果報告書といった文書や、臨床情報（6情報、JP-CLINS）なども同様にnpmパッケージで提供されていますので、それらのnpmパッケージを使って検証することも可能です。
 
-    - 今回は、診療情報提供書ですが、退院時サマリー、健康診断結果報告書といった文書や、臨床情報（6情報、JP-CLINS）なども同様にnpmパッケージで提供されていますので、それらのnpmパッケージを使って検証することも可能です。
+### 1.2. FHIRデータのパース
+- [HAPI FHIRのパーサ](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、パースをしています。    
 
-- FHIRデータのパース
-    - [HAPI FHIRのパーサ](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、パースをしています。    
-
-## シリアライズ
+## 2. シリアライズ
 - FHIRデータからJSONへのシリアライズ
     - パース同様、[HAPI FHIRのパーサ](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、シリアライズをしています。  
 
-## 実行方法
+## 3. 実行方法
 - 検証・パースするサンプルAPの使い方
     - Java、Mavenでビルドし、「ParsingSampleMain」クラスを実行してください。
     - 通常は、Eclipse等のIDEを使って実行するのが簡単です。
 
-- JSONシリアライズするサンプルAPの使い方
+- シリアライズするサンプルAPの使い方
     - Java、Mavenでビルドし、「SerializingSampleMain」クラスを実行してください。
     - 通常は、Eclipse等のIDEを使って実行するのが簡単です。
 
-## 検証・パースの実行結果の例
+## 4. 実行結果
+### 4.1 FHIRバリデーション・パース
 
 ```
 08:23:56.046 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
@@ -116,7 +117,6 @@
 08:24:09.845 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
 08:24:09.966 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
 
-
 # バリデーションの結果が正常に終了している
 08:24:11.110 [main] INFO  hapisample.ParsingSampleMain - ドキュメントは有効です
 
@@ -148,9 +148,8 @@
 08:24:11.132 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
 ```
 
-
-## JSONシリアライズ実行結果の例
-- [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSON文字列のほんの一部分が生成出来てるのが分かります。
+### 4.2 シリアライズ
+- [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、処方情報のFHIR文書のJSON文字列のほんの一部分が生成出来てるのが分かります。
 
 ```sh
 17:22:57.193 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
