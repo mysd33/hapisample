@@ -43,47 +43,47 @@ public class ParsingSampleMain {
     // https://hapifhir.io/hapi-fhir/docs/model/parsers.html
     // https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html
     public static void main(String[] args) {
-        // あえて分かりやすくするため１つのメソッドに手続き的に書いてあるので、本当に実装したい場合は保守性の高いモジュール化されたコード書くこと
+        // あえて分かりやすくするため１つのメソッドに手続き的に書いてあるので、本当に実装したい場合は保守性の高いモジュール化されたコードを書くこと
         try {
-            // FHIRコンテキスト作成
+            // FHIRコンテキスト作成（JPCore、各文書プロファイルがR4で定義されているのでR4で作成）
             FhirContext ctx = FhirContext.forR4();
 
             // Validatorの作成
-            // 診療情報提供書の文書プロファイルのスナップショット形式のnpmパッケージファイルに基づくValidationSuportを追加
-            NpmPackageValidationSupport npmPackageEreferralSupport = new NpmPackageValidationSupport(ctx);
-            //npmPackageEreferralSupport.loadPackageFromClasspath("classpath:package/jp-ereferral-0.9.7-snap.tgz");
-            npmPackageEreferralSupport.loadPackageFromClasspath("classpath:package/jp-ereferral-0.9.7-snap-fixed.tgz");
+            // 診療情報提供書のnpmパッケージファイルに基づくValidationSuportを追加
+            NpmPackageValidationSupport npmPackageEReferralSupport = new NpmPackageValidationSupport(ctx);
+            // TODO: diff形式だとSnapshotGeneratingValidationSupportでエラーが発生したため、スナップショットを利用
+            //npmPackageEReferralSupport.loadPackageFromClasspath("classpath:package/jp-eReferral.r4-1.1.6.tgz");
+            npmPackageEReferralSupport.loadPackageFromClasspath("classpath:package/jp-eReferral.r4-1.1.6-snap.tgz");
 
-            // 退院時サマリの文書プロファイルのスナップショット形式のnpmパッケージファイルに基づくValidationSuportを追加
-            // 診療情報提供書の文書プロファイルのnpmパッケージだと足りない定義情報あるので
-            NpmPackageValidationSupport npmPackageEdissummarySupport = new NpmPackageValidationSupport(ctx);
-            npmPackageEdissummarySupport.loadPackageFromClasspath("classpath:package/jp-edissummary-0.9.7-snap.tgz");
-
-            // 診療情報提供書の文書プロファイルのnpmパッケージだけだと足りない定義情報があるので
-            // JPCoreのnpmパッケージファイルも読み込むようValidationSupport追加
+            // JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
             NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
-            // JPCoreのサイト（https://jpfhir.jp/fhir/core/1.1.1/package.tgz）からダウンロードできるpackage.tgzを利用した場合だと、アウトオブメモリエラーになってしまう
-            // npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/package.tgz");
-            // simplifier.net（https://simplifier.net/packages/jp-core.r4/1.1.1-rc/snapshots/download）のパッケージならアウトオブメモリにならない
-            npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.1-rc.tgz");
+            // TODO: diff形式だとSnapshotGeneratingValidationSupportでエラーが発生したため、スナップショットを利用
+            //npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.2.tgz");
+            npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.2-snap.tgz");
+            
+            // JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
+            NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);
+            npmPackageTerminologySupport.loadPackageFromClasspath("classpath:package/jpfhir-terminology.r4-1.1.1.tgz");
 
             ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
-                    npmPackageEreferralSupport, //
-                    npmPackageEdissummarySupport, //
-                    npmPackageJPCoreSupport, //
+            		npmPackageEReferralSupport,
+            		npmPackageJPCoreSupport,
+            		npmPackageTerminologySupport,
                     // FHIRプロファイルに基づいているかの組み込みの検証ルール
                     new DefaultProfileValidationSupport(ctx), //
                     new CommonCodeSystemsTerminologyService(ctx), //
-                    new InMemoryTerminologyServerValidationSupport(ctx), //
-                    new SnapshotGeneratingValidationSupport(ctx));
+                    new InMemoryTerminologyServerValidationSupport(ctx)//, //
+                    // diff形式の場合にはSnapshotGeneratingValidationSupportを使用する必要があるがあるがsnapshotでは不要
+                    //new SnapshotGeneratingValidationSupport(ctx)
+            		);
+            // キャッシュ機能の設定
             CachingValidationSupport validationSupport = new CachingValidationSupport(validationSupportChain);
             FhirValidator validator = ctx.newValidator();
             IValidatorModule module = new FhirInstanceValidator(validationSupport);
             validator.registerValidatorModule(module);
             
             // 診療情報提供書のHL7 FHIRのサンプルデータを読み込み
-            //String filePath = "file/input/Bundle-BundleReferralExample01.json"
-            String filePath = "file/input/Bundle-BundleReferralExample01-fixed.json";                       
+            String filePath = "file/input/Bundle-BundleReferralExample01.json";            
             
             // 生のFHIRデータ(json文字列）に対して、直接FHIRバリデーション実行
             String jsonString = Files.readString(Paths.get(filePath));
@@ -155,6 +155,7 @@ public class ParsingSampleMain {
                     break;
                 }
             }
+            
         } catch (Exception e) {
             logger.error("予期せぬエラーが発生しました", e);
         }

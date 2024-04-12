@@ -7,11 +7,11 @@
       "http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral"
     ]
   },
+  "type": "document",
   "identifier": {
     "system": "http://jpfhir.jp/fhir/core/IdSystem/documentInstance-identifier",
     "value": "123456"
   },
-  "type": "document",
   "timestamp": "2021-11-26T10:00:00+09:00",
   "entry": [
     {
@@ -25,17 +25,298 @@
             "http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Composition_eReferral"
           ]
         },
+        "status": "final",
+        "title": "診療情報提供書",
         "extension": [
           {
             "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
-            "valueString": "ARGcode"
+            "valueString": "1.0"
           }
         ],
         "identifier": {
           "system": "http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier",
-          "value": "ARGcode"
+          "value": "1311234567-2021-12345678"
         },
-        "status": "final",
+        "section": [
+          {
+            "title": "紹介元情報",
+            "text": {
+              "status": "additional",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">港診療所</div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
+                  "code": "920",
+                  "display": "紹介元情報セクション"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:8a888471-9781-4fb7-b5c4-b34afcdea638",
+                "type": "Organization",
+                "display": "紹介元医療機関"
+              },
+              {
+                "reference": "urn:uuid:3e6a0ba2-d781-4fd7-9de6-e077b690daed",
+                "type": "Practitioner",
+                "display": "紹介元医師"
+              }
+            ]
+          },
+          {
+            "title": "紹介先情報",
+            "text": {
+              "status": "additional",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">東京第一テスト病院</div>"
+            },
+            "code": {
+              "coding": [
+                {
+                  "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
+                  "code": "910",
+                  "display": "紹介先情報セクション"
+                }
+              ]
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:a44951be-cdaa-4c53-9e35-6be013da5441",
+                "type": "Organization",
+                "display": "紹介先医療機関"
+              },
+              {
+                "reference": "urn:uuid:f11535c2-043d-43b6-bf99-b8298ea3c946",
+                "type": "Practitioner",
+                "display": "紹介先医師"
+              }
+            ]
+          },
+          {
+            "title": "構造情報",
+            "section": [
+              {
+                "title": "紹介目的",
+                "text": {
+                  "status": "additional",
+                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">腹痛精査お願いします。</div>"
+                },
+                "code": {
+                  "coding": [
+                    {
+                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
+                      "code": "950",
+                      "display": "紹介目的セクション"
+                    }
+                  ]
+                },
+                "entry": [
+                  {
+                    "reference": "urn:uuid:3acc3dc7-c79b-41f1-8eea-ac4de9b664b8",
+                    "type": "Encounter",
+                    "display": "紹介目的"
+                  }
+                ]
+              },
+              {
+                "title": "傷病名・主訴",
+                "text": {
+                  "status": "additional",
+                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">上腹部痛、腰痛</div>"
+                },
+                "code": {
+                  "coding": [
+                    {
+                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
+                      "code": "340",
+                      "display": "傷病名・主訴セクション"
+                    }
+                  ]
+                },
+                "entry": [
+                  {
+                    "reference": "urn:uuid:6a31db8e-109d-4349-b0cf-095131c3307a",
+                    "type": "Condition",
+                    "display": "傷病名・主訴"
+                  },
+                  {
+                    "reference": "urn:uuid:a9358f3e-c743-4998-aa89-1be54c31b432",
+                    "type": "Condition",
+                    "display": "傷病名・主訴"
+                  }
+                ]
+              },
+              {
+                "title": "現病歴",
+                "text": {
+                  "status": "additional",
+                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">２０２２年６月上旬から夜食後に時々上腹部痛があり、だんだんひどくなっている。他に目立った症状なし。</div>"
+                },
+                "code": {
+                  "coding": [
+                    {
+                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
+                      "code": "360",
+                      "display": "現病歴セクション"
+                    }
+                  ]
+                },
+                "entry": [
+                  {
+                    "reference": "urn:uuid:5eab50b2-6741-467c-a2fd-a4adab1f835f",
+                    "type": "Condition",
+                    "display": "現病歴"
+                  }
+                ]
+              },
+              {
+                "title": "既往歴",
+                "text": {
+                  "status": "additional",
+                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">2018年　狭心症　２ヶ月治療で軽快。2019年　交通事故で左前腕骨折　３ヶ月ギプス固定。</div>"
+                },
+                "code": {
+                  "coding": [
+                    {
+                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
+                      "code": "370",
+                      "display": "既往歴セクション"
+                    }
+                  ]
+                },
+                "entry": [
+                  {
+                    "reference": "urn:uuid:5c650562-f4e4-40b3-87c6-e9a0376be7a8",
+                    "type": "Condition",
+                    "display": "既往歴"
+                  },
+                  {
+                    "reference": "urn:uuid:a28198b9-6a23-4677-ba2e-5eb3e17d9792",
+                    "type": "Condition",
+                    "display": "既往歴"
+                  }
+                ]
+              },
+              {
+                "title": "アレルギー・不耐性反応",
+                "text": {
+                  "status": "additional",
+                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">サバ　キーウイ</div>"
+                },
+                "code": {
+                  "coding": [
+                    {
+                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
+                      "code": "510",
+                      "display": "アレルギー・不耐性反応セクション"
+                    }
+                  ]
+                },
+                "entry": [
+                  {
+                    "reference": "urn:uuid:711b07ae-d20b-40b0-9aa9-c7f1981409e6",
+                    "type": "AllergyIntolerance",
+                    "display": "アレルギー・不耐性反応"
+                  },
+                  {
+                    "reference": "urn:uuid:5a1aae74-f720-415a-ba15-a6c8b5d4c5a1",
+                    "type": "AllergyIntolerance",
+                    "display": "アレルギー・不耐性反応"
+                  }
+                ]
+              },
+              {
+                "title": "家族歴",
+                "text": {
+                  "status": "additional",
+                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">母　胃がん</div>"
+                },
+                "code": {
+                  "coding": [
+                    {
+                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
+                      "code": "550",
+                      "display": "家族歴セクション"
+                    }
+                  ]
+                }
+              },
+              {
+                "title": "身体所見",
+                "text": {
+                  "status": "additional",
+                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">腹部所見：上腹部圧痛あり、その他特に所見なし。</div>"
+                },
+                "code": {
+                  "coding": [
+                    {
+                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
+                      "code": "610",
+                      "display": "身体所見セクション"
+                    }
+                  ]
+                },
+                "entry": [
+                  {
+                    "reference": "urn:uuid:481835ef-0891-45de-a006-087954ab6b7c",
+                    "type": "Observation",
+                    "display": "身体所見"
+                  }
+                ]
+              },
+              {
+                "title": "感染症情報",
+                "text": {
+                  "status": "additional",
+                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">特になし</div>"
+                },
+                "code": {
+                  "coding": [
+                    {
+                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
+                      "code": "520",
+                      "display": "感染症情報セクション"
+                    }
+                  ]
+                }
+              },
+              {
+                "title": "臨床経過",
+                "text": {
+                  "status": "additional",
+                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">添付参照</div>"
+                },
+                "code": {
+                  "coding": [
+                    {
+                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
+                      "code": "330",
+                      "display": "臨床経過セクション"
+                    }
+                  ]
+                },
+                "entry": [
+                  {
+                    "reference": "urn:uuid:a6e4fc73-a749-4583-94a7-18e4241b4c75",
+                    "type": "DocumentReference",
+                    "display": "臨床経過"
+                  }
+                ]
+              }
+            ],
+            "code": {
+              "coding": [
+                {
+                  "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
+                  "code": "300",
+                  "display": "構造情報セクション"
+                }
+              ]
+            }
+          }
+        ],
         "type": {
           "coding": [
             {
@@ -49,11 +330,23 @@
           {
             "coding": [
               {
-                "code": "57133-1",
                 "system": "http://jpfhir.jp/fhir/Common/CodeSystem/doc-typecodes",
+                "code": "57133-1",
                 "display": "診療情報提供書"
               }
             ]
+          }
+        ],
+        "event": [
+          {
+            "code": [
+              {
+                "text": "診療情報提供書発行"
+              }
+            ],
+            "period": {
+              "start": "2020-08-21"
+            }
           }
         ],
         "subject": {
@@ -79,314 +372,11 @@
             "display": "紹介状作成機関Organizationリソース"
           }
         ],
-        "title": "診療情報提供書",
         "custodian": {
           "reference": "urn:uuid:8a888471-9781-4fb7-b5c4-b34afcdea638",
           "type": "Organization",
           "display": "紹介状交付責任機関Organizationリソース"
-        },
-        "event": [
-          {
-            "code": [
-              {
-                "text": "診療情報提供書発行"
-              }
-            ],
-            "period": {
-              "start": "2020-08-21"
-            }
-          }
-        ],
-        "section": [
-          {
-            "title": "紹介先情報",
-            "code": {
-              "coding": [
-                {
-                  "code": "910",
-                  "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
-                  "display": "紹介先情報セクション"
-                }
-              ]
-            },
-            "text": {
-              "status": "additional",
-              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">東京第一テスト病院</div>"
-            },
-            "entry": [
-              {
-                "reference": "urn:uuid:a44951be-cdaa-4c53-9e35-6be013da5441",
-                "type": "Organization",
-                "display": "紹介先医療機関"
-              },
-              {
-                "reference": "urn:uuid:9f92f003-69e6-4983-85eb-fb49a3110b59",
-                "type": "Organization",
-                "display": "紹介先診療科"
-              },
-              {
-                "reference": "urn:uuid:f11535c2-043d-43b6-bf99-b8298ea3c946",
-                "type": "Practitioner",
-                "display": "紹介先医師"
-              }
-            ]
-          },
-          {
-            "title": "紹介元情報",
-            "code": {
-              "coding": [
-                {
-                  "code": "920",
-                  "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
-                  "display": "紹介元情報セクション"
-                }
-              ]
-            },
-            "text": {
-              "status": "additional",
-              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">港診療所</div>"
-            },
-            "entry": [
-              {
-                "reference": "urn:uuid:8a888471-9781-4fb7-b5c4-b34afcdea638",
-                "type": "Organization",
-                "display": "紹介元医療機関"
-              },
-              {
-                "reference": "urn:uuid:2e979bec-720b-4e36-8eb9-ebe661172af3",
-                "type": "Organization",
-                "display": "紹介元診療科"
-              },
-              {
-                "reference": "urn:uuid:3e6a0ba2-d781-4fd7-9de6-e077b690daed",
-                "type": "Practitioner",
-                "display": "紹介元医師"
-              }
-            ]
-          },
-          {
-            "title": "構造情報",
-            "code": {
-              "coding": [
-                {
-                  "code": "300",
-                  "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
-                  "display": "構造情報セクション"
-                }
-              ]
-            },
-            "section": [
-              {
-                "title": "紹介目的",
-                "code": {
-                  "coding": [
-                    {
-                      "code": "950",
-                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
-                      "display": "紹介目的セクション"
-                    }
-                  ]
-                },
-                "text": {
-                  "status": "additional",
-                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">腹痛精査お願いします。</div>"
-                },
-                "entry": [
-                  {
-                    "reference": "urn:uuid:3acc3dc7-c79b-41f1-8eea-ac4de9b664b8",
-                    "type": "Encounter",
-                    "display": "紹介目的"
-                  }
-                ]
-              },
-              {
-                "title": "傷病名・主訴",
-                "code": {
-                  "coding": [
-                    {
-                      "code": "340",
-                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
-                      "display": "傷病名・主訴セクション"
-                    }
-                  ]
-                },
-                "text": {
-                  "status": "additional",
-                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">上腹部痛、腰痛</div>"
-                },
-                "entry": [
-                  {
-                    "reference": "urn:uuid:6a31db8e-109d-4349-b0cf-095131c3307a",
-                    "type": "Condition",
-                    "display": "傷病名・主訴"
-                  },
-                  {
-                    "reference": "urn:uuid:a9358f3e-c743-4998-aa89-1be54c31b432",
-                    "type": "Condition",
-                    "display": "傷病名・主訴"
-                  }
-                ]
-              },
-              {
-                "title": "現病歴",
-                "code": {
-                  "coding": [
-                    {
-                      "code": "360",
-                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
-                      "display": "現病歴セクション"
-                    }
-                  ]
-                },
-                "text": {
-                  "status": "additional",
-                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">２０２２年６月上旬から夜食後に時々上腹部痛があり、だんだんひどくなっている。他に目立った症状なし。</div>"
-                },
-                "entry": [
-                  {
-                    "reference": "urn:uuid:5eab50b2-6741-467c-a2fd-a4adab1f835f",
-                    "type": "Condition",
-                    "display": "現病歴"
-                  }
-                ]
-              },
-              {
-                "title": "既往歴",
-                "code": {
-                  "coding": [
-                    {
-                      "code": "370",
-                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
-                      "display": "既往歴セクション"
-                    }
-                  ]
-                },
-                "text": {
-                  "status": "additional",
-                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">2018年　狭心症　２ヶ月治療で軽快。2019年　交通事故で左前腕骨折　３ヶ月ギプス固定。</div>"
-                },
-                "entry": [
-                  {
-                    "reference": "urn:uuid:5c650562-f4e4-40b3-87c6-e9a0376be7a8",
-                    "type": "Condition",
-                    "display": "既往歴"
-                  },
-                  {
-                    "reference": "urn:uuid:a28198b9-6a23-4677-ba2e-5eb3e17d9792",
-                    "type": "Condition",
-                    "display": "既往歴"
-                  }
-                ]
-              },
-              {
-                "title": "アレルギー・不耐性反応",
-                "code": {
-                  "coding": [
-                    {
-                      "code": "510",
-                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
-                      "display": "アレルギー・不耐性反応セクション"
-                    }
-                  ]
-                },
-                "text": {
-                  "status": "additional",
-                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">サバ　キーウイ</div>"
-                },
-                "entry": [
-                  {
-                    "reference": "urn:uuid:711b07ae-d20b-40b0-9aa9-c7f1981409e6",
-                    "type": "AllergyIntolerance",
-                    "display": "アレルギー・不耐性反応"
-                  },
-                  {
-                    "reference": "urn:uuid:5a1aae74-f720-415a-ba15-a6c8b5d4c5a1",
-                    "type": "AllergyIntolerance",
-                    "display": "アレルギー・不耐性反応"
-                  }
-                ]
-              },
-              {
-                "title": "家族歴",
-                "code": {
-                  "coding": [
-                    {
-                      "code": "550",
-                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
-                      "display": "家族歴セクション"
-                    }
-                  ]
-                },
-                "text": {
-                  "status": "additional",
-                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">母　胃がん</div>"
-                }
-              },
-              {
-                "title": "身体所見",
-                "code": {
-                  "coding": [
-                    {
-                      "code": "610",
-                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
-                      "display": "身体所見セクション"
-                    }
-                  ]
-                },
-                "text": {
-                  "status": "additional",
-                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">腹部所見：上腹部圧痛あり、その他特に所見なし。</div>"
-                },
-                "entry": [
-                  {
-                    "reference": "urn:uuid:481835ef-0891-45de-a006-087954ab6b7c",
-                    "type": "Observation",
-                    "display": "身体所見"
-                  }
-                ]
-              },
-              {
-                "title": "感染症情報",
-                "code": {
-                  "coding": [
-                    {
-                      "code": "520",
-                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
-                      "display": "感染症情報セクション"
-                    }
-                  ]
-                },
-                "text": {
-                  "status": "additional",
-                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">特になし</div>"
-                }
-              },
-              {
-                "title": "臨床経過",
-                "code": {
-                  "coding": [
-                    {
-                      "code": "330",
-                      "system": "http://jpfhir.jp/fhir/eReferral/CodeSystem/document-section",
-                      "display": "臨床経過セクション"
-                    }
-                  ]
-                },
-                "text": {
-                  "status": "additional",
-                  "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">添付参照</div>"
-                },
-                "entry": [
-                  {
-                    "reference": "urn:uuid:a6e4fc73-a749-4583-94a7-18e4241b4c75",
-                    "type": "DocumentReference",
-                    "display": "臨床経過"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        }
       }
     },
     {
@@ -397,7 +387,7 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Patient"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Patient_eCS"
           ]
         },
         "identifier": [
@@ -463,16 +453,9 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Encounter_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Encounter_eCS"
           ]
         },
-        "identifier": [
-          {
-            "system": "http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier",
-            "value": "192844"
-          }
-        ],
         "status": "finished",
         "class": {
           "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
@@ -490,6 +473,12 @@
               "start": "2020-08-20"
             }
           }
+        ],
+        "identifier": [
+          {
+            "system": "http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier",
+            "value": "192844"
+          }
         ]
       }
     },
@@ -501,8 +490,7 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Practitioner_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Practitioner_eCS"
           ]
         },
         "name": [
@@ -545,8 +533,7 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Practitioner_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Practitioner_eCS"
           ]
         },
         "name": [
@@ -589,10 +576,19 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Organization",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Organization_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Organization_eCS"
           ]
         },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                "code": "prov"
+              }
+            ]
+          }
+        ],
         "extension": [
           {
             "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Organization_PrefectureNo",
@@ -614,22 +610,24 @@
               "system": "urn:oid:1.2.392.100495.20.3.23",
               "value": "9876543"
             }
+          },
+          {
+            "url": "http://jpfhir.jp/fhir/eCS/Extension/StructureDefinition/JP_eCS_Department",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "26",
+                  "system": "urn:oid:1.2.392.200250.2.2.2",
+                  "display": "眼科"
+                }
+              ]
+            }
           }
         ],
         "identifier": [
           {
             "system": "http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no",
             "value": "1319876543"
-          }
-        ],
-        "type": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                "code": "prov"
-              }
-            ]
           }
         ],
         "name": "港診療所",
@@ -656,10 +654,19 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Organization",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Organization_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Organization_eCS"
           ]
         },
+        "type": [
+          {
+            "coding": [
+              {
+                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                "code": "prov"
+              }
+            ]
+          }
+        ],
         "extension": [
           {
             "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Organization_PrefectureNo",
@@ -681,22 +688,24 @@
               "system": "urn:oid:1.2.392.100495.20.3.23",
               "value": "1234567"
             }
+          },
+          {
+            "url": "http://jpfhir.jp/fhir/eCS/Extension/StructureDefinition/JP_eCS_Department",
+            "valueCodeableConcept": {
+              "coding": [
+                {
+                  "code": "081",
+                  "system": "urn:oid:1.2.392.200250.2.2.2",
+                  "display": "循環器内科"
+                }
+              ]
+            }
           }
         ],
         "identifier": [
           {
             "system": "http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no",
             "value": "1311234567"
-          }
-        ],
-        "type": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                "code": "prov"
-              }
-            ]
           }
         ],
         "name": "東京第一テスト病院",
@@ -716,78 +725,6 @@
       }
     },
     {
-      "fullUrl": "urn:uuid:9f92f003-69e6-4983-85eb-fb49a3110b59",
-      "resource": {
-        "resourceType": "Organization",
-        "id": "referralToOrganizationDeptExample01Inline",
-        "meta": {
-          "lastUpdated": "2021-11-26T10:00:00+09:00",
-          "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Organization",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Organization_eClinicalSummary_department"
-          ]
-        },
-        "type": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                "code": "dept"
-              }
-            ]
-          },
-          {
-            "coding": [
-              {
-                "system": "urn:oid:1.2.392.100495.20.2.51",
-                "code": "03"
-              }
-            ]
-          }
-        ],
-        "name": "循環器内科",
-        "partOf": {
-          "reference": "urn:uuid:9f92f003-69e6-4983-85eb-fb49a3110b59"
-        }
-      }
-    },
-    {
-      "fullUrl": "urn:uuid:2e979bec-720b-4e36-8eb9-ebe661172af3",
-      "resource": {
-        "resourceType": "Organization",
-        "id": "referralFromOrganizationDeptExample01Inline",
-        "meta": {
-          "lastUpdated": "2021-11-26T10:00:00+09:00",
-          "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Organization",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Organization_eClinicalSummary_department"
-          ]
-        },
-        "type": [
-          {
-            "coding": [
-              {
-                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-                "code": "dept"
-              }
-            ]
-          },
-          {
-            "coding": [
-              {
-                "system": "urn:oid:1.2.392.100495.20.2.51",
-                "code": "11"
-              }
-            ]
-          }
-        ],
-        "name": "眼科",
-        "partOf": {
-          "reference": "urn:uuid:2e979bec-720b-4e36-8eb9-ebe661172af3"
-        }
-      }
-    },
-    {
       "fullUrl": "urn:uuid:3acc3dc7-c79b-41f1-8eea-ac4de9b664b8",
       "resource": {
         "resourceType": "Encounter",
@@ -795,9 +732,14 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Encounter_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Encounter_eCS"
           ]
+        },
+        "status": "finished",
+        "class": {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code": "AMB",
+          "display": "外来"
         },
         "identifier": [
           {
@@ -805,12 +747,6 @@
             "value": "192837"
           }
         ],
-        "status": "finished",
-        "class": {
-          "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-          "code": "AMB",
-          "display": "外来"
-        },
         "reasonCode": [
           {
             "text": "腹痛精査お願いします。"
@@ -826,8 +762,7 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Condition",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Condition_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Condition_eCS"
           ]
         },
         "identifier": [
@@ -841,6 +776,14 @@
             {
               "code": "active",
               "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "code": "confirmed",
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"
             }
           ]
         },
@@ -871,8 +814,7 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Condition",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Condition_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Condition_eCS"
           ]
         },
         "identifier": [
@@ -886,6 +828,14 @@
             {
               "code": "active",
               "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "code": "confirmed",
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"
             }
           ]
         },
@@ -916,8 +866,7 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Condition",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Condition_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Condition_eCS"
           ]
         },
         "identifier": [
@@ -931,6 +880,14 @@
             {
               "code": "active",
               "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "code": "confirmed",
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"
             }
           ]
         },
@@ -965,8 +922,7 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Condition",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Condition_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Condition_eCS"
           ]
         },
         "identifier": [
@@ -980,6 +936,14 @@
             {
               "code": "active",
               "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "code": "confirmed",
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"
             }
           ]
         },
@@ -1015,8 +979,7 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Condition",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_Condition_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Condition_eCS"
           ]
         },
         "identifier": [
@@ -1030,6 +993,14 @@
             {
               "code": "active",
               "system": "http://terminology.hl7.org/CodeSystem/condition-clinical"
+            }
+          ]
+        },
+        "verificationStatus": {
+          "coding": [
+            {
+              "code": "confirmed",
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status"
             }
           ]
         },
@@ -1065,8 +1036,7 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_AllergyIntolerance_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_AllergyIntolerance_eCS"
           ]
         },
         "identifier": [
@@ -1117,8 +1087,7 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_AllergyIntolerance",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_AllergyIntolerance_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_AllergyIntolerance_eCS"
           ]
         },
         "identifier": [
@@ -1169,7 +1138,7 @@
         "meta": {
           "lastUpdated": "2021-11-26T10:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Observation_Common"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Observation_Common_eCS"
           ]
         },
         "identifier": [
@@ -1184,8 +1153,8 @@
             "coding": [
               {
                 "code": "exam",
-                "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-                "display": "身体検査・観察"
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS",
+                "display": "Exam"
               }
             ]
           }
@@ -1207,8 +1176,7 @@
         "meta": {
           "lastUpdated": "2023-03-31T00:00:00+09:00",
           "profile": [
-            "http://jpfhir.jp/fhir/core/StructureDefinition/JP_DocumentReference",
-            "http://jpfhir.jp/fhir/eClinicalSummary/StructureDefinition/JP_DocumentReference_eClinicalSummary"
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_DocumentReference_eCS"
           ]
         },
         "status": "current",
