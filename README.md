@@ -94,6 +94,8 @@
 09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
 09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
 09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
+
+# 処理時間
 09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Context作成時間：40ms
 09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validator作成時間：9371ms
 09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（初回）：5364ms
