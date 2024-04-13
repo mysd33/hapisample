@@ -51,6 +51,7 @@
 ## 4. 実行結果
 ### 4.1 FHIRバリデーション・パース
 
+#### 4.1.1 処理結果
 ```
 09:24:45.679 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 7.0.2 - Rev 95beaec894
 09:24:45.689 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
@@ -66,7 +67,7 @@
 09:24:59.001 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
 09:24:59.252 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
 09:24:59.253 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
-09:24:59.379 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+09:2a4:59.379 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
 09:25:00.425 [main] INFO  hapisample.ParsingSampleMain - バリデーション2回目
 09:25:00.897 [main] INFO  hapisample.ParsingSampleMain - ドキュメントは有効です
 09:25:00.908 [main] INFO  hapisample.ParsingSampleMain - Bundle type:Document
@@ -94,16 +95,35 @@
 09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
 09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
 09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
-
-# 処理時間
-09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Context作成時間：40ms
-09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validator作成時間：9371ms
-09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（初回）：5364ms
-09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（2回目）：471ms
-09:25:00.916 [main] INFO  hapisample.ParsingSampleMain - Parser作成時間：0ms
-09:25:00.916 [main] INFO  hapisample.ParsingSampleMain - Parse処理時間：10ms
-09:25:00.916 [main] INFO  hapisample.ParsingSampleMain - モデル処理時間：8ms
 ```
+
+#### 4.1.2 処理結果
+- Validator作成などの初期化、Validationの初回実行に時間がかかるのが分かる
+- 2回目以降のValidation実行は、高速にできているのが分かる
+    - HAPI FHIRのバージョン(7.0.2)の場合
+
+    ```
+    09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Context作成時間：40ms
+    09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validator作成時間：9371ms
+    09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（初回）：5364ms
+    09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（2回目）：471ms
+    09:25:00.916 [main] INFO  hapisample.ParsingSampleMain - Parser作成時間：0ms
+    09:25:00.916 [main] INFO  hapisample.ParsingSampleMain - Parse処理時間：10ms
+    09:25:00.916 [main] INFO  hapisample.ParsingSampleMain - モデル処理時間：8ms
+    ```
+
+    - （参考）以前使っていた古いHAPI FHIRのバージョン(6.4.4)の処理時間
+        - 6.x→7.xで処理時間はほぼ変わっていなさそう。
+
+    ```
+    09:26:56.212 [main] INFO  hapisample.ParsingSampleMain - Context作成時間：62ms
+    09:26:56.213 [main] INFO  hapisample.ParsingSampleMain - Validator作成時間：9536ms
+    09:26:56.213 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（初回）：5373ms
+    09:26:56.213 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（2回目）：541ms
+    09:26:56.213 [main] INFO  hapisample.ParsingSampleMain - Parser作成時間：0ms
+    09:26:56.213 [main] INFO  hapisample.ParsingSampleMain - Parse処理時間：12ms
+    09:26:56.214 [main] INFO  hapisample.ParsingSampleMain - モデル処理時間：7ms
+    ```
 
 ### 4.2 シリアライズ
 - [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、処方情報のFHIR文書のJSON文字列のほんの一部分が生成出来てるのが分かります。
