@@ -52,125 +52,74 @@
 ### 4.1 FHIRバリデーション・パース
 
 ```
-08:23:56.046 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
-08:23:56.055 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
-08:23:58.795 [main] INFO  ca.uhn.fhir.util.XmlUtil - Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
-08:23:59.256 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.257 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.269 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.270 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.275 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.275 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.337 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="short"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.343 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="short"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.408 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.427 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.427 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.451 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.471 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.472 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.475 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.511 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.549 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.550 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="requirements"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.550 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.551 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.551 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="requirements"] Invalid attribute value "": Attribute value must not be empty ("")
-08:23:59.552 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.462 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.464 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.472 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.476 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.518 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.518 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="definition"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.521 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.524 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.532 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.533 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="definition"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.540 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.541 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="definition"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.543 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.543 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="definition"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.549 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.549 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.555 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.556 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.561 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.562 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.563 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.563 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.610 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.613 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.614 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.614 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.649 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:00.650 [main] WARN  c.u.fhir.parser.LenientErrorHandler - [element="comment"] Invalid attribute value "": Attribute value must not be empty ("")
-08:24:05.313 [main] INFO  c.uhn.fhir.validation.FhirValidator - Ph-schematron library not found on classpath, will not attempt to perform schematron validation
-08:24:05.388 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
-08:24:06.674 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
-08:24:06.799 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
-08:24:07.103 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
-08:24:09.217 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
-08:24:09.570 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-08:24:09.571 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
-08:24:09.844 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-08:24:09.845 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
-08:24:09.966 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+08:53:51.754 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 7.0.2 - Rev 95beaec894
+08:53:51.764 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
+08:53:54.389 [main] INFO  ca.uhn.fhir.util.XmlUtil - Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
+08:54:00.723 [main] INFO  c.uhn.fhir.validation.FhirValidator - Ph-schematron library not found on classpath, will not attempt to perform schematron validation
+08:54:00.798 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
+08:54:02.042 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
+08:54:02.165 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
+08:54:02.515 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
+08:54:04.225 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
+08:54:04.635 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+08:54:04.637 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
+08:54:04.926 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+08:54:04.926 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
+08:54:05.028 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
 
 # バリデーションの結果が正常に終了している
-08:24:11.110 [main] INFO  hapisample.ParsingSampleMain - ドキュメントは有効です
+08:54:06.066 [main] INFO  hapisample.ParsingSampleMain - ドキュメントは有効です
 
 # パース処理の結果も正常終了し、リソースの情報を取得できている
-08:24:11.125 [main] INFO  hapisample.ParsingSampleMain - Bundle type:Document
-08:24:11.128 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Composition
-08:24:11.129 [main] INFO  hapisample.ParsingSampleMain - 文書名: 診療情報提供書
-08:24:11.129 [main] INFO  hapisample.ParsingSampleMain - subject display: 患者リソースPatient
-08:24:11.129 [main] INFO  hapisample.ParsingSampleMain - subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
-08:24:11.129 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Patient
-08:24:11.129 [main] INFO  hapisample.ParsingSampleMain - Composition.subjectの参照先のPatient:urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
-08:24:11.129 [main] INFO  hapisample.ParsingSampleMain - 患者番号:12345
-08:24:11.130 [main] INFO  hapisample.ParsingSampleMain - 患者氏名:田中 太郎
-08:24:11.131 [main] INFO  hapisample.ParsingSampleMain - 患者カナ氏名:タナカ タロウ
-08:24:11.131 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
-08:24:11.131 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
-08:24:11.131 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
-08:24:11.131 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
-08:24:11.131 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
-08:24:11.131 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
-08:24:11.131 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-08:24:11.131 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-08:24:11.132 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-08:24:11.132 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-08:24:11.132 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-08:24:11.132 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
-08:24:11.132 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
-08:24:11.132 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
-08:24:11.132 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
+08:54:06.078 [main] INFO  hapisample.ParsingSampleMain - Bundle type:Document
+08:54:06.081 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Composition
+08:54:06.081 [main] INFO  hapisample.ParsingSampleMain - 文書名: 診療情報提供書
+08:54:06.081 [main] INFO  hapisample.ParsingSampleMain - subject display: 患者リソースPatient
+08:54:06.082 [main] INFO  hapisample.ParsingSampleMain - subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+08:54:06.082 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Patient
+08:54:06.082 [main] INFO  hapisample.ParsingSampleMain - Composition.subjectの参照先のPatient:urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+08:54:06.082 [main] INFO  hapisample.ParsingSampleMain - 患者番号:12345
+08:54:06.083 [main] INFO  hapisample.ParsingSampleMain - 患者氏名:田中 太郎
+08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - 患者カナ氏名:タナカ タロウ
+08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
+08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
+08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
+08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
+08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
+08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
+08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
+08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
 ```
 
 ### 4.2 シリアライズ
 - [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、処方情報のFHIR文書のJSON文字列のほんの一部分が生成出来てるのが分かります。
 
 ```sh
-17:22:57.193 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 6.4.4 - Rev 107a1bd073
-17:22:57.201 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
-17:22:58.771 [main] INFO  hapisample.SerializingSampleMain - 実行結果:
-# 処方情報のFHIRのJSON文字列の一部を生成
+09:01:06.520 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 7.0.2 - Rev 95beaec894
+09:01:06.529 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
+09:01:08.058 [main] INFO  hapisample.SerializingSampleMain - 実行結果:
 {
   "resourceType": "Bundle",
   "meta": {
-    "lastUpdated": "2023-06-18T17:22:57.163+09:00",
+    "lastUpdated": "2024-04-13T09:01:06.489+09:00",
     "profile": [ "http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Bundle_ePrescriptionData" ]
   },
   "type": "document",
-  "timestamp": "2023-06-18T17:22:57.163+09:00",
+  "timestamp": "2024-04-13T09:01:06.489+09:00",
   "entry": [ {
-    "fullUrl": "urn:uuid:f9b2e4a8-8ec1-441a-9cfc-a65d360fa18c",
+    "fullUrl": "urn:uuid:a7f274ff-a212-4084-945f-ac87a329a8a2",
     "resource": {
       "resourceType": "Composition",
       "id": "compositionReferralExample01Inline",
       "meta": {
-        "lastUpdated": "2023-06-18T17:22:57.163+09:00",
+        "lastUpdated": "2024-04-13T09:01:06.489+09:00",
         "profile": [ "http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Composition_ePrescriptionData" ]
       },
       "text": {
@@ -201,17 +150,17 @@
         } ]
       } ],
       "subject": {
-        "reference": "urn:uuid:13ccb2b7-45ec-4e74-80e4-d61854a7a2f9"
+        "reference": "urn:uuid:1d830fe6-1b0f-43c7-a256-62988ea75539"
       },
-      "date": "2023-06-18T17:22:57+09:00",
+      "date": "2024-04-13T09:01:06+09:00",
       "title": "処方箋"
     }
   }, {
-    "fullUrl": "urn:uuid:13ccb2b7-45ec-4e74-80e4-d61854a7a2f9",
+    "fullUrl": "urn:uuid:1d830fe6-1b0f-43c7-a256-62988ea75539",
     "resource": {
       "resourceType": "Patient",
       "meta": {
-        "lastUpdated": "2023-06-18T17:22:57.163+09:00",
+        "lastUpdated": "2024-04-13T09:01:06.489+09:00",
         "profile": [ "http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Patient_ePrescriptionData" ]
       },
       "text": {

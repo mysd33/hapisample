@@ -8,7 +8,7 @@
 		<java.version>17</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>	
-		<hapi.version>6.4.4</hapi.version>
+		<hapi.version>7.0.2</hapi.version>
 		<logback.version>1.4.7</logback.version>
 	</properties>  
 	<dependencies>
@@ -30,7 +30,14 @@
 		    <version>${hapi.version}</version>
 		</dependency>    
 		
+		<!-- ver7.xでは、pomの指定が必要 -->
 		<dependency>
+		    <groupId>ca.uhn.hapi.fhir</groupId>
+		    <artifactId>hapi-fhir-caching-caffeine</artifactId>
+		    <version>${hapi.version}</version>
+		</dependency>
+				
+		<dependency>			
 		    <groupId>ch.qos.logback</groupId>
 		    <artifactId>logback-classic</artifactId>
 		    <version>${logback.version}</version>
