@@ -52,50 +52,55 @@
 ### 4.1 FHIRバリデーション・パース
 
 ```
-08:53:51.754 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 7.0.2 - Rev 95beaec894
-08:53:51.764 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
-08:53:54.389 [main] INFO  ca.uhn.fhir.util.XmlUtil - Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
-08:54:00.723 [main] INFO  c.uhn.fhir.validation.FhirValidator - Ph-schematron library not found on classpath, will not attempt to perform schematron validation
-08:54:00.798 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
-08:54:02.042 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
-08:54:02.165 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
-08:54:02.515 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
-08:54:04.225 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
-08:54:04.635 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-08:54:04.637 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
-08:54:04.926 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-08:54:04.926 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
-08:54:05.028 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-
-# バリデーションの結果が正常に終了している
-08:54:06.066 [main] INFO  hapisample.ParsingSampleMain - ドキュメントは有効です
-
-# パース処理の結果も正常終了し、リソースの情報を取得できている
-08:54:06.078 [main] INFO  hapisample.ParsingSampleMain - Bundle type:Document
-08:54:06.081 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Composition
-08:54:06.081 [main] INFO  hapisample.ParsingSampleMain - 文書名: 診療情報提供書
-08:54:06.081 [main] INFO  hapisample.ParsingSampleMain - subject display: 患者リソースPatient
-08:54:06.082 [main] INFO  hapisample.ParsingSampleMain - subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
-08:54:06.082 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Patient
-08:54:06.082 [main] INFO  hapisample.ParsingSampleMain - Composition.subjectの参照先のPatient:urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
-08:54:06.082 [main] INFO  hapisample.ParsingSampleMain - 患者番号:12345
-08:54:06.083 [main] INFO  hapisample.ParsingSampleMain - 患者氏名:田中 太郎
-08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - 患者カナ氏名:タナカ タロウ
-08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
-08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
-08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
-08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
-08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
-08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
-08:54:06.084 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
-08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
-08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
-08:54:06.085 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
+09:24:45.679 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 7.0.2 - Rev 95beaec894
+09:24:45.689 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
+09:24:48.514 [main] INFO  ca.uhn.fhir.util.XmlUtil - Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
+09:24:55.059 [main] INFO  c.uhn.fhir.validation.FhirValidator - Ph-schematron library not found on classpath, will not attempt to perform schematron validation
+09:24:55.062 [main] INFO  hapisample.ParsingSampleMain - バリデーション初回
+09:24:55.154 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
+09:24:56.238 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
+09:24:56.357 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
+09:24:56.668 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
+09:24:58.670 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
+09:24:59.000 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+09:24:59.001 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
+09:24:59.252 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+09:24:59.253 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
+09:24:59.379 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+09:25:00.425 [main] INFO  hapisample.ParsingSampleMain - バリデーション2回目
+09:25:00.897 [main] INFO  hapisample.ParsingSampleMain - ドキュメントは有効です
+09:25:00.908 [main] INFO  hapisample.ParsingSampleMain - Bundle type:Document
+09:25:00.910 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Composition
+09:25:00.911 [main] INFO  hapisample.ParsingSampleMain - 文書名: 診療情報提供書
+09:25:00.911 [main] INFO  hapisample.ParsingSampleMain - subject display: 患者リソースPatient
+09:25:00.911 [main] INFO  hapisample.ParsingSampleMain - subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+09:25:00.911 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Patient
+09:25:00.912 [main] INFO  hapisample.ParsingSampleMain - Composition.subjectの参照先のPatient:urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+09:25:00.912 [main] INFO  hapisample.ParsingSampleMain - 患者番号:12345
+09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - 患者氏名:田中 太郎
+09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - 患者カナ氏名:タナカ タロウ
+09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
+09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
+09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
+09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
+09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
+09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
+09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
+09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
+09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Context作成時間：40ms
+09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validator作成時間：9371ms
+09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（初回）：5364ms
+09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（2回目）：471ms
+09:25:00.916 [main] INFO  hapisample.ParsingSampleMain - Parser作成時間：0ms
+09:25:00.916 [main] INFO  hapisample.ParsingSampleMain - Parse処理時間：10ms
+09:25:00.916 [main] INFO  hapisample.ParsingSampleMain - モデル処理時間：8ms
 ```
 
 ### 4.2 シリアライズ
