@@ -97,7 +97,7 @@
 09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
 ```
 
-#### 4.1.2 処理結果
+#### 4.1.2 処理時間
 - Validator作成などの初期化、Validationの初回実行に時間がかかるのが分かる
 - 2回目以降のValidation実行は、高速にできているのが分かる
     - HAPI FHIRのバージョン(7.0.2)の場合
