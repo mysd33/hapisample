@@ -13,7 +13,7 @@
 	</properties>  
 	<dependencies>
 	    <dependency>
-        <groupId>ca.uhn.hapi.fhir</groupId>
+        	<groupId>ca.uhn.hapi.fhir</groupId>
 	        <artifactId>hapi-fhir-structures-r4</artifactId>
 	        <version>${hapi.version}</version>
 	    </dependency>

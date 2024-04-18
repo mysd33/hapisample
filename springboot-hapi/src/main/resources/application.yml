@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: demo
+  profiles:
+    active:
+    - dev
+    - log_default
+    

@@ -1,7 +1,16 @@
 # HAPI FHIRのサンプル
 
 - [HAPI FHIR](https://hapifhir.io/)を使って、[診療情報提供書HL7FHIR記述仕様](https://std.jpfhir.jp/)に基づくサンプルデータ（Bundle-BundleReferralExample01.json）に対して検証（FHIRバリデーション）し、Bundleリソースとしてパースするサンプルプログラムです。
-    - HAPI FHIRのバージョンは、7.0.2を使用しています。
+
+- HAPI FHIRのバージョンは、7.0.2を使用しています。
+
+- 各フォルダに、以下の2つのサンプルAPプロジェクトを作成しています。
+    - simplehapiフォルダ
+        - HAPIを理解するためのMain関数ですぐ実行できる簡単なJavaプログラム
+        - 実行には[simplehapiフォルダのサンプルAP実行方法](#4-simplehapiフォルダのサンプルap実行結果)を参照してください。
+    - springboot-hapiフォルダ
+        - REST APIでFHIRバリデーションを実施する応用編のSpringBootアプリケーション
+        - 実行には[springboot-hapiフォルダのSpringBootサンプルAP実行方法](#5-springboot-hapiフォルダのspringbootサンプルap実行方法)を参照してください。
 
 - [FHIR IGポータル](https://std.jpfhir.jp/)のサイトから、公式バリデータを使った[バリデーションガイド](https://jpfhir.jp/fhir/eReferral/igv1/validationGuide.html)が公開されていますが、ここでは、[HAPI FHIR](https://hapifhir.io)を使って、同様のバリデーションを行うサンプルプログラムを作成しています。
 
@@ -42,16 +51,16 @@
 - FHIRデータからJSONへのシリアライズ
     - パース同様、[HAPI FHIRのパーサ](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、シリアライズをしています。  
 
-## 3. 実行方法
+## 3. simplehapiフォルダのサンプルAP実行方法
 - 検証・パースするサンプルAPの使い方
-    - Java、Mavenでビルドし、「simplehapi」フォルダの「ParsingSampleMain」クラスを実行してください。
-    - 「simplehapi」フォルダがMavenプロジェクトになっていますので、通常は、Eclipse等のIDEを使ってインポートし実行するのが簡単です。
+    - 「simplehapi」フォルダの「ParsingSampleMain」クラスを実行してください。
+    - 「simplehapi」フォルダがMavenプロジェクトになっていますので、通常は、Eclipse等のIDEを使ってインポートし実行するのが簡単です。    
 
 - シリアライズするサンプルAPの使い方
-    - Java、Mavenでビルドし、「simplehapiフォルダ」の「SerializingSampleMain」クラスを実行してください。
+    - 「simplehapiフォルダ」の「SerializingSampleMain」クラスを実行してください。
     - 「simplehapi」フォルダがMavenプロジェクトになっていますので、通常は、Eclipse等のIDEを使ってインポートし実行するのが簡単です。
 
-## 4. 実行結果
+## 4. simplehapiフォルダのサンプルAP実行結果
 ### 4.1 FHIRバリデーション・パース
 
 #### 4.1.1 処理結果
@@ -233,4 +242,99 @@
     }
   } ]
 }
+```
+
+## 5. springboot-hapiフォルダのSpringBootサンプルAP実行方法
+- サンプルAPの使い方
+    - 「springboot-hapiフォルダ」はMavenプロジェクトになっていますので、 通常は、Eclipse(STS)等のIDEを使ってインポートし、「SpringBootHapiApplication」クラスをSpringBootアプリケーションとして実行するのが簡単です。  
+
+    - もしMavenで実行する際は、以下のコマンドを実行してください。
+        - Mavenでビルド
+        ```sh
+        cd springboot-hapi
+        mvnw clean package
+        
+        # Windowsの場合
+        mvnw.cmd clean package
+        ```
+        - SpringBootアプリケーションの実行
+        ```sh
+        mvnw spring-boot:run
+
+        # Windowsの場合
+        mvnw.cmd spring-boot:run
+        ```
+
+## 6. springboot-hapiフォルダのSpringBootサンプルAP実行結果
+
+- REST APIの呼び出し
+    - curlコマンド等で、以下のコマンドを呼び出します。テスト用FHIRデータを送信し、バリデーション結果を取得します。
+
+    ```sh
+    # curlコマンド実行
+    cd springboot-hapi
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-BundleReferralExample01.json http://localhost:8080/api/v1/fhir
+
+    # 正常応答
+    OK
+
+    # Bundle-BundleReferralExample01.jsonを書き換えてエラーが出るようにした場合の応答例
+
+    [ERROR]:[Bundle] Rule bdl-3: 'Entry.Requestバッチ/トランザクション/履歴に必須、それ以外の場合は禁止されています / entry.request mandatory for batch/transaction/history, otherwise prohibited' Failed
+    [ERROR]:[Bundle] Rule bdl-4: 'Batch-Response/Transaction-Response/historyに必須であり、それ以外の場合は禁止されています / entry.response mandatory for batch-response/transaction-response/history, otherwise prohibited' Failed
+    [ERROR]:[Bundle] Rule bdl-12: 'メッセージには最初のリソースとしてメッセージヘッダーが必要です / A message must have a MessageHeader as the first resource' Failed
+    [ERROR]:[Bundle] Bundle.type: minimum required = 1, but only found 0 (from http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral)
+
+    ```
+
+    - APログ
+    ```
+    2024-04-18T23:49:09.321+09:00  INFO 29428 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Starting SpringBootHapiApplication using Java 21.0.2 with PID 29428 …
+    2024-04-18T23:49:09.323+09:00 DEBUG 29428 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Running with Spring Boot v3.2.4, Spring v6.1.5
+    2024-04-18T23:49:09.324+09:00  INFO 29428 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : The following 2 profiles are active: "dev", "log_default"
+    …    
+    2024-04-18T23:49:10.534+09:00  INFO 29428 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+    2024-04-18T23:49:10.548+09:00  INFO 29428 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+    2024-04-18T23:49:10.548+09:00  INFO 29428 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
+    2024-04-18T23:49:10.626+09:00  INFO 29428 --- [demo] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+    2024-04-18T23:49:10.626+09:00  INFO 29428 --- [demo] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1245 ms
+
+    # Bean定義によるHAPIのFHIRContextの作成
+    2024-04-18T23:49:10.704+09:00  INFO 29428 --- [demo] [restartedMain] ca.uhn.fhir.util.VersionUtil             : HAPI FHIR version 7.0.2 - Rev 95beaec894
+    2024-04-18T23:49:10.710+09:00  INFO 29428 --- [demo] [restartedMain] ca.uhn.fhir.context.FhirContext          : Creating new FHIR context for FHIR version [R4]
+    2024-04-18T23:49:10.711+09:00 DEBUG 29428 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : FHIRContext作成：26ms
+    
+    # Bean定義によるHAPIのFHIRValidatorの作成（20秒と、かなり時間がかかっている）
+    2024-04-18T23:49:13.965+09:00  INFO 29428 --- [demo] [restartedMain] ca.uhn.fhir.util.XmlUtil                 : Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
+    2024-04-18T23:49:31.455+09:00  INFO 29428 --- [demo] [restartedMain] ca.uhn.fhir.validation.FhirValidator     : Ph-schematron library not found on classpath, will not attempt to perform schematron validation
+    2024-04-18T23:49:31.457+09:00 DEBUG 29428 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : FHIRValidator作成：20738ms
+
+    # バリデーション処理は初回が時間がかかるためダミーデータで暖機処理実行しておく（11秒と、かなり時間がかかっている）
+    2024-04-18T23:49:31.469+09:00 DEBUG 29428 --- [demo] [restartedMain] c.e.h.domain.FhirValidationServiceImpl   : バリデーション暖機処理実行開始
+    2024-04-18T23:49:31.542+09:00  INFO 29428 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
+    2024-04-18T23:49:34.659+09:00  INFO 29428 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
+    2024-04-18T23:49:34.914+09:00  INFO 29428 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
+    2024-04-18T23:49:35.827+09:00  INFO 29428 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
+    2024-04-18T23:49:38.900+09:00  INFO 29428 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
+    2024-04-18T23:49:39.995+09:00  WARN 29428 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
+    2024-04-18T23:49:39.996+09:00  INFO 29428 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
+    2024-04-18T23:49:41.067+09:00  WARN 29428 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
+    2024-04-18T23:49:41.068+09:00  INFO 29428 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
+    2024-04-18T23:49:41.495+09:00  WARN 29428 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
+    2024-04-18T23:49:42.543+09:00 DEBUG 29428 --- [demo] [restartedMain] c.e.h.domain.FhirValidationServiceImpl   : バリデーション暖機処理実行完了：11074ms
+
+    # Spring Boot起動までに34秒程度かかっている
+    2024-04-18T23:49:42.923+09:00  INFO 29428 --- [demo] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+    2024-04-18T23:49:42.970+09:00  INFO 29428 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
+    2024-04-18T23:49:42.984+09:00  INFO 29428 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Started SpringBootHapiApplication in 34.266 seconds (process running for 35.195)
+    2024-04-18T23:50:33.634+09:00  INFO 29428 --- [demo] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+    2024-04-18T23:50:33.634+09:00  INFO 29428 --- [demo] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+    2024-04-18T23:50:33.635+09:00  INFO 29428 --- [demo] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+
+    # バリデーション処理の実行（正常終了）　785msと、比較的高速に処理されている
+    2024-04-18T23:50:33.684+09:00 DEBUG 29428 --- [demo] [http-nio-8080-exec-1] c.e.h.domain.FhirValidationServiceImpl   : FHIRバリデーション開始[FHIRバージョン 4.0.1]
+    2024-04-18T23:50:34.469+09:00 DEBUG 29428 --- [demo] [http-nio-8080-exec-1] c.e.h.domain.FhirValidationServiceImpl   : バリデーション実行完了：785ms
+    2024-04-18T23:50:34.470+09:00  INFO 29428 --- [demo] [http-nio-8080-exec-1] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
+    ```    
+
 ```
