@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.hapisample.domain.FhirValidationService;
+import com.example.hapisample.domain.service.FhirValidationService;
+import com.example.hapisample.domain.vo.FhirValidationResult;
 
 import lombok.RequiredArgsConstructor;
 
@@ -28,7 +29,7 @@ public class FhirValidationRestController {
 	 */
 	@PostMapping
 	@ResponseStatus(HttpStatus.OK)
-	public String validate(@RequestBody(required = true) String fhirString) {
+	public FhirValidationResult validate(@RequestBody(required = true) String fhirString) {
 		// 本来はJSONでのレスポンスが望ましいが、ここでは簡単のため、バリデーションのエラーメッセージの文字列をそのまま返却している
 		return service.validate(fhirString);
 	}

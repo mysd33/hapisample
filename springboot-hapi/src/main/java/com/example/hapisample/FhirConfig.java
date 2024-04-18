@@ -11,6 +11,8 @@ import org.hl7.fhir.common.hapi.validation.validator.FhirInstanceValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.example.hapisample.domain.utl.LogUtils;
+
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.context.support.DefaultProfileValidationSupport;
 import ca.uhn.fhir.validation.FhirValidator;
@@ -29,7 +31,13 @@ public class FhirConfig {
 	private static final String JP_FHIR_TERMINOLOGY_NPM_PACKAGE = "classpath:package/jpfhir-terminology.r4-1.1.1.tgz";
 
 	/**
-	 * FhirContext
+	 * FhirContextのBean定義<br>
+	 * 
+	 * FhirContextはスレッドセーフであり、パフォーマンス上、解析またはエンコードが必要なすべてのリソースクラスをスキャンして、それらのクラスの内部モデルを構築するため、作成にコストがかかる。<br>
+	 * （ただし、複数インスタンス作成しても問題はないが、処理毎に、新しいFhirContextを作成するとパフォーマンスが低下することがある）
+	 * その理由から、アプリケーションの存続期間中FhirContextインスタンスを1つ作成し、そのインスタンスを再利用するようドキュメントで既定されているため、Bean定義してインスタンスを再利用できるようにする
+	 * 
+	 * @see https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-base/ca/uhn/fhir/context/FhirContext.html
 	 */
 	@Bean
 	FhirContext fhirContext() {
@@ -37,12 +45,16 @@ public class FhirConfig {
 		// R4モデルで作成
 		FhirContext ctx = FhirContext.forR4();
 		long endTime = System.currentTimeMillis();
-		logElaspedTime("FHIRContext作成", startTime, endTime);
+		LogUtils.logElaspedTime(log, "FHIRContext作成", startTime, endTime);
 		return ctx;
 	}
 
 	/**
-	 * FhirValidator
+	 * FhirValidatorのBean定義<br>
+	 * 
+	 * FhirValidatorはスレッドセーフ（なお、個々のモジュールはスレッドセーフではない）なので、Bean定義してインスタンスを再利用できるようにする
+	 * 
+	 * @see https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-base/ca/uhn/fhir/validation/FhirValidator.html
 	 */
 	@Bean
 	FhirValidator fhirValidator(FhirContext ctx) throws IOException {
@@ -80,12 +92,8 @@ public class FhirConfig {
 		IValidatorModule module = new FhirInstanceValidator(validationSupport);
 		validator.registerValidatorModule(module);
 		long endTime = System.currentTimeMillis();
-		logElaspedTime("FHIRValidator作成", startTime, endTime);
+		LogUtils.logElaspedTime(log, "FHIRValidator作成", startTime, endTime);
 		return validator;
 	}
 
-	
-	private static void logElaspedTime(String label, long startTime, long endTime) {
-		log.debug("{}：{}ms", label, endTime - startTime);
-	}
 }
