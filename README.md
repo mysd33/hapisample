@@ -42,10 +42,11 @@
                 - 診療情報提供のnpmパッケージ(ver1.1.6) 
                     - [snapshot形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6-snap.tgz)
                     - [diff形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6.tgz)
-        - [退院時サマリーFHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eDischargeSummary/igv1/)
-            - 退院時サマリのnpmパッケージ(ver1.1.6)
-                - [snapshot形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6-snap.tgz)
-                - [diff形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6.tgz)     
+        - 退院時サマリーの文書情報プロファイル        
+            - [退院時サマリーFHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eDischargeSummary/igv1/)
+                - 退院時サマリのnpmパッケージ(ver1.1.6)
+                    - [snapshot形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6-snap.tgz)
+                    - [diff形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6.tgz)     
             - Springboot-hapiフォルダのサンプルAPに関しては、診療情報提供書のnpmパッケージだけでなく、退院時サマリーのnpmパッケージも読み込んでいるので、サンプルデータを送信すると、退院時サマリーのバリデーションも実施することができるようになっています。
 
         - その他、健康診断結果報告書といった文書や、臨床情報（6情報、JP-CLINS）なども同様にnpmパッケージで提供されていますので、少し実装を変えれば同様にそれらのnpmパッケージを使って検証することも可能です。                                     
