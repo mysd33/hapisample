@@ -55,13 +55,11 @@ public class ParsingSampleMain {
 			// Validatorの作成
 			// 診療情報提供書のnpmパッケージファイルに基づくValidationSuportを追加
 			NpmPackageValidationSupport npmPackageEReferralSupport = new NpmPackageValidationSupport(ctx);
-			// TODO: diff形式だとSnapshotGeneratingValidationSupportでエラーが発生したため、スナップショットを利用
 			// npmPackageEReferralSupport.loadPackageFromClasspath("classpath:package/jp-eReferral.r4-1.1.6.tgz");
 			npmPackageEReferralSupport.loadPackageFromClasspath("classpath:package/jp-eReferral.r4-1.1.6-snap.tgz");
 
 			// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 			NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
-			// TODO: diff形式だとSnapshotGeneratingValidationSupportでエラーが発生したため、スナップショットを利用
 			// npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.2.tgz");
 			npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.2-snap.tgz");
 
