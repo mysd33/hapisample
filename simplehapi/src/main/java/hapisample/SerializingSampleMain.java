@@ -28,7 +28,7 @@ import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.parser.IParser;
 
 /**
- * FHIRリソースのオブジェクトをJSONシリアライズする
+ * 処方情報のFHIRリソースのオブジェクトを、FHIR（JSON）形式にシリアライズする
  *
  */
 public class SerializingSampleMain {

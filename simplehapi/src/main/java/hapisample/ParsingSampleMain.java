@@ -34,10 +34,10 @@ import ca.uhn.fhir.validation.SingleValidationMessage;
 import ca.uhn.fhir.validation.ValidationResult;
 
 /**
- * 退院時サマリーのFHIRサンプルデータをパースする
+ * 診療情報提供書のFHIRサンプルデータをバリデーション＆パースする
  */
-public class ParsingSampleMain2 {
-	private static Logger logger = LoggerFactory.getLogger(ParsingSampleMain2.class);
+public class ParsingSampleMain {
+	private static Logger logger = LoggerFactory.getLogger(ParsingSampleMain.class);
 
 	// （参考）
 	// https://hapifhir.io/hapi-fhir/docs/model/parsers.html
@@ -53,16 +53,14 @@ public class ParsingSampleMain2 {
 			long createContextTime = System.currentTimeMillis();
 
 			// Validatorの作成
-			// 退院時サマリーのnpmパッケージファイルに基づくValidationSuportを追加
-			NpmPackageValidationSupport npmPackageEDischargeSummary = new NpmPackageValidationSupport(ctx);
-			// TODO: diff形式だとSnapshotGeneratingValidationSupportでエラーが発生したため、スナップショットを利用
-			// npmPackageEDischargeSummary.loadPackageFromClasspath("classpath:package/jp-eDischargeSummary.r4-1.1.6.tgz");
-			npmPackageEDischargeSummary
-					.loadPackageFromClasspath("classpath:package/jp-eDischargeSummary.r4-1.1.6-snap.tgz");
+			// 診療情報提供書のnpmパッケージファイルに基づくValidationSuportを追加
+			NpmPackageValidationSupport npmPackageEReferralSupport = new NpmPackageValidationSupport(ctx);
+			// npmPackageEReferralSupport.loadPackageFromClasspath("classpath:package/jp-eReferral.r4-1.1.6.tgz");
+			npmPackageEReferralSupport.loadPackageFromClasspath("classpath:package/jp-eReferral.r4-1.1.6-snap.tgz");
 
 			// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 			NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
-			// TODO: diff形式だとSnapshotGeneratingValidationSupportでエラーが発生したため、スナップショットを利用
+			// JPCoreは、diff形式にすると、SnapshotGeneratingValidationSupportの処理で、OutOfMemoryエラーが発生する
 			// npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.2.tgz");
 			npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.2-snap.tgz");
 
@@ -71,14 +69,12 @@ public class ParsingSampleMain2 {
 			npmPackageTerminologySupport.loadPackageFromClasspath("classpath:package/jpfhir-terminology.r4-1.1.1.tgz");
 
 			ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
-					npmPackageEDischargeSummary, //
-					npmPackageJPCoreSupport, //
-					npmPackageTerminologySupport, //
+					npmPackageEReferralSupport, npmPackageJPCoreSupport, npmPackageTerminologySupport,
 					// FHIRプロファイルに基づいているかの組み込みの検証ルール
 					new DefaultProfileValidationSupport(ctx), //
 					new CommonCodeSystemsTerminologyService(ctx), //
 					new InMemoryTerminologyServerValidationSupport(ctx)// , //
-			// diff形式の場合にはSnapshotGeneratingValidationSupportを使用する必要があるがあるがsnapshotでは不要
+			// diff形式の場合にはSnapshotGeneratingValidationSupportを使用する必要があるがsnapshotでは不要
 			// new SnapshotGeneratingValidationSupport(ctx)
 			);
 			// キャッシュ機能の設定
@@ -90,9 +86,8 @@ public class ParsingSampleMain2 {
 			// 時間計測
 			long createValidatorTime = System.currentTimeMillis();
 
-			// 退院時サマリーのHL7 FHIRのサンプルデータを読み込み
-			// String filePath = "file/input/Bundle-BundleReferralExample01.json";
-			String filePath = "file/input/Todo.json";
+			// 診療情報提供書のHL7 FHIRのサンプルデータを読み込み
+			String filePath = "file/input/Bundle-BundleReferralExample01.json";
 
 			// 生のFHIRデータ(json文字列）に対して、直接FHIRバリデーション実行
 			String jsonString = Files.readString(Paths.get(filePath));
@@ -118,10 +113,78 @@ public class ParsingSampleMain2 {
 				}
 			}
 
+			// 時間計測
+			long parseStartTime = System.currentTimeMillis();
+			// パーサを作成
+			IParser parser = ctx.newJsonParser();
+			// 時間計測
+			long createParserTime = System.currentTimeMillis();
+
+			// サンプルデータをパースしBundleリソースを取得
+			InputStream is = new BufferedInputStream(new FileInputStream(filePath));
+			Bundle bundle = parser.parseResource(Bundle.class, is);
+			// 時間計測
+			long parseTime = System.currentTimeMillis();
+
+			// Bundleリソースを解析
+			logger.info("Bundle type:{}", bundle.getType().getDisplay());
+			// BundleからEntryを取得
+			List<BundleEntryComponent> entries = bundle.getEntry();
+			String subjectRefId = null;
+			// Entry内のResourceを取得
+			for (BundleEntryComponent entry : entries) {
+				Resource resource = entry.getResource();
+				ResourceType resourceType = resource.getResourceType();
+				logger.info("Resource Type: {}", resourceType.name());
+				switch (resourceType) {
+				case Composition:
+					// Compositionリソースを解析する例
+					Composition composition = (Composition) resource;
+					String title = composition.getTitle();
+					logger.info("文書名: {}", title);
+					// subjectの参照先のUUIDを取得
+					Reference subjectRef = composition.getSubject();
+					subjectRefId = subjectRef.getReference();
+					logger.info("subject display: {}", subjectRef.getDisplay());
+					logger.info("subject reference Id: {}", subjectRefId);
+					// TODO: 各参照先のUUIDを取得する処理の追加
+					break;
+				case Patient:
+					// Patientリソースを解析する例
+					if (!entry.getFullUrl().equals(subjectRefId)) {
+						break;
+					}
+					logger.info("Composition.subjectの参照先のPatient:{}", subjectRefId);
+					Patient patient = (Patient) resource;
+					// 患者番号の取得
+					logger.info("患者番号:{}", patient.getIdentifier().get(0).getValue());
+					// 患者氏名の取得
+					List<HumanName> humanNames = patient.getName();
+					humanNames.forEach(humanName -> {
+						String valueCode = humanName.getExtensionString(
+								"http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation");
+						if ("IDE".equals(valueCode)) {
+							logger.info("患者氏名:{}", humanName.getText());
+						} else {
+							logger.info("患者カナ氏名:{}", humanName.getText());
+						}
+					});
+					break;
+				// TODO: リソース毎に処理の追加
+				default:
+					break;
+				}
+			}
+			// 時間計測
+			long walkFhirModelTime = System.currentTimeMillis();
+
 			logElaspedTime("Context作成時間", startTime, createContextTime);
 			logElaspedTime("Validator作成時間", createContextTime, createValidatorTime);
 			logElaspedTime("Validation処理時間（初回）", createValidatorTime, validationTime);
 			logElaspedTime("Validation処理時間（2回目）", validationTime, validationTime2);
+			logElaspedTime("Parser作成時間", parseStartTime, createParserTime);
+			logElaspedTime("Parse処理時間", createParserTime, parseTime);
+			logElaspedTime("モデル処理時間", parseTime, walkFhirModelTime);
 
 		} catch (Exception e) {
 			logger.error("予期せぬエラーが発生しました", e);

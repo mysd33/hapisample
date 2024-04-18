@@ -44,12 +44,12 @@
 
 ## 3. 実行方法
 - 検証・パースするサンプルAPの使い方
-    - Java、Mavenでビルドし、「ParsingSampleMain」クラスを実行してください。
-    - 通常は、Eclipse等のIDEを使って実行するのが簡単です。
+    - Java、Mavenでビルドし、「simplehapi」フォルダの「ParsingSampleMain」クラスを実行してください。
+    - 「simplehapi」フォルダがMavenプロジェクトになっていますので、通常は、Eclipse等のIDEを使ってインポートし実行するのが簡単です。
 
 - シリアライズするサンプルAPの使い方
-    - Java、Mavenでビルドし、「SerializingSampleMain」クラスを実行してください。
-    - 通常は、Eclipse等のIDEを使って実行するのが簡単です。
+    - Java、Mavenでビルドし、「simplehapiフォルダ」の「SerializingSampleMain」クラスを実行してください。
+    - 「simplehapi」フォルダがMavenプロジェクトになっていますので、通常は、Eclipse等のIDEを使ってインポートし実行するのが簡単です。
 
 ## 4. 実行結果
 ### 4.1 FHIRバリデーション・パース
