@@ -6,3 +6,8 @@ spring:
     - dev
     - log_default
     
+# Virtual Thread                  
+  threads:
+    virtual:
+      enabled: true 
+  

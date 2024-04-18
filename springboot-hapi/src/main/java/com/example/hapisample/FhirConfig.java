@@ -24,6 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Configuration
 public class FhirConfig {
 	private static final String JP_E_REFERRAL_NPM_PACKAGE = "classpath:package/jp-eReferral.r4-1.1.6-snap.tgz";
+	private static final String JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE = "classpath:package/jp-eDischargeSummary.r4-1.1.6-snap.tgz";
 	private static final String JP_CORE_NPM_PACKAGE = "classpath:package/jp-core.r4-1.1.2-snap.tgz";
 	private static final String JP_FHIR_TERMINOLOGY_NPM_PACKAGE = "classpath:package/jpfhir-terminology.r4-1.1.1.tgz";
 
@@ -50,6 +51,10 @@ public class FhirConfig {
 		// 診療情報提供書のnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageEReferralSupport = new NpmPackageValidationSupport(ctx);
 		npmPackageEReferralSupport.loadPackageFromClasspath(JP_E_REFERRAL_NPM_PACKAGE);
+		
+		// 退院時サマリののnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageDischargeSummarySupport = new NpmPackageValidationSupport(ctx);
+		npmPackageDischargeSummarySupport.loadPackageFromClasspath(JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE);
 
 		// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
@@ -61,6 +66,7 @@ public class FhirConfig {
 
 		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 				npmPackageEReferralSupport, //
+				npmPackageDischargeSummarySupport, //
 				npmPackageJPCoreSupport, //
 				npmPackageTerminologySupport,
 				// FHIRベースプロファイルの組み込みの検証ルール
