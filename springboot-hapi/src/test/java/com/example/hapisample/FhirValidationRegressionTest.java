@@ -13,6 +13,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
@@ -20,6 +21,8 @@ import com.example.hapisample.domain.service.FhirValidationServiceImpl;
 import com.example.hapisample.domain.vo.FhirValidationResult;
 
 import ca.uhn.fhir.context.FhirContext;
+import ch.qos.logback.classic.Level;
+import ch.qos.logback.classic.Logger;
 
 /**
  * FhirValidationの自動回帰テストコードの例<br>
@@ -33,11 +36,14 @@ class FhirValidationRegressionTest {
 	// テスト対象を高速に起動できるように@BeforeAllで初期化しておく
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		// ログをデバックレベルに設定
+		((Logger) LoggerFactory.getLogger(FhirConfig.class)).setLevel(Level.DEBUG);
+		((Logger) LoggerFactory.getLogger(FhirValidationServiceImpl.class)).setLevel(Level.DEBUG);
 		// FhirConfigのBean定義通りに、FhirValidationServiceImplインスタンスを作成
 		FhirConfig fhirConfig = new FhirConfig();
 		FhirContext ctx = fhirConfig.fhirContext();
-		sut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirValidator(ctx));
-		// 暖機処理（initメソッド）呼び出しておく
+		sut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirValidator(ctx));		
+		// 暖機処理（initメソッド）を呼び出しておく
 		Resource initDataResourceValue = new ClassPathResource("file/Bundle-BundleReferralExample01.json");
 		Field initDataResourceField = sut.getClass().getDeclaredField("initDataResource");
 		initDataResourceField.setAccessible(true);
