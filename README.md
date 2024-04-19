@@ -303,6 +303,13 @@
     ```
 
     - APログ
+        - AP起動時に、HAPIのFHIRContext、FHIRValidatorの作成、バリデーション暖機処理実行を行い、高速にバリデーションを実行できるようになっていることが分かります。
+            - SpringBootのBean定義によるHAPIのFHIRContext、FHIRValidatorの作成を行っているため、AP起動時に初期化処理が行われます。
+                - [src/main/java/com/example/hapisample/FhirConfig.java](springboot-hapi/src/main/java/com/example/hapisample/FhirConfig.java)
+            - バリデーション暖機処理実行は、AP起動時に@PostConstructに記載した処理でダミーデータで暖機処理を実行しています。
+                - [springboot-hapi/src/main/java/com/example/hapisample/domain/service/FhirValidationServiceImpl.java](springboot-hapi/src/main/java/com/example/hapisample/domain/service/FhirValidationServiceImpl.java#L40-L48)
+
+
     ```
     2024-04-19T05:56:19.135+09:00  INFO 28176 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Starting SpringBootHapiApplication using Java 21.0.2 with PID 28176 …
     2024-04-19T05:56:19.137+09:00 DEBUG 28176 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Running with Spring Boot v3.2.4, Spring v6.1.5
@@ -377,4 +384,8 @@
     2024-04-19T05:57:33.152+09:00  INFO 28176 --- [demo] [tomcat-handler-14] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
     ```    
 
-```
+## 7. SpringBootサンプルAPでのFHIRバリデーションの回帰テスト自動化の例
+- FHIRプロファイルの改訂、HAPIのバージョンアップ等の際、FHIRバリデーションが以前と変わりなく同じように動作すること確認する回帰テストが自動でできる仕組みが必要になることが想像されます。
+- 以下のテストコードは、SpringBootを起動せずに、JUnit5のパラメタライズドテストで、複数のテストケースに対して、繰り返しFHIRバリデーションのロジックだけを高速にテストする例です。CI/CDパイプラインに組み込めば、FHIRプロファイルの改訂、HAPIのバージョンアップ等の際に、バリデーションのロジックのみを高速に自動回帰テストできるようになります。
+    - [springboot-hapi/src/test/java/com/example/hapisample/FhirValidationRegressionTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationRegressionTest.java)
+    

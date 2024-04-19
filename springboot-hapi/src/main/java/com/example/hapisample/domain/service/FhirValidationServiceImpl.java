@@ -30,7 +30,7 @@ public class FhirValidationServiceImpl implements FhirValidationService {
 	private final FhirValidator validator;
 
 	@Value("classpath:file/Bundle-BundleReferralExample01.json")
-	private Resource resource;
+	private Resource initDataResource;
 
 	/**
 	 * FHIRバリデーションの初回実行には時間がかかるため、AP起動時にダミーデータでバリデーションの初回実行をしておく
@@ -38,8 +38,8 @@ public class FhirValidationServiceImpl implements FhirValidationService {
 	 * @throws IOException
 	 */
 	@PostConstruct
-	void init() throws IOException {
-		String fhirString = Files.readString(resource.getFile().toPath());
+	public void init() throws IOException {
+		String fhirString = Files.readString(initDataResource.getFile().toPath());
 		log.debug("バリデーション暖機処理実行開始");
 		long startTime = System.currentTimeMillis();
 		validator.validateWithResult(fhirString);
