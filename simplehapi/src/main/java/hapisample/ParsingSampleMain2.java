@@ -2,6 +2,7 @@ package hapisample;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
 
 import org.hl7.fhir.common.hapi.validation.support.CachingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.CommonCodeSystemsTerminologyService;
@@ -32,11 +33,11 @@ public class ParsingSampleMain2 {
 		// あえて分かりやすくするため１つのメソッドに手続き的に書いてあるので、本当に実装したい場合は保守性の高いモジュール化されたコードを書くこと
 		try {
 			// 時間計測
-			long startTime = System.currentTimeMillis();
+			long startTime = System.nanoTime();
 			// FHIRコンテキスト作成（JPCore、各文書プロファイルがR4で定義されているのでR4で作成）
 			FhirContext ctx = FhirContext.forR4();
 			// 時間計測
-			long createContextTime = System.currentTimeMillis();
+			long createContextTime = System.nanoTime();
 
 			// Validatorの作成
 			// 退院時サマリーのnpmパッケージファイルに基づくValidationSuportを追加
@@ -87,10 +88,10 @@ public class ParsingSampleMain2 {
 			validator.registerValidatorModule(module);
 
 			// 時間計測
-			long createValidatorTime = System.currentTimeMillis();
+			long createValidatorTime = System.nanoTime();
 
 			// 退院時サマリーのHL7 FHIRのサンプルデータを読み込み
-			// String filePath = "file/input/Bundle-BundleReferralExample01.json";
+			//String filePath = "file/input/Bundle-BundleReferralExample01.json";
 			String filePath = "file/input/Todo.json";
 
 			// 生のFHIRデータ(json文字列）に対して、直接FHIRバリデーション実行
@@ -99,12 +100,12 @@ public class ParsingSampleMain2 {
 			// 初回
 			ValidationResult validationResult = validator.validateWithResult(jsonString);
 			// 時間計測
-			long validationTime = System.currentTimeMillis();
+			long validationTime = System.nanoTime();
 			// 処理時間変化の確認のため、もう一回2回目実行
 			logger.info("バリデーション2回目");
 			validationResult = validator.validateWithResult(jsonString);
 			// 時間計測2
-			long validationTime2 = System.currentTimeMillis();
+			long validationTime2 = System.nanoTime();
 
 			if (validationResult.isSuccessful()) {
 				logger.info("ドキュメントは有効です");
@@ -127,8 +128,8 @@ public class ParsingSampleMain2 {
 		}
 	}
 
-	private static void logElaspedTime(String label, long startTime, long endTime) {
-		logger.info("{}：{}ms", label, endTime - startTime);
+	private static void logElaspedTime(String label, long startTime, long endTime) {						
+		logger.info("{}：{}ms", label, TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000d);
 	}
 
 }

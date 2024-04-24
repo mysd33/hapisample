@@ -56,11 +56,11 @@ public class FhirHighPerformanceConfig {
 	FhirContext fhirContext(FhirConfigurationProperties fhirConfigurationProperties) {
 		log.info("ハイパフォーマンスモード:{}", fhirConfigurationProperties.isHighPerformanceMode());
 		log.info("FHIR性能向上版Bean生成");
-		long startTime = System.currentTimeMillis();
+		long startTime = System.nanoTime();
 		// R5モデルで作成
 		FhirContext ctx = FhirContext.forR5();
-		long endTime = System.currentTimeMillis();
-		LogUtils.logElaspedTime(log, "FHIRContext作成", startTime, endTime);
+		long endTime = System.nanoTime();
+		LogUtils.logElaspedTimeMillSecondUnit(log, "FHIRContext作成", startTime, endTime);
 		return ctx;
 	}
 
@@ -73,7 +73,7 @@ public class FhirHighPerformanceConfig {
 	 */
 	@Bean
 	FhirValidator fhirValidator(FhirContext ctxForR5) throws IOException {
-		long startTime = System.currentTimeMillis();
+		long startTime = System.nanoTime();
 
 		// R4のContextを一時的に作成
 		FhirContext tmpCtxForR4 = FhirContext.forR4();
@@ -134,8 +134,8 @@ public class FhirHighPerformanceConfig {
 		FhirValidator validator = ctxForR5.newValidator();
 		IValidatorModule module = new FhirInstanceValidator(validationSupport);
 		validator.registerValidatorModule(module);
-		long endTime = System.currentTimeMillis();
-		LogUtils.logElaspedTime(log, "FHIRValidator作成", startTime, endTime);
+		long endTime = System.nanoTime();
+		LogUtils.logElaspedTimeMillSecondUnit(log, "FHIRValidator作成", startTime, endTime);
 		return validator;
 	}
 

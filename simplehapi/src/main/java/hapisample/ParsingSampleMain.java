@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.hl7.fhir.common.hapi.validation.support.CachingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.CommonCodeSystemsTerminologyService;
@@ -45,11 +46,11 @@ public class ParsingSampleMain {
 		// あえて分かりやすくするため１つのメソッドに手続き的に書いてあるので、本当に実装したい場合は保守性の高いモジュール化されたコードを書くこと
 		try {
 			// 時間計測
-			long startTime = System.currentTimeMillis();
+			long startTime = System.nanoTime();
 			// FHIRコンテキスト作成（JPCore、各文書プロファイルがR4で定義されているのでR4で作成）
 			FhirContext ctx = FhirContext.forR4();
 			// 時間計測
-			long createContextTime = System.currentTimeMillis();
+			long createContextTime = System.nanoTime();
 
 			// Validatorの作成
 			// 診療情報提供書のnpmパッケージファイルに基づくValidationSuportを追加
@@ -100,7 +101,7 @@ public class ParsingSampleMain {
 			validator.registerValidatorModule(module);
 
 			// 時間計測
-			long createValidatorTime = System.currentTimeMillis();
+			long createValidatorTime = System.nanoTime();
 
 			// 診療情報提供書のHL7 FHIRのサンプルデータを読み込み
 			String filePath = "file/input/Bundle-BundleReferralExample01.json";
@@ -109,14 +110,14 @@ public class ParsingSampleMain {
 			String jsonString = Files.readString(Paths.get(filePath));
 			logger.info("バリデーション初回");
 			// 初回
-			ValidationResult validationResult = validator.validateWithResult(jsonString);
+			validator.validateWithResult(jsonString);
 			// 時間計測
-			long validationTime = System.currentTimeMillis();
+			long validationTime = System.nanoTime();
 			// 処理時間変化の確認のため、もう一回2回目実行
 			logger.info("バリデーション2回目");
-			validationResult = validator.validateWithResult(jsonString);
+			ValidationResult validationResult = validator.validateWithResult(jsonString);
 			// 時間計測2
-			long validationTime2 = System.currentTimeMillis();
+			long validationTime2 = System.nanoTime();
 
 			if (validationResult.isSuccessful()) {
 				logger.info("ドキュメントは有効です");
@@ -130,17 +131,17 @@ public class ParsingSampleMain {
 			}
 
 			// 時間計測
-			long parseStartTime = System.currentTimeMillis();
+			long parseStartTime = System.nanoTime();
 			// パーサを作成
 			IParser parser = ctx.newJsonParser();
 			// 時間計測
-			long createParserTime = System.currentTimeMillis();
+			long createParserTime = System.nanoTime();
 
 			// サンプルデータをパースしBundleリソースを取得
 			InputStream is = new BufferedInputStream(new FileInputStream(filePath));
 			Bundle bundle = parser.parseResource(Bundle.class, is);
 			// 時間計測
-			long parseTime = System.currentTimeMillis();
+			long parseTime = System.nanoTime();
 
 			// Bundleリソースを解析
 			logger.info("Bundle type:{}", bundle.getType().getDisplay());
@@ -192,7 +193,7 @@ public class ParsingSampleMain {
 				}
 			}
 			// 時間計測
-			long walkFhirModelTime = System.currentTimeMillis();
+			long walkFhirModelTime = System.nanoTime();
 
 			logElaspedTime("Context作成時間", startTime, createContextTime);
 			logElaspedTime("Validator作成時間", createContextTime, createValidatorTime);
@@ -207,8 +208,8 @@ public class ParsingSampleMain {
 		}
 	}
 
-	private static void logElaspedTime(String label, long startTime, long endTime) {
-		logger.info("{}：{}ms", label, endTime - startTime);
+	private static void logElaspedTime(String label, long startTime, long endTime) {						
+		logger.info("{}：{}ms", label, TimeUnit.NANOSECONDS.toMicros(endTime - startTime) / 1000d);
 	}
 
 }

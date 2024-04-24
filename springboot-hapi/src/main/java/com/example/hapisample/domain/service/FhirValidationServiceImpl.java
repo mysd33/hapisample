@@ -41,10 +41,10 @@ public class FhirValidationServiceImpl implements FhirValidationService {
 	public void init() throws IOException {
 		String fhirString = Files.readString(initDataResource.getFile().toPath());
 		log.debug("バリデーション暖機処理実行開始");
-		long startTime = System.currentTimeMillis();
+		long startTime = System.nanoTime();
 		validator.validateWithResult(fhirString);
-		long endTime = System.currentTimeMillis();
-		LogUtils.logElaspedTime(log, "バリデーション暖機処理実行完了", startTime, endTime);
+		long endTime = System.nanoTime();
+		LogUtils.logElaspedTimeMillSecondUnit(log, "バリデーション暖機処理実行完了", startTime, endTime);
 	}
 
 	@Override
@@ -52,10 +52,10 @@ public class FhirValidationServiceImpl implements FhirValidationService {
 		log.debug("FHIRバリデーション開始[FHIRバージョン {}]", fhirContext.getVersion().getVersion().getFhirVersionString());
 		// log.debug("バリデーション対象データ:{}", fhirString);
 		// FHIRバリデーションの実行
-		long startTime = System.currentTimeMillis();
+		long startTime = System.nanoTime();
 		ValidationResult validationResult = validator.validateWithResult(fhirString);
-		long endTime = System.currentTimeMillis();
-		LogUtils.logElaspedTime(log, "バリデーション実行完了", startTime, endTime);
+		long endTime = System.nanoTime();
+		LogUtils.logElaspedTimeMillSecondUnit(log, "バリデーション実行完了", startTime, endTime);
 		// バリデーション結果が正常の場合
 		if (validationResult.isSuccessful()) {
 			log.info("ドキュメントは有効です");

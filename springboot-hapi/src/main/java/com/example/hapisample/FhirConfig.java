@@ -45,11 +45,11 @@ public class FhirConfig {
 	 */
 	@Bean
 	FhirContext fhirContext() {
-		long startTime = System.currentTimeMillis();
+		long startTime = System.nanoTime();
 		// R4モデルで作成
 		FhirContext ctx = FhirContext.forR4();
-		long endTime = System.currentTimeMillis();
-		LogUtils.logElaspedTime(log, "FHIRContext作成", startTime, endTime);
+		long endTime = System.nanoTime();
+		LogUtils.logElaspedTimeMillSecondUnit(log, "FHIRContext作成", startTime, endTime);
 		return ctx;
 	}
 
@@ -62,7 +62,7 @@ public class FhirConfig {
 	 */
 	@Bean
 	FhirValidator fhirValidator(FhirContext ctx) throws IOException {
-		long startTime = System.currentTimeMillis();
+		long startTime = System.nanoTime();
 		// Validatorの作成
 		// 診療情報提供書のnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageEReferralSupport = new NpmPackageValidationSupport(ctx);
@@ -106,8 +106,8 @@ public class FhirConfig {
 		FhirValidator validator = ctx.newValidator();
 		IValidatorModule module = new FhirInstanceValidator(validationSupport);
 		validator.registerValidatorModule(module);
-		long endTime = System.currentTimeMillis();
-		LogUtils.logElaspedTime(log, "FHIRValidator作成", startTime, endTime);
+		long endTime = System.nanoTime();
+		LogUtils.logElaspedTimeMillSecondUnit(log, "FHIRValidator作成", startTime, endTime);
 		return validator;
 	}
 
