@@ -58,7 +58,8 @@ class FhirValidationPerformanceTest {
 	// 性能改善版のFHIR Validation機能の初期化
 	private static void initHighPerformanceSut() throws IOException, NoSuchFieldException, IllegalAccessException {
 		FhirHighPerformanceConfig fhirConfig = new FhirHighPerformanceConfig();
-		FhirContext ctx = fhirConfig.fhirContext(FhirConfigurationProperties.builder().highPerformanceMode(true).build());
+		FhirContext ctx = fhirConfig
+				.fhirContext(FhirConfigurationProperties.builder().highPerformanceMode(true).build());
 		highPerformanceSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirValidator(ctx));
 		initValidator(highPerformanceSut);
 	}
@@ -101,11 +102,12 @@ class FhirValidationPerformanceTest {
 		}
 		log.info("試行回数:{}回", ATTEMPT_COUNT);
 		log.info("通常版のFHIR Validation機能の平均処理時間:{}ms", //
-				TimeUnit.NANOSECONDS
-						.toMillis((long) duraionsForDefault.stream().mapToLong(d -> d).average().getAsDouble()));
+				// ミリ秒で出力（toMillsだとミリ秒以下の少数切り捨てなので、マイクロ秒から1000で割ってDouble型で出力
+				TimeUnit.NANOSECONDS.toMicros(
+						(long) duraionsForDefault.stream().mapToLong(d -> d).average().getAsDouble()) / 1000d);
 		log.info("性能改善版のFHIR Validation機能の平均処理時間:{}ms", //
-				TimeUnit.NANOSECONDS.toMillis(
-						(long) durationsForHighPerformance.stream().mapToLong(d -> d).average().getAsDouble()));
+				TimeUnit.NANOSECONDS.toMicros(
+						(long) durationsForHighPerformance.stream().mapToLong(d -> d).average().getAsDouble()) / 1000d);
 	}
 
 }
