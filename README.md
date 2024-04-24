@@ -388,7 +388,7 @@
 ## 7. SpringBootサンプルAPでのFHIRバリデーションの回帰テスト自動化の例
 - FHIRプロファイルの改訂、HAPIのバージョンアップ等の際、FHIRバリデーションが以前と変わりなく同じように動作すること確認する回帰テストが自動でできる仕組みが必要になることが想像されます。
 - 以下のテストコードは、SpringBootを起動せずに、JUnit5のパラメタライズドテストで、複数のテストケースに対して、繰り返しFHIRバリデーションのロジックだけを高速にテストする例です。CI/CDパイプラインに組み込めば、FHIRプロファイルの改訂、HAPIのバージョンアップ等の際に、バリデーションのロジックのみを高速に自動回帰テストできるようになります。
-    - [springboot-hapi/src/test/java/com/example/hapisample/FhirValidationRegressionTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationRegressionTest.java)
+    - [FhirValidationRegressionTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationRegressionTest.java)
 
 
 ## 8. SpringBootサンプルAPでのFHIRバリデーションのパフォーマンス改善モード
@@ -402,7 +402,7 @@ fhir:
   highPerformanceMode: true  
 ```
 
-- ログ
+- APログ
 
 ```
 2024-04-24T08:41:26.481+09:00  INFO 15552 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Starting SpringBootHapiApplication using Java 21.0.2 with PID 15552 (D:\git\hapisample\springboot-hapi\target\classes started by dell in D:\git\hapisample\springboot-hapi)
@@ -440,4 +440,17 @@ fhir:
 2024-04-24T08:51:09.623+09:00 DEBUG 15552 --- [demo] [tomcat-handler-4] c.e.h.d.s.FhirValidationServiceImpl      : FHIRバリデーション開始[FHIRバージョン 5.0.0]
 2024-04-24T08:51:09.863+09:00 DEBUG 15552 --- [demo] [tomcat-handler-4] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション実行完了：239ms
 2024-04-24T08:51:09.863+09:00  INFO 15552 --- [demo] [tomcat-handler-4] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です
+```
+
+## 9. SpringBootサンプルAPでのFHIRバリデーションのパフォーマンス比較
+- 以下のテストコードを使うと、通常版と、8.のパフォーマンス改善版の処理時間を比較できる
+    - [FhirValidationPerformanceTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationPerformanceTest.java)
+
+- APログ（比較結果）
+  - テストデータの特性にもよると思うが、性能改善版の方が高速になっていることが分かる。
+
+```
+09:44:24.013 [main] INFO com.example.hapisample.FhirValidationPeformanceTest -- 試行回数:10回
+09:44:24.017 [main] INFO com.example.hapisample.FhirValidationPeformanceTest -- 通常版のFHIR Validation機能の平均処理時間:473ms
+09:44:24.018 [main] INFO com.example.hapisample.FhirValidationPeformanceTest -- 性能改善版のFHIR Validation機能の平均処理時間:175ms
 ```
