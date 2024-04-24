@@ -32,7 +32,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Configuration
-@ConditionalOnProperty(prefix = "fhir", name = "highPerformanceMode", havingValue = "true", matchIfMissing = false)
+@ConditionalOnProperty(prefix = "fhir", name = "high-performance-mode", havingValue = "true", matchIfMissing = false)
 @EnableConfigurationProperties(FhirConfigurationProperties.class)
 public class FhirHighPerformanceConfig {
 	private static final String JP_E_REFERRAL_NPM_PACKAGE = "classpath:package/jp-eReferral.r4-1.1.6-snap.tgz";
@@ -53,7 +53,8 @@ public class FhirHighPerformanceConfig {
 	 * @see https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-base/ca/uhn/fhir/context/FhirContext.html
 	 */
 	@Bean
-	FhirContext fhirContext() {
+	FhirContext fhirContext(FhirConfigurationProperties fhirConfigurationProperties) {
+		log.info("ハイパフォーマンスモード:{}", fhirConfigurationProperties.isHighPerformanceMode());
 		log.info("FHIR性能向上版Bean生成");
 		long startTime = System.currentTimeMillis();
 		// R5モデルで作成

@@ -26,7 +26,7 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Configuration
-@ConditionalOnProperty(prefix = "fhir", name = "highPerformanceMode", havingValue = "false", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "fhir", name = "high-performance-mode", havingValue = "false", matchIfMissing = true)
 @EnableConfigurationProperties(FhirConfigurationProperties.class)
 public class FhirConfig {
 	private static final String JP_E_REFERRAL_NPM_PACKAGE = "classpath:package/jp-eReferral.r4-1.1.6-snap.tgz";

@@ -399,7 +399,7 @@
 
 ```yaml
 fhir:
-  highPerformanceMode: true  
+  high-performance-mode: true
 ```
 
 - APログ

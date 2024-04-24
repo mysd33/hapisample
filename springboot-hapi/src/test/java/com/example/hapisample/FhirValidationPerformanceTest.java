@@ -58,7 +58,7 @@ class FhirValidationPerformanceTest {
 	// 性能改善版のFHIR Validation機能の初期化
 	private static void initHighPerformanceSut() throws IOException, NoSuchFieldException, IllegalAccessException {
 		FhirHighPerformanceConfig fhirConfig = new FhirHighPerformanceConfig();
-		FhirContext ctx = fhirConfig.fhirContext();
+		FhirContext ctx = fhirConfig.fhirContext(FhirConfigurationProperties.builder().highPerformanceMode(true).build());
 		highPerformanceSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirValidator(ctx));
 		initValidator(highPerformanceSut);
 	}

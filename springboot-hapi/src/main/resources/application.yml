@@ -13,5 +13,4 @@ spring:
       
 # Fhir Configuration(high performance mode)
 fhir:
-  highPerformanceMode: true
-  
+  high-performance-mode: true
