@@ -450,7 +450,7 @@ fhir:
   - テストデータの特性にもよると思うが、性能改善版の方が高速になっていることが分かる。
 
 ```
-09:44:24.013 [main] INFO com.example.hapisample.FhirValidationPeformanceTest -- 試行回数:10回
-09:44:24.017 [main] INFO com.example.hapisample.FhirValidationPeformanceTest -- 通常版のFHIR Validation機能の平均処理時間:473ms
-09:44:24.018 [main] INFO com.example.hapisample.FhirValidationPeformanceTest -- 性能改善版のFHIR Validation機能の平均処理時間:175ms
+14:53:13.880 [main] INFO com.example.hapisample.FhirValidationPerformanceTest -- 試行回数:10回
+14:53:13.912 [main] INFO com.example.hapisample.FhirValidationPerformanceTest -- 通常版のFHIR Validation機能の平均処理時間:368.117ms
+14:53:13.912 [main] INFO com.example.hapisample.FhirValidationPerformanceTest -- 性能改善版のFHIR Validation機能の平均処理時間:121.621ms
 ```
