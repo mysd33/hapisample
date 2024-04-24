@@ -30,7 +30,8 @@
             - NpmPackageValidationSupportクラスによる、パッケージを使ったバリデーションの実装方法については、[HAPI FHIRのドキュメントの「Validating Using Packages」](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html#packages)を参考に実装しています。    
         - npmパッケージには、diff形式とsnapshot形式の2つがありますが、通常は、FHIRが親のプロファイルを継承して定義される思想からdiff形式のパッケージを使いたいのですが、以下の2点の理由によりsnapshot形式のパッケージを使って実行しています。
             1. JPCoreのnpmパッケージは、diff形式のパッケージが提供されているが、[SnapshotGeneratingValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#snapshotgeneratingvalidationsupport)による処理でjava.lang.OutOfMemoryErrorが発生する。
-            1. HAPIのValidatorは、R5以前のバージョンも動作するように下位互換性が担保されている作りとなっているが、実装上、内部ではFHIRのR5のデータ構造に変換して処理する。このため、R4のプロファイルを利用する場合に、バリデーション実行時に、StructureDefinitionやValueSet、CodeSystem等の定義情報を参照する際、都度R4からR5のデータ構造へ変換するための処理が発生し、オーバヘッドになることがある。SnapshotGeneratingValidationSupportを使った場合この処理が多く発生するため、処理が遅くなることがある。SnapshotGeneratingValidationSupportは、diff形式のパッケージに対してValidation実行時にSnapshot形式の定義情報を自動生成するクラスであるため、全てsnapshot形式のパッケージを使う場合は、SnapshotGeneratingValidationSupportを使わなくて済む。
+            1. HAPIのValidatorは、R5以前のバージョンも動作するように下位互換性が担保されている作りとなっているが、実装上、内部ではFHIRのR5のデータ構造に変換して処理する。このため、R4のプロファイルを利用する場合に、バリデーション実行時に、StructureDefinitionやValueSet、CodeSystem等の定義情報を参照する際、都度R4からR5のデータ構造へ変換するための処理が発生し、オーバヘッドになることがある。SnapshotGeneratingValidationSupportを使った場合にもこの処理が発生するため、処理が遅くなる可能性がある。また、SnapshotGeneratingValidationSupportは、そもそも、diff形式のパッケージに対してValidation実行時にSnapshot形式の定義情報を自動生成するクラスであるため、全てsnapshot形式のパッケージを使う場合は、SnapshotGeneratingValidationSupportを使わなくて済む。
+                - なお、パフォーマンス改善については、SpringBootのサンプルAPでは、よりR4→R5変換が少なく済む実装方法も用意している。
         - JPCoreのプロファイル
             - [JPCore実装ガイド](https://jpfhir.jp/fhir/core/)のサイトにJPCoreの実装ガイドとTerminologyのnpmパッケージがあります。
                 - JPCoreのnpmパッケージ(ver1.1.2)
@@ -388,4 +389,55 @@
 - FHIRプロファイルの改訂、HAPIのバージョンアップ等の際、FHIRバリデーションが以前と変わりなく同じように動作すること確認する回帰テストが自動でできる仕組みが必要になることが想像されます。
 - 以下のテストコードは、SpringBootを起動せずに、JUnit5のパラメタライズドテストで、複数のテストケースに対して、繰り返しFHIRバリデーションのロジックだけを高速にテストする例です。CI/CDパイプラインに組み込めば、FHIRプロファイルの改訂、HAPIのバージョンアップ等の際に、バリデーションのロジックのみを高速に自動回帰テストできるようになります。
     - [springboot-hapi/src/test/java/com/example/hapisample/FhirValidationRegressionTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationRegressionTest.java)
-    
+
+
+## 8. SpringBootサンプルAPでのFHIRバリデーションのパフォーマンス改善モード
+- HAPIのValidatorは、R5以前のバージョンも動作するように下位互換性が担保されている作りとなっているが、実装上、内部ではFHIRのR5のデータ構造に変換して処理する。このため、R4のプロファイルを利用する場合に、バリデーション実行時に、StructureDefinitionやValueSet、CodeSystem等の定義情報を参照する際、都度R4からR5のデータ構造へ変換するための処理が発生し、オーバヘッドになることがある。
+- このため、よりR4→R5変換が少なく済むよう、事前に定義情報R4→R5のデータ構造に変換してからバリデーションを実施するための実装方法も用意している。
+- これを有効化したい場合は、application.ymlに、以下の設定を追加する。
+    - [springboot-hapi/src/main/resources/application.yml](springboot-hapi/src/main/resources/application.yml)
+
+```yaml
+fhir:
+  highPerformanceMode: true  
+```
+
+- ログ
+
+```
+2024-04-24T08:41:26.481+09:00  INFO 15552 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Starting SpringBootHapiApplication using Java 21.0.2 with PID 15552 (D:\git\hapisample\springboot-hapi\target\classes started by dell in D:\git\hapisample\springboot-hapi)
+2024-04-24T08:41:26.483+09:00 DEBUG 15552 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Running with Spring Boot v3.2.4, Spring v6.1.5
+…
+2024-04-24T08:41:27.734+09:00  INFO 15552 --- [demo] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1194 ms
+
+# ログに、「FHIR性能向上版Bean生成」が出力されていることを確認
+2024-04-24T08:41:27.791+09:00  INFO 15552 --- [demo] [restartedMain] c.e.h.FhirHighPerformanceConfig          : FHIR性能向上版Bean生成
+2024-04-24T08:41:27.812+09:00  INFO 15552 --- [demo] [restartedMain] ca.uhn.fhir.util.VersionUtil             : HAPI FHIR version 7.0.2 - Rev 95beaec894
+
+# R5モデルのFHIRContextが作成される
+2024-04-24T08:41:27.818+09:00  INFO 15552 --- [demo] [restartedMain] ca.uhn.fhir.context.FhirContext          : Creating new FHIR context for FHIR version [R5]
+2024-04-24T08:41:27.819+09:00 DEBUG 15552 --- [demo] [restartedMain] c.e.h.FhirHighPerformanceConfig          : FHIRContext作成：27ms
+
+# R4→R5変換のため、一時的にR4モデルのFHIRContextも作成される
+2024-04-24T08:41:27.828+09:00  INFO 15552 --- [demo] [restartedMain] ca.uhn.fhir.context.FhirContext          : Creating new FHIR context for FHIR version [R4]
+…
+
+# Bean定義によるHAPIのFHIRValidatorの作成（プロファイルの読み込み等があるため、40秒程度と、通常の実装より時間がかかっている）
+2024-04-24T08:42:08.620+09:00 DEBUG 15552 --- [demo] [restartedMain] c.e.h.FhirHighPerformanceConfig          : FHIRValidator作成：40792ms
+
+# バリデーション処理は初回実行時だけ時間がかかるため、AP起動時あらかじめ@PostConstructに記載した処理でダミーデータで暖機処理実行（700ms程度と、通常の実装より高速に終わっている）
+2024-04-24T08:42:08.629+09:00 DEBUG 15552 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行開始
+2024-04-24T08:42:09.372+09:00 DEBUG 15552 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行完了：743ms
+…
+
+# バリデーション処理の実行（正常終了） テストデータが同じでも、バリデーション処理が高速になっていることが分かる
+2024-04-24T08:51:05.756+09:00 DEBUG 15552 --- [demo] [tomcat-handler-0] c.e.h.d.s.FhirValidationServiceImpl      : FHIRバリデーション開始[FHIRバージョン 5.0.0]
+2024-04-24T08:51:06.067+09:00 DEBUG 15552 --- [demo] [tomcat-handler-0] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション実行完了：311ms
+2024-04-24T08:51:06.067+09:00  INFO 15552 --- [demo] [tomcat-handler-0] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です
+2024-04-24T08:51:08.361+09:00 DEBUG 15552 --- [demo] [tomcat-handler-2] c.e.h.d.s.FhirValidationServiceImpl      : FHIRバリデーション開始[FHIRバージョン 5.0.0]
+2024-04-24T08:51:08.601+09:00 DEBUG 15552 --- [demo] [tomcat-handler-2] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション実行完了：240ms
+2024-04-24T08:51:08.602+09:00  INFO 15552 --- [demo] [tomcat-handler-2] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です
+2024-04-24T08:51:09.623+09:00 DEBUG 15552 --- [demo] [tomcat-handler-4] c.e.h.d.s.FhirValidationServiceImpl      : FHIRバリデーション開始[FHIRバージョン 5.0.0]
+2024-04-24T08:51:09.863+09:00 DEBUG 15552 --- [demo] [tomcat-handler-4] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション実行完了：239ms
+2024-04-24T08:51:09.863+09:00  INFO 15552 --- [demo] [tomcat-handler-4] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です
+```

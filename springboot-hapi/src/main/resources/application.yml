@@ -10,4 +10,8 @@ spring:
   threads:
     virtual:
       enabled: true 
+      
+# Fhir Configuration(high performance mode)
+fhir:
+  highPerformanceMode: true
   

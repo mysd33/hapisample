@@ -8,6 +8,8 @@ import org.hl7.fhir.common.hapi.validation.support.InMemoryTerminologyServerVali
 import org.hl7.fhir.common.hapi.validation.support.NpmPackageValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.ValidationSupportChain;
 import org.hl7.fhir.common.hapi.validation.validator.FhirInstanceValidator;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -20,10 +22,12 @@ import ca.uhn.fhir.validation.IValidatorModule;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * FHIR ValidationのBean定義
+ * FHIR ValidationのデフォルトのBean定義
  */
 @Slf4j
 @Configuration
+@ConditionalOnProperty(prefix = "fhir", name = "highPerformanceMode", havingValue = "false", matchIfMissing = true)
+@EnableConfigurationProperties(FhirConfigurationProperties.class)
 public class FhirConfig {
 	private static final String JP_E_REFERRAL_NPM_PACKAGE = "classpath:package/jp-eReferral.r4-1.1.6-snap.tgz";
 	private static final String JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE = "classpath:package/jp-eDischargeSummary.r4-1.1.6-snap.tgz";
