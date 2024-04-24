@@ -11,7 +11,6 @@ import org.hl7.fhir.common.hapi.validation.support.CachingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.CommonCodeSystemsTerminologyService;
 import org.hl7.fhir.common.hapi.validation.support.InMemoryTerminologyServerValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.NpmPackageValidationSupport;
-import org.hl7.fhir.common.hapi.validation.support.SnapshotGeneratingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.ValidationSupportChain;
 import org.hl7.fhir.common.hapi.validation.validator.FhirInstanceValidator;
 import org.hl7.fhir.r4.model.Bundle;
@@ -69,14 +68,31 @@ public class ParsingSampleMain {
 			npmPackageTerminologySupport.loadPackageFromClasspath("classpath:package/jpfhir-terminology.r4-1.1.1.tgz");
 
 			ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
-					npmPackageEReferralSupport, npmPackageJPCoreSupport, npmPackageTerminologySupport,
+					// FHIRプロファイルに基づいているかの組み込みの検証ルール
+					new DefaultProfileValidationSupport(ctx), //
+					new CommonCodeSystemsTerminologyService(ctx), //
+					new InMemoryTerminologyServerValidationSupport(ctx), //
+					npmPackageTerminologySupport, //
+					npmPackageJPCoreSupport, //
+					npmPackageEReferralSupport// , //
+			// diff形式の場合にはSnapshotGeneratingValidationSupportを使用する必要があるがsnapshotでは不要
+			// new SnapshotGeneratingValidationSupport(ctx)
+			);
+
+			// @formatter:off
+			/*
+			ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
+					npmPackageEReferralSupport, //
+					npmPackageJPCoreSupport, //
+					npmPackageTerminologySupport, //
 					// FHIRプロファイルに基づいているかの組み込みの検証ルール
 					new DefaultProfileValidationSupport(ctx), //
 					new CommonCodeSystemsTerminologyService(ctx), //
 					new InMemoryTerminologyServerValidationSupport(ctx)// , //
 			// diff形式の場合にはSnapshotGeneratingValidationSupportを使用する必要があるがsnapshotでは不要
 			// new SnapshotGeneratingValidationSupport(ctx)
-			);
+			);*/
+			// @formatter:on
 			// キャッシュ機能の設定
 			CachingValidationSupport validationSupport = new CachingValidationSupport(validationSupportChain);
 			FhirValidator validator = ctx.newValidator();

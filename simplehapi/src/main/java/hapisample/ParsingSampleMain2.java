@@ -1,33 +1,19 @@
 package hapisample;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 
 import org.hl7.fhir.common.hapi.validation.support.CachingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.CommonCodeSystemsTerminologyService;
 import org.hl7.fhir.common.hapi.validation.support.InMemoryTerminologyServerValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.NpmPackageValidationSupport;
-import org.hl7.fhir.common.hapi.validation.support.SnapshotGeneratingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.ValidationSupportChain;
 import org.hl7.fhir.common.hapi.validation.validator.FhirInstanceValidator;
-import org.hl7.fhir.r4.model.Bundle;
-import org.hl7.fhir.r4.model.Bundle.BundleEntryComponent;
-import org.hl7.fhir.r4.model.Composition;
-import org.hl7.fhir.r4.model.HumanName;
-import org.hl7.fhir.r4.model.Patient;
-import org.hl7.fhir.r4.model.Reference;
-import org.hl7.fhir.r4.model.Resource;
-import org.hl7.fhir.r4.model.ResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.context.support.DefaultProfileValidationSupport;
-import ca.uhn.fhir.parser.IParser;
 import ca.uhn.fhir.validation.FhirValidator;
 import ca.uhn.fhir.validation.IValidatorModule;
 import ca.uhn.fhir.validation.SingleValidationMessage;
@@ -70,6 +56,19 @@ public class ParsingSampleMain2 {
 			npmPackageTerminologySupport.loadPackageFromClasspath("classpath:package/jpfhir-terminology.r4-1.1.1.tgz");
 
 			ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
+					// FHIRプロファイルに基づいているかの組み込みの検証ルール
+					new DefaultProfileValidationSupport(ctx), //
+					new CommonCodeSystemsTerminologyService(ctx), //
+					new InMemoryTerminologyServerValidationSupport(ctx), //
+					npmPackageTerminologySupport, //
+					npmPackageJPCoreSupport, //
+					npmPackageEDischargeSummary// , //
+			// diff形式の場合にはSnapshotGeneratingValidationSupportを使用する必要があるがsnapshotでは不要
+			// new SnapshotGeneratingValidationSupport(ctx)
+			);
+			// @formatter:off
+			/*
+			ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 					npmPackageEDischargeSummary, //
 					npmPackageJPCoreSupport, //
 					npmPackageTerminologySupport, //
@@ -79,7 +78,8 @@ public class ParsingSampleMain2 {
 					new InMemoryTerminologyServerValidationSupport(ctx)// , //
 			// diff形式の場合にはSnapshotGeneratingValidationSupportを使用する必要があるがsnapshotでは不要
 			// new SnapshotGeneratingValidationSupport(ctx)
-			);
+			);*/
+			// @fomatter:on
 			// キャッシュ機能の設定
 			CachingValidationSupport validationSupport = new CachingValidationSupport(validationSupportChain);
 			FhirValidator validator = ctx.newValidator();

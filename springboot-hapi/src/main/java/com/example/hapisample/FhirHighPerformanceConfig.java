@@ -109,6 +109,17 @@ public class FhirHighPerformanceConfig {
 
 		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 				// R5モデルに変換したValidationSupportを登録
+				toR5(ctxForR5, defaultProfileValidationSupport), //
+				new CommonCodeSystemsTerminologyService(ctxForR5), //
+				new InMemoryTerminologyServerValidationSupport(ctxForR5), //
+				toR5(ctxForR5, npmPackageTerminologySupport), //
+				toR5(ctxForR5, npmPackageJPCoreSupport), //
+				toR5(ctxForR5, npmPackageEReferralSupport), //
+				toR5(ctxForR5, npmPackageDischargeSummarySupport));
+		// @formatter:off
+		/*
+		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
+				// R5モデルに変換したValidationSupportを登録
 				toR5(ctxForR5, npmPackageEReferralSupport), //
 				toR5(ctxForR5, npmPackageDischargeSummarySupport), //
 				toR5(ctxForR5, npmPackageJPCoreSupport), //
@@ -116,7 +127,8 @@ public class FhirHighPerformanceConfig {
 				toR5(ctxForR5, defaultProfileValidationSupport), //
 				new CommonCodeSystemsTerminologyService(ctxForR5), //
 				new InMemoryTerminologyServerValidationSupport(ctxForR5)//
-		);
+		);*/
+		// @formatter:on
 		// キャッシュ機能の設定
 		CachingValidationSupport validationSupport = new CachingValidationSupport(validationSupportChain);
 		FhirValidator validator = ctxForR5.newValidator();

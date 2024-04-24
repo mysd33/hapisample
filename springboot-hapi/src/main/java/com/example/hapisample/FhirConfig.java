@@ -67,7 +67,7 @@ public class FhirConfig {
 		// 診療情報提供書のnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageEReferralSupport = new NpmPackageValidationSupport(ctx);
 		npmPackageEReferralSupport.loadPackageFromClasspath(JP_E_REFERRAL_NPM_PACKAGE);
-		
+
 		// 退院時サマリののnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageDischargeSummarySupport = new NpmPackageValidationSupport(ctx);
 		npmPackageDischargeSummarySupport.loadPackageFromClasspath(JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE);
@@ -79,7 +79,17 @@ public class FhirConfig {
 		// JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);
 		npmPackageTerminologySupport.loadPackageFromClasspath(JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
-
+		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
+				// FHIRベースプロファイルの組み込みの検証ルール
+				new DefaultProfileValidationSupport(ctx), //
+				new CommonCodeSystemsTerminologyService(ctx), //
+				new InMemoryTerminologyServerValidationSupport(ctx), //
+				npmPackageTerminologySupport, //
+				npmPackageJPCoreSupport, //
+				npmPackageEReferralSupport, //
+				npmPackageDischargeSummarySupport);
+		// @formatter:off
+		/*
 		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 				npmPackageEReferralSupport, //
 				npmPackageDischargeSummarySupport, //
@@ -89,7 +99,8 @@ public class FhirConfig {
 				new DefaultProfileValidationSupport(ctx), //
 				new CommonCodeSystemsTerminologyService(ctx), //
 				new InMemoryTerminologyServerValidationSupport(ctx)//
-		);
+		);*/
+		// @formatter:on
 		// キャッシュ機能の設定
 		CachingValidationSupport validationSupport = new CachingValidationSupport(validationSupportChain);
 		FhirValidator validator = ctx.newValidator();
