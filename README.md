@@ -7,7 +7,7 @@
 - 各フォルダに、以下の2つのサンプルAPプロジェクトを作成しています。HAPIはJava11以上で動作すると書かれていますが、本サンプルは最新のLTSのJava21で作成しています。
     - simplehapiフォルダ
         - HAPIを理解するためのMain関数ですぐ実行できる簡単なJavaプログラム
-        - 実行には[simplehapiフォルダのサンプルAP実行方法](#4-simplehapiフォルダのサンプルap実行結果)を参照してください。
+        - 実行には[simplehapiフォルダのサンプルAP実行方法](#3-simplehapiフォルダのサンプルap実行方法)を参照してください。
     - springboot-hapiフォルダ
         - REST APIでFHIRバリデーションを実施する応用編のSpringBootアプリケーション
             - SpringBoot3.2で作成しており、SpringBoot3.xよりJava17以上が必要です。またはSpringBoot3.2からはJava21を利用すると仮想スレッド機能が使用できることから、Java21を利用しています。
