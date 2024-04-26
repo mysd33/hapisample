@@ -454,3 +454,7 @@ fhir:
 14:53:13.912 [main] INFO com.example.hapisample.FhirValidationPerformanceTest -- 通常版のFHIR Validation機能の平均処理時間:368.117ms
 14:53:13.912 [main] INFO com.example.hapisample.FhirValidationPerformanceTest -- 性能改善版のFHIR Validation機能の平均処理時間:121.621ms
 ```
+
+## 10. SpringBootサンプルAPでのFHIRバリデーション実行結果比較
+- 以下のテストコードを使うと、通常版と、8.のパフォーマンス改善版のバリデーション結果を比較できる
+    - [FhirValidationCompareTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationCompareTest.java)
