@@ -103,7 +103,7 @@ public class ParsingSampleMain2 {
 			long validationTime = System.nanoTime();
 			// 処理時間変化の確認のため、もう一回2回目実行
 			logger.info("バリデーション2回目");
-			ValidationResult validationResult = validationResult = validator.validateWithResult(jsonString);
+			ValidationResult validationResult = validator.validateWithResult(jsonString);
 			// 時間計測2
 			long validationTime2 = System.nanoTime();
 
