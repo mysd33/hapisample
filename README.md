@@ -2,7 +2,7 @@
 
 - [HAPI FHIR](https://hapifhir.io/)を使って、[診療情報提供書HL7FHIR記述仕様](https://std.jpfhir.jp/)に基づくサンプルデータ（Bundle-BundleReferralExample01.json）に対して検証（FHIRバリデーション）し、Bundleリソースとしてパースするサンプルプログラムです。
 
-- HAPI FHIRのバージョンは、7.0.2を使用しています。
+- HAPI FHIRのバージョンは、7.2.1を使用しています。
 
 - 各フォルダに、以下の2つのサンプルAPプロジェクトを作成しています。HAPIはJava11以上で動作すると書かれていますが、本サンプルは最新のLTSのJava21で作成しています。
     - simplehapiフォルダ
