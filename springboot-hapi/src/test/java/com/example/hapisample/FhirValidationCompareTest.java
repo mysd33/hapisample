@@ -95,8 +95,10 @@ class FhirValidationCompareTest {
 				// テストケース1
 				arguments("testdata/Bundle-BundleReferralExample01.json"),
 				// テストケース2
-				arguments("testdata/Bundle-BundleReferralExample02.json")
+				arguments("testdata/Bundle-BundleReferralExample02.json"),
 				// TODO: 以降に、テストケースを追加していく
+				// テストケース3
+				arguments("testdata/Bundle-Bundle-eCheckupReport-Sample-01.json")				
 		);
 	}
 }
