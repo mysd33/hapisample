@@ -16,11 +16,14 @@
 - [FHIR IGポータル](https://std.jpfhir.jp/)のサイトから、公式バリデータを使った[バリデーションガイド](https://jpfhir.jp/fhir/eReferral/igv1/validationGuide.html)が公開されていますが、ここでは、[HAPI FHIR](https://hapifhir.io)を使って、同様のバリデーションを行うサンプルプログラムを作成しています。
 
 - 【注意】公式バリデータ（org.hl7.fhir.validation）の個別バージョンアップ
-    - HAPIのバリデーション機能（hapi-fhir-validaiton）は、内部で使用しているHL7が管理する公式バリデータ含む[HL7 FHIR Core Artifacts(org.hl7.fhir.core)](https://github.com/hapifhir/org.hl7.fhir.core)バージョンは、[hapi-fhir-validaitonのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/hapi-fhir-validation/pom.xml#L38)を見ると、${fhir_core_version}のプロパティで定義されており、[hapi-fhirの最上位プロジェクトのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/pom.xml#L929)でバージョン（現在は6.1.1.2）に統制されている。
+    - HAPIのバリデーション機能（hapi-fhir-validaiton）は、内部で使用しているHL7が管理する公式バリデータ含む[HL7 FHIR Core Artifacts(org.hl7.fhir.core)](https://github.com/hapifhir/org.hl7.fhir.core)バージョンは、[hapi-fhir-validaitonのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/hapi-fhir-validation/pom.xml#L38)を見ると、${fhir_core_version}のプロパティで定義されており、[hapi-fhirの最上位プロジェクトのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/pom.xml#L929)でバージョン（現在は6.1.1.2）に統制されています。
 
-    - バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョンが6.1.8となっており、齟齬がある。このサンプルでは、HAPI FHIRが内部で使用するバージョンをバリデーションガイドでの公式バリデータのバージョンと合わせる個別対応を行ってみたが、6.1.8では、APIの互換性がないため、実行時エラー（java.lang.NoSuchMethodError）が発生した。ここでは、6.1.4のバージョンで実行した例を試したブランチになっています。
+    - このため、バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョンが6.1.8となっており、HAPIが利用するバージョンと齟齬があります。
+
+    - 健診結果報告書のサンプルデータがうまく動作するよう、entry.resourceに複数のプロファイルがあるバンドルをバリデーションできなかった不具合に対応した[6.1.4](https://github.com/hapifhir/org.hl7.fhir.core/releases/tag/6.1.4)のバージョンで実行できるよう、このサンプルでは、HAPI FHIRが内部で使用するバージョンをバリデーションガイドでの公式バリデータのバージョンと合わせる個別対応を行っています。
         - [pom.xml](simplehapi/pom.xml)
-        - [pom.xml](springboot-hapi/pom.xml)
+        - [pom.xml](springboot-hapi/pom.xml)    
+    - なお、同様の方法で、バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョン6.1.8にしてしまうと、APIの互換性がないため、実行時エラー（java.lang.NoSuchMethodError）が発生してしまいます。
 
 - また、FHIRリソース(Bundle)として作成したオブジェクトを、FHIRのJSON文字列で出力（シリアライズ）するサンプルプログラムもあります。
     - [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSONのほんの一部分を生成しています。
