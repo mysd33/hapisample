@@ -90,9 +90,9 @@ public class ParsingSampleMain3 {
 			// 時間計測
 			long createValidatorTime = System.nanoTime();
 
-			// 退院時サマリーのHL7 FHIRのサンプルデータを読み込み
-			//String filePath = "file/input/Bundle-BundleReferralExample01.json";
-			String filePath = "file/input/Todo.json";
+			// 健康診断結果報告書のHL7 FHIRのサンプルデータを読み込み
+			String filePath = "file/input/Bundle-Bundle-eCheckupReport-Sample-01.json";
+			
 
 			// 生のFHIRデータ(json文字列）に対して、直接FHIRバリデーション実行
 			String jsonString = Files.readString(Paths.get(filePath));
