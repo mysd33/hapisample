@@ -31,6 +31,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FhirConfig {
 	private static final String JP_E_REFERRAL_NPM_PACKAGE = "classpath:package/jp-eReferral.r4-1.1.6-snap.tgz";
 	private static final String JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE = "classpath:package/jp-eDischargeSummary.r4-1.1.6-snap.tgz";
+	private static final String JP_E_CHECKUP_REPORT_NPM_PACKAGE = "classpath:package/jp-eCheckupReport.r4-1.1.2-snap.tgz";
 	private static final String JP_CORE_NPM_PACKAGE = "classpath:package/jp-core.r4-1.1.2-snap.tgz";
 	private static final String JP_FHIR_TERMINOLOGY_NPM_PACKAGE = "classpath:package/jpfhir-terminology.r4-1.1.1.tgz";
 
@@ -69,8 +70,12 @@ public class FhirConfig {
 		npmPackageEReferralSupport.loadPackageFromClasspath(JP_E_REFERRAL_NPM_PACKAGE);
 
 		// 退院時サマリののnpmパッケージファイルに基づくValidationSuportを追加
-		NpmPackageValidationSupport npmPackageDischargeSummarySupport = new NpmPackageValidationSupport(ctx);
-		npmPackageDischargeSummarySupport.loadPackageFromClasspath(JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE);
+		NpmPackageValidationSupport npmPackageEDischargeSummarySupport = new NpmPackageValidationSupport(ctx);
+		npmPackageEDischargeSummarySupport.loadPackageFromClasspath(JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE);
+
+		// 健康診断結果報告書のnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageECheckupReportSupport = new NpmPackageValidationSupport(ctx);
+		npmPackageECheckupReportSupport.loadPackageFromClasspath(JP_E_CHECKUP_REPORT_NPM_PACKAGE);
 
 		// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
@@ -87,12 +92,14 @@ public class FhirConfig {
 				npmPackageTerminologySupport, //
 				npmPackageJPCoreSupport, //
 				npmPackageEReferralSupport, //
-				npmPackageDischargeSummarySupport);
+				npmPackageEDischargeSummarySupport,//
+				npmPackageECheckupReportSupport);				
 		// @formatter:off
 		/*
 		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 				npmPackageEReferralSupport, //
-				npmPackageDischargeSummarySupport, //
+				npmPackageEDischargeSummarySupport, //
+				npmPackageECheckupReportSupport, //
 				npmPackageJPCoreSupport, //
 				npmPackageTerminologySupport,
 				// FHIRベースプロファイルの組み込みの検証ルール

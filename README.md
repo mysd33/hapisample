@@ -49,9 +49,13 @@
                     - [snapshot形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6-snap.tgz)
                     - [diff形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6.tgz)     
             - Springboot-hapiフォルダのサンプルAPに関しては、診療情報提供書のnpmパッケージだけでなく、退院時サマリーのnpmパッケージも読み込んでいるので、サンプルデータを送信すると、退院時サマリーのバリデーションも実施することができるようになっています。
-
-        - その他、健康診断結果報告書といった文書や、臨床情報（6情報、JP-CLINS）なども同様にnpmパッケージで提供されていますので、少し実装を変えれば同様にそれらのnpmパッケージを使って検証することも可能です。                                     
+        - 健康診断診断結果報告書の文書情報プロファイル
             - [健康診断結果報告書FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eCheckup/igv1/)
+                - 健康診断結果報告書のnpmパッケージ(ver1.1.6)
+                    - [snapshot形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2-snap.tgz)
+                    - [diff形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2.tgz)
+
+        - その他、臨床情報（6情報、JP-CLINS）なども同様にnpmパッケージで提供されていますので、少し実装を変えれば同様にそれらのnpmパッケージを使って検証することも可能です。                                                 
             - [臨床情報（6情報、JP-CLINS）](https://jpfhir.jp/fhir/clins/igv1/)
 
 ### 1.2. FHIRデータのパース

@@ -37,6 +37,7 @@ import lombok.extern.slf4j.Slf4j;
 public class FhirHighPerformanceConfig {
 	private static final String JP_E_REFERRAL_NPM_PACKAGE = "classpath:package/jp-eReferral.r4-1.1.6-snap.tgz";
 	private static final String JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE = "classpath:package/jp-eDischargeSummary.r4-1.1.6-snap.tgz";
+	private static final String JP_E_CHECKUP_REPORT_NPM_PACKAGE = "classpath:package/jp-eCheckupReport.r4-1.1.2-snap.tgz";
 	private static final String JP_CORE_NPM_PACKAGE = "classpath:package/jp-core.r4-1.1.2-snap.tgz";
 	private static final String JP_FHIR_TERMINOLOGY_NPM_PACKAGE = "classpath:package/jpfhir-terminology.r4-1.1.1.tgz";
 
@@ -83,9 +84,13 @@ public class FhirHighPerformanceConfig {
 		NpmPackageValidationSupport npmPackageEReferralSupport = new NpmPackageValidationSupport(tmpCtxForR4);
 		npmPackageEReferralSupport.loadPackageFromClasspath(JP_E_REFERRAL_NPM_PACKAGE);
 
-		// 退院時サマリののnpmパッケージファイルに基づくValidationSuportを追加
-		NpmPackageValidationSupport npmPackageDischargeSummarySupport = new NpmPackageValidationSupport(tmpCtxForR4);
-		npmPackageDischargeSummarySupport.loadPackageFromClasspath(JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE);
+		// 退院時サマリのnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageEDischargeSummarySupport = new NpmPackageValidationSupport(tmpCtxForR4);
+		npmPackageEDischargeSummarySupport.loadPackageFromClasspath(JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE);
+
+		// 健康診断結果報告書のnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageECheckupReportSupport = new NpmPackageValidationSupport(tmpCtxForR4);
+		npmPackageECheckupReportSupport.loadPackageFromClasspath(JP_E_CHECKUP_REPORT_NPM_PACKAGE);
 
 		// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(tmpCtxForR4);
@@ -115,13 +120,15 @@ public class FhirHighPerformanceConfig {
 				toR5(ctxForR5, npmPackageTerminologySupport), //
 				toR5(ctxForR5, npmPackageJPCoreSupport), //
 				toR5(ctxForR5, npmPackageEReferralSupport), //
-				toR5(ctxForR5, npmPackageDischargeSummarySupport));
+				toR5(ctxForR5, npmPackageEDischargeSummarySupport), //
+				toR5(ctxForR5, npmPackageECheckupReportSupport));
 		// @formatter:off
 		/*
 		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 				// R5モデルに変換したValidationSupportを登録
 				toR5(ctxForR5, npmPackageEReferralSupport), //
-				toR5(ctxForR5, npmPackageDischargeSummarySupport), //
+				toR5(ctxForR5, npmPackageEDischargeSummarySupport), //
+				toR5(ctxForR5, npmPackageECheckupReportSupport), //
 				toR5(ctxForR5, npmPackageJPCoreSupport), //
 				toR5(ctxForR5, npmPackageTerminologySupport), //
 				toR5(ctxForR5, defaultProfileValidationSupport), //
