@@ -42,7 +42,7 @@ class FhirValidationRegressionTest {
 		// FhirConfigのBean定義通りに、FhirValidationServiceImplインスタンスを作成
 		FhirConfig fhirConfig = new FhirConfig();
 		FhirContext ctx = fhirConfig.fhirContext();
-		sut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirValidator(ctx));		
+		sut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirValidator(ctx));
 		// 暖機処理（initメソッド）を呼び出しておく
 		Resource initDataResourceValue = new ClassPathResource("file/Bundle-BundleReferralExample01.json");
 		Field initDataResourceField = sut.getClass().getDeclaredField("initDataResource");
@@ -78,8 +78,12 @@ class FhirValidationRegressionTest {
 						"[ERROR]:[Bundle] Rule bdl-3: 'Entry.Requestバッチ/トランザクション/履歴に必須、それ以外の場合は禁止されています / entry.request mandatory for batch/transaction/history, otherwise prohibited' Failed",
 						"[ERROR]:[Bundle] Rule bdl-4: 'Batch-Response/Transaction-Response/historyに必須であり、それ以外の場合は禁止されています / entry.response mandatory for batch-response/transaction-response/history, otherwise prohibited' Failed",
 						"[ERROR]:[Bundle] Rule bdl-12: 'メッセージには最初のリソースとしてメッセージヘッダーが必要です / A message must have a MessageHeader as the first resource' Failed",
-						"[ERROR]:[Bundle] Bundle.type: minimum required = 1, but only found 0 (from http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral)"))
+						"[ERROR]:[Bundle] Bundle.type: minimum required = 1, but only found 0 (from http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral)"))// ,
 		// TODO: 以降に、テストケースを追加していく
+		// テストケース3
+		// arguments("testdata/Bundle-Bundle-eCheckupReport-Sample-01.json",
+		// FhirValidationResult.OK, null)
+
 		);
 
 	}
