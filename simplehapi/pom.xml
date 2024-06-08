@@ -8,7 +8,7 @@
 		<java.version>21</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>	
-		<hapi.version>7.0.2</hapi.version>
+		<hapi.version>7.2.1</hapi.version>
 		<logback.version>1.4.7</logback.version>
 	</properties>  
 	<dependencies>
