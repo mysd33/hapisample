@@ -15,6 +15,13 @@
 
 - [FHIR IGポータル](https://std.jpfhir.jp/)のサイトから、公式バリデータを使った[バリデーションガイド](https://jpfhir.jp/fhir/eReferral/igv1/validationGuide.html)が公開されていますが、ここでは、[HAPI FHIR](https://hapifhir.io)を使って、同様のバリデーションを行うサンプルプログラムを作成しています。
 
+- 【注意】公式バリデータ（org.hl7.fhir.validation）の個別バージョンアップ
+    - HAPIのバリデーション機能（hapi-fhir-validaiton）は、内部で使用しているHL7が管理する公式バリデータ含む[HL7 FHIR Core Artifacts(org.hl7.fhir.core)](https://github.com/hapifhir/org.hl7.fhir.core)バージョンは、[hapi-fhir-validaitonのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/hapi-fhir-validation/pom.xml#L38)を見ると、${fhir_core_version}のプロパティで定義されており、[hapi-fhirの最上位プロジェクトのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/pom.xml#L929)でバージョン（現在は6.1.1.2）に統制されている。
+
+    - バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョンが6.1.8となっており、齟齬がある。このサンプルでは、HAPI FHIRが内部で使用するバージョンをバリデーションガイドでの公式バリデータのバージョンと合わせる個別対応を行ってみたが、6.1.8では、APIの互換性がないため、実行時エラー（java.lang.NoSuchMethodError）が発生した。ここでは、6.1.4のバージョンで実行した例を試したブランチになっています。
+        - [pom.xml](simplehapi/pom.xml)
+        - [pom.xml](springboot-hapi/pom.xml)
+
 - また、FHIRリソース(Bundle)として作成したオブジェクトを、FHIRのJSON文字列で出力（シリアライズ）するサンプルプログラムもあります。
     - [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSONのほんの一部分を生成しています。
 

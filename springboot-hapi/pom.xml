@@ -20,6 +20,8 @@
 		<hapi.version>7.2.1</hapi.version>		
 		<!-- fhir core validation version override for workaround　-->				
 		<fhir_core_version>6.1.4</fhir_core_version>
+		<!-- バリデーションガイドの公式バリデータのバージョン6.1.8にするとAPI非互換により実行時エラーになる　-->				
+		<!--<fhir_core_version>6.1.8</fhir_core_version>-->
 	</properties>
 	<dependencies>
 		<dependency>
