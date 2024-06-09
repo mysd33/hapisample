@@ -30,7 +30,9 @@ class FhirValidationPerformanceTest {
 	// 測定時の試行回数
 	private static final int ATTEMPT_COUNT = 10;
 	// 暖機処理用のFHIRのデータファイル
-	private static final String INIT_FOR_FHIR_DATA_FILE_PATH = "file/Bundle-BundleReferralExample01.json";
+	private static final String INIT_FOR_FHIR_REFERRAL_FILE_PATH = "file/Bundle-BundleReferralExample01.json";
+	private static final String INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH = "file/Bundle-Bundle-eCheckupReport-Sample-01.json";
+
 	// テスト対象の通常のFHIR Validation機能
 	private static FhirValidationServiceImpl defaultSut;
 	// テスト対象の性能改善版のFHIR Validation機能
@@ -51,7 +53,8 @@ class FhirValidationPerformanceTest {
 	private static void initDefaultSut() throws IOException, NoSuchFieldException, IllegalAccessException {
 		FhirConfig fhirConfig = new FhirConfig();
 		FhirContext ctx = fhirConfig.fhirContext();
-		defaultSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirValidator(ctx));
+		defaultSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
+				fhirConfig.fhirCheckupReportValidator(ctx));
 		initValidator(defaultSut);
 	}
 
@@ -60,25 +63,33 @@ class FhirValidationPerformanceTest {
 		FhirHighPerformanceConfig fhirConfig = new FhirHighPerformanceConfig();
 		FhirContext ctx = fhirConfig
 				.fhirContext(FhirConfigurationProperties.builder().highPerformanceMode(true).build());
-		highPerformanceSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirValidator(ctx));
+		highPerformanceSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
+				fhirConfig.fhirCheckupReportValidator(ctx));
 		initValidator(highPerformanceSut);
 	}
 
 	// 暖機処理
 	private static void initValidator(FhirValidationServiceImpl service) throws NoSuchFieldException, SecurityException,
 			IllegalArgumentException, IllegalAccessException, IOException {
-		Resource initDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_DATA_FILE_PATH);
-		Field initDataResourceField = service.getClass().getDeclaredField("initDataResource");
-		initDataResourceField.setAccessible(true);
-		initDataResourceField.set(service, initDataResourceValue);
-		service.init();
-	}
+		// 暖機処理（initメソッド）を呼び出しておく
+		Resource initDocumentDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_REFERRAL_FILE_PATH);
+		Field initDocumentDataResourceField = service.getClass().getDeclaredField("initDocumentDataResource");
+		initDocumentDataResourceField.setAccessible(true);
+		initDocumentDataResourceField.set(service, initDocumentDataResourceValue);
 
-	// 性能比較
+		Resource initCheckupReportDataResourcValue = new ClassPathResource(INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH);				
+		Field initCheckupReportDataResourceField = service.getClass().getDeclaredField("initCheckupReportDataResource");
+		initCheckupReportDataResourceField.setAccessible(true);
+		initCheckupReportDataResourceField.set(service, initCheckupReportDataResourcValue);
+		service.init();
+		
+	}
+	
+	// validateDocumentメソッドの性能比較
 	@Test
-	void testValidate() throws IOException {
+	void testValidateDocument() throws IOException {
 		// TODO: 性能テスト用のテストデータは、現状、暖機処理用と同じデータを使っているが、実際に試したデータファイルのパスに変えるとよい。
-		String inputFilePath = INIT_FOR_FHIR_DATA_FILE_PATH;
+		String inputFilePath = INIT_FOR_FHIR_REFERRAL_FILE_PATH;
 		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
 
 		// 通常のFHIR Validation機能の速度測定
@@ -86,7 +97,7 @@ class FhirValidationPerformanceTest {
 		for (int i = 0; i < ATTEMPT_COUNT; i++) {
 			long start = System.nanoTime();
 			// FHIRバリデーション実行
-			defaultSut.validate(jsonString);
+			defaultSut.validateDocument(jsonString);
 			long duration = System.nanoTime() - start;
 			duraionsForDefault.add(duration);
 		}
@@ -96,7 +107,7 @@ class FhirValidationPerformanceTest {
 		for (int i = 0; i < ATTEMPT_COUNT; i++) {
 			long start = System.nanoTime();
 			// FHIRバリデーション実行
-			highPerformanceSut.validate(jsonString);
+			highPerformanceSut.validateDocument(jsonString);
 			long duration = System.nanoTime() - start;
 			durationsForHighPerformance.add(duration);
 		}

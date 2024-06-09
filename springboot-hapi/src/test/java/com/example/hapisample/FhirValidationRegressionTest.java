@@ -42,19 +42,27 @@ class FhirValidationRegressionTest {
 		// FhirConfigのBean定義通りに、FhirValidationServiceImplインスタンスを作成
 		FhirConfig fhirConfig = new FhirConfig();
 		FhirContext ctx = fhirConfig.fhirContext();
-		sut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirValidator(ctx));
+		sut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
+				fhirConfig.fhirCheckupReportValidator(ctx));
 		// 暖機処理（initメソッド）を呼び出しておく
-		Resource initDataResourceValue = new ClassPathResource("file/Bundle-BundleReferralExample01.json");
-		Field initDataResourceField = sut.getClass().getDeclaredField("initDataResource");
-		initDataResourceField.setAccessible(true);
-		initDataResourceField.set(sut, initDataResourceValue);
+		Resource initDocumentDataResourceValue = new ClassPathResource("file/Bundle-BundleReferralExample01.json");
+		Field initDocumentDataResourceField = sut.getClass().getDeclaredField("initDocumentDataResource");
+		initDocumentDataResourceField.setAccessible(true);
+		initDocumentDataResourceField.set(sut, initDocumentDataResourceValue);
+
+		Resource initCheckupReportDataResourcValue = new ClassPathResource(
+				"file/Bundle-Bundle-eCheckupReport-Sample-01.json");
+		Field initCheckupReportDataResourceField = sut.getClass().getDeclaredField("initCheckupReportDataResource");
+		initCheckupReportDataResourceField.setAccessible(true);
+		initCheckupReportDataResourceField.set(sut, initCheckupReportDataResourcValue);
 		sut.init();
 	}
 
 	// データドリブンテスト
 	@ParameterizedTest
 	@MethodSource
-	void testValidate(String inputFilePath, String expectedResult, List<String> errorMessages) throws IOException {
+	void testValidateDocument(String inputFilePath, String expectedResult, List<String> errorMessages)
+			throws IOException {
 		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
 		FhirValidationResult expected;
 		if (FhirValidationResult.OK.equals(expectedResult)) {
@@ -63,25 +71,75 @@ class FhirValidationRegressionTest {
 			expected = FhirValidationResult.builder().result(expectedResult).details(errorMessages).build();
 		}
 		// FHIRバリデーション実行
-		FhirValidationResult actual = sut.validate(jsonString);
+		FhirValidationResult actual = sut.validateDocument(jsonString);
 		// バリデーション結果の検証
 		assertEquals(expected, actual);
 	}
 
 	// テストケース
-	static Stream<Arguments> testValidate() {
+	static Stream<Arguments> testValidateDocument() {
 		return Stream.of(
 				// テストケース1
 				arguments("testdata/Bundle-BundleReferralExample01.json", FhirValidationResult.OK, null),
 				// テストケース2
 				arguments("testdata/Bundle-BundleReferralExample02.json", FhirValidationResult.NG, List.of(
-						"[ERROR]:[Bundle] Rule bdl-3: 'Entry.Requestバッチ/トランザクション/履歴に必須、それ以外の場合は禁止されています / entry.request mandatory for batch/transaction/history, otherwise prohibited' Failed",
-						"[ERROR]:[Bundle] Rule bdl-4: 'Batch-Response/Transaction-Response/historyに必須であり、それ以外の場合は禁止されています / entry.response mandatory for batch-response/transaction-response/history, otherwise prohibited' Failed",
-						"[ERROR]:[Bundle] Rule bdl-12: 'メッセージには最初のリソースとしてメッセージヘッダーが必要です / A message must have a MessageHeader as the first resource' Failed",
-						"[ERROR]:[Bundle] Bundle.type: minimum required = 1, but only found 0 (from http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral)")),
+						// org.hl7.fhir.validationのバージョンを6.1.4に変更することで、日本語対応されたので、エラーメッセージが変わり、エラーになる
+						
+						//"[ERROR]:[Bundle] Rule bdl-3: 'Entry.Requestバッチ/トランザクション/履歴に必須、それ以外の場合は禁止されています / entry.request mandatory for batch/transaction/history, otherwise prohibited' Failed",
+						//"[ERROR]:[Bundle] Rule bdl-4: 'Batch-Response/Transaction-Response/historyに必須であり、それ以外の場合は禁止されています / entry.response mandatory for batch-response/transaction-response/history, otherwise prohibited' Failed",
+						//"[ERROR]:[Bundle] Rule bdl-12: 'メッセージには最初のリソースとしてメッセージヘッダーが必要です / A message must have a MessageHeader as the first resource' Failed",
+						//"[ERROR]:[Bundle] Bundle.type: minimum required = 1, but only found 0 (from http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral)"))
+						"[ERROR]:[Bundle] ルール bdl-3: 'Entry.Requestバッチ/トランザクション/履歴に必須、それ以外の場合は禁止されています / entry.request mandatory for batch/transaction/history, otherwise prohibited' が失敗しました",
+						"[ERROR]:[Bundle] ルール bdl-4: 'Batch-Response/Transaction-Response/historyに必須であり、それ以外の場合は禁止されています / entry.response mandatory for batch-response/transaction-response/history, otherwise prohibited' が失敗しました",
+						"[ERROR]:[Bundle] ルール bdl-12: 'メッセージには最初のリソースとしてメッセージヘッダーが必要です / A message must have a MessageHeader as the first resource' が失敗しました",
+						"[ERROR]:[Bundle] Bundle.type: 最小必要値 = 1、見つかった値 = 0 (from http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral)",
+
+						// WARNINGのエラーメッセージが増えた
+						"[WARNING]:[Bundle.entry[0].resource] ルール dom-6: '資源は堅牢な管理のために物語を持つべきである。' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[0].resource.entry[1].resource/*Patient/jppatientExample01Inline*/] ルール dom-6: 'リソースには、堅牢な管理のための叙述(Narative)が必要です / A resource should have narrative for robust management' が失敗しました (Best Practice Recommendation)", 
+						"[WARNING]:[Bundle.entry[0].resource.entry[2].resource/*Encounter/encounterReferralExample01Inline*/] ルール dom-6: '資源は堅牢な管理のために物語を持つべきである。' が失敗しました (Best Practice Recommendation)", 
+						"[WARNING]:[Bundle.entry[0].resource.entry[3].resource/*Practitioner/referralFromPractitionerExample01Inline*/] ルール dom-6: 'リソースには、堅牢な管理のための叙述(Narative)が必要です / A resource should have narrative for robust management' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[4].resource] ルール dom-6: 'リソースには、堅牢な管理のための叙述(Narative)が必要です / A resource should have narrative for robust management' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[0].resource.entry[5].resource/*Organization/referralFromOrganizationExample01Inline*/] ルール dom-6: '資源は堅牢な管理のために物語を持つべきである。' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[6].resource] ルール dom-6: '資源は堅牢な管理のために物語を持つべきである。' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[0].resource.entry[7].resource/*Encounter/purposeReferralExample01Inline*/] ルール dom-6: '資源は堅牢な管理のために物語を持つべきである。' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[0].resource.entry[8].resource/*Condition/cc1ReferralExample01Inline*/] ルール dom-6: '資源は堅牢な管理のために物語を持つべきである。' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[0].resource.entry[9].resource/*Condition/cc2ReferralExample01Inline*/] ルール dom-6: '資源は堅牢な管理のために物語を持つべきである。' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[0].resource.entry[10].resource/*Condition/piReferralExample01Inline*/] ルール dom-6: '資源は堅牢な管理のために物語を持つべきである。' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[0].resource.entry[11].resource/*Condition/ph1ReferralExample01Inline*/] ルール dom-6: '資源は堅牢な管理のために物語を持つべきである。' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[0].resource.entry[12].resource/*Condition/ph2ReferralExample01Inline*/] ルール dom-6: '資源は堅牢な管理のために物語を持つべきである。' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[0].resource.entry[13].resource/*AllergyIntolerance/alg1ReferralExample01Inline*/] ルール dom-6: 'リソースには、堅牢な管理のための叙述(Narative)が必要です / A resource should have narrative for robust management' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[0].resource.entry[14].resource/*AllergyIntolerance/alg1ReferralExample02Inline*/] ルール dom-6: 'リソースには、堅牢な管理のための叙述(Narative)が必要です / A resource should have narrative for robust management' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[0].resource.entry[15].resource/*Observation/psobsCommonExample01Inline*/] ルール dom-6: 'リソースには、堅牢な管理のための叙述(Narative)が必要です / A resource should have narrative for robust management' が失敗しました (Best Practice Recommendation)",
+						"[WARNING]:[Bundle.entry[15].resource/*Observation/psobsCommonExample01Inline*/] すべてのObservationにはperformerが必要です",
+						"[WARNING]:[Bundle.entry[15].resource/*Observation/psobsCommonExample01Inline*/] すべてのObservationにはeffectiveDateTimeまたはeffectivePeriodが必要です",
+						"[WARNING]:[Bundle.entry[0].resource.entry[16].resource/*DocumentReference/ccourseReferralExample01Inline*/] ルール dom-6: 'リソースには、堅牢な管理のための叙述(Narative)が必要です / A resource should have narrative for robust management' が失敗しました (Best Practice Recommendation)"))				
 				// TODO: 以降に、テストケースを追加していく
-								
-				// テストケース3
+		);
+	}
+
+	// データドリブンテスト
+	@ParameterizedTest
+	@MethodSource
+	void testValidateCheckupReport(String inputFilePath, String expectedResult, List<String> errorMessages)
+			throws IOException {
+		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
+		FhirValidationResult expected;
+		if (FhirValidationResult.OK.equals(expectedResult)) {
+			expected = FhirValidationResult.builder().result(expectedResult).build();
+		} else {
+			expected = FhirValidationResult.builder().result(expectedResult).details(errorMessages).build();
+		}
+		// FHIRバリデーション実行
+		FhirValidationResult actual = sut.validateCheckupReport(jsonString);
+		// バリデーション結果の検証
+		assertEquals(expected, actual);
+	}
+
+	// テストケース
+	static Stream<Arguments> testValidateCheckupReport() {
+		return Stream.of(
+				// テストケース1
 				// org.hl7.fhir.validationのバージョンを6.1.4に変更することで、健診結果報告書のバリデーションがOKになる
 				arguments("testdata/Bundle-Bundle-eCheckupReport-Sample-01.json", FhirValidationResult.OK, null)
 		);

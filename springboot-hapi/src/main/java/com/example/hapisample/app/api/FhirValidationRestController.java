@@ -16,21 +16,35 @@ import lombok.RequiredArgsConstructor;
  * FHIRバリデーションを実施するためのRestControllerクラス
  */
 @RestController
-@RequestMapping("/api/v1/fhir")
+@RequestMapping("/api/v1/fhir/validate")
 @RequiredArgsConstructor
 public class FhirValidationRestController {
 	private final FhirValidationService service;
 
 	/**
-	 * FHIRバリデーションを実施する
+	 * 医療文書（診療情報提供書、退院時サマリ）のFHIRバリデーションを実施する
 	 * 
 	 * @param fhirString バリデーション対象のFHIRデータの文字列
 	 * @return バリデーション結果のメッセージ文字列
 	 */
-	@PostMapping
+	@PostMapping("/document")
 	@ResponseStatus(HttpStatus.OK)
 	public FhirValidationResult validate(@RequestBody(required = true) String fhirString) {
 		// 本来はJSONでのレスポンスが望ましいが、ここでは簡単のため、バリデーションのエラーメッセージの文字列をそのまま返却している
-		return service.validate(fhirString);
+		return service.validateDocument(fhirString);
 	}
+	
+	/**
+	 * 健康診断結果報告書のFHIRバリデーションを実施する
+	 * 
+	 * @param fhirString バリデーション対象のFHIRデータの文字列
+	 * @return バリデーション結果のメッセージ文字列
+	 */
+	@PostMapping("/checkup-report")
+	@ResponseStatus(HttpStatus.OK)
+	public FhirValidationResult validateCheckupReport(@RequestBody(required = true) String fhirString) {
+		// 本来はJSONでのレスポンスが望ましいが、ここでは簡単のため、バリデーションのエラーメッセージの文字列をそのまま返却している
+		return service.validateCheckupReport(fhirString);
+	}
+	
 }

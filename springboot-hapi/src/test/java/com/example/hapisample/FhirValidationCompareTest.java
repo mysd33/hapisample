@@ -32,12 +32,13 @@ import ch.qos.logback.classic.Logger;
  */
 class FhirValidationCompareTest {
 	// 暖機処理用のFHIRのデータファイル
-	private static final String INIT_FOR_FHIR_DATA_FILE_PATH = "file/Bundle-BundleReferralExample01.json";
+	private static final String INIT_FOR_FHIR_REFERRAL_FILE_PATH = "file/Bundle-BundleReferralExample01.json";
+	private static final String INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH = "file/Bundle-Bundle-eCheckupReport-Sample-01.json";
 	// テスト対象の通常のFHIR Validation機能
 	private static FhirValidationServiceImpl defaultSut;
 	// テスト対象の性能改善版のFHIR Validation機能
 	private static FhirValidationServiceImpl highPerformanceSut;
-	
+
 	// テスト対象を高速に起動できるように@BeforeAllで初期化しておく
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -53,7 +54,8 @@ class FhirValidationCompareTest {
 	private static void initDefaultSut() throws IOException, NoSuchFieldException, IllegalAccessException {
 		FhirConfig fhirConfig = new FhirConfig();
 		FhirContext ctx = fhirConfig.fhirContext();
-		defaultSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirValidator(ctx));
+		defaultSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
+				fhirConfig.fhirCheckupReportValidator(ctx));
 		initValidator(defaultSut);
 	}
 
@@ -62,43 +64,71 @@ class FhirValidationCompareTest {
 		FhirHighPerformanceConfig fhirConfig = new FhirHighPerformanceConfig();
 		FhirContext ctx = fhirConfig
 				.fhirContext(FhirConfigurationProperties.builder().highPerformanceMode(true).build());
-		highPerformanceSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirValidator(ctx));
+		highPerformanceSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
+				fhirConfig.fhirCheckupReportValidator(ctx));
 		initValidator(highPerformanceSut);
 	}
-	
+
 	// 暖機処理
 	private static void initValidator(FhirValidationServiceImpl service) throws NoSuchFieldException, SecurityException,
 			IllegalArgumentException, IllegalAccessException, IOException {
-		Resource initDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_DATA_FILE_PATH);
-		Field initDataResourceField = service.getClass().getDeclaredField("initDataResource");
-		initDataResourceField.setAccessible(true);
-		initDataResourceField.set(service, initDataResourceValue);
+		// 暖機処理（initメソッド）を呼び出しておく
+		Resource initDocumentDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_REFERRAL_FILE_PATH);
+		Field initDocumentDataResourceField = service.getClass().getDeclaredField("initDocumentDataResource");
+		initDocumentDataResourceField.setAccessible(true);
+		initDocumentDataResourceField.set(service, initDocumentDataResourceValue);
+
+		Resource initCheckupReportDataResourcValue = new ClassPathResource(INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH);				
+		Field initCheckupReportDataResourceField = service.getClass().getDeclaredField("initCheckupReportDataResource");
+		initCheckupReportDataResourceField.setAccessible(true);
+		initCheckupReportDataResourceField.set(service, initCheckupReportDataResourcValue);
 		service.init();
+		
 	}
 
 	// データドリブンテスト
 	@ParameterizedTest
 	@MethodSource
-	void testValidate(String inputFilePath) throws IOException {
+	void testValidateDocument(String inputFilePath) throws IOException {
 		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
 		// 通常版でのFHIRバリデーション実行結果を期待値とする
-		FhirValidationResult expected = defaultSut.validate(jsonString);
+		FhirValidationResult expected = defaultSut.validateDocument(jsonString);
 		// 性能改善版でのFHIRバリデーション実行結果を実際の値として比較する。
-		FhirValidationResult actual = highPerformanceSut.validate(jsonString);
+		FhirValidationResult actual = highPerformanceSut.validateDocument(jsonString);
 		// バリデーション結果の比較検証
 		assertEquals(expected, actual);
 	}
 
 	// テストケース
-	static Stream<Arguments> testValidate() {
+	static Stream<Arguments> testValidateDocument() {
 		return Stream.of(
 				// テストケース1
 				arguments("testdata/Bundle-BundleReferralExample01.json"),
 				// テストケース2
-				arguments("testdata/Bundle-BundleReferralExample02.json"),
-				// TODO: 以降に、テストケースを追加していく
-				// テストケース3
-				arguments("testdata/Bundle-Bundle-eCheckupReport-Sample-01.json")				
+				arguments("testdata/Bundle-BundleReferralExample02.json")
+		// TODO: 以降に、テストケースを追加していく
+		);
+	}
+
+	// データドリブンテスト
+	@ParameterizedTest
+	@MethodSource
+	void testValidateCheckupReport(String inputFilePath) throws IOException {
+		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
+		// 通常版でのFHIRバリデーション実行結果を期待値とする
+		FhirValidationResult expected = defaultSut.validateCheckupReport(jsonString);
+		// 性能改善版でのFHIRバリデーション実行結果を実際の値として比較する。
+		FhirValidationResult actual = highPerformanceSut.validateCheckupReport(jsonString);
+		// バリデーション結果の比較検証
+		assertEquals(expected, actual);
+	}
+
+	// テストケース
+	static Stream<Arguments> testValidateCheckupReport() {
+		return Stream.of(
+				// テストケース1
+				arguments("testdata/Bundle-Bundle-eCheckupReport-Sample-01.json")
+		// TODO: 以降に、テストケースを追加していく
 		);
 	}
 }
