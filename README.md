@@ -286,10 +286,12 @@
 - REST APIの呼び出し
     - curlコマンド等で、以下のコマンドを呼び出します。テスト用FHIRデータを送信し、バリデーション結果を取得します。
 
+    - 診療情報提供書のFHIRデータを送信する場合
+
     ```sh
     # curlコマンド実行
     cd springboot-hapi
-    curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-BundleReferralExample01.json http://localhost:8080/api/v1/fhir
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-BundleReferralExample01.json http://localhost:8080/api/v1/fhir/validate/document
 
     # 正常応答
     {"result":"OK"}
@@ -388,6 +390,15 @@
     2024-04-19T05:57:33.152+09:00 DEBUG 28176 --- [demo] [tomcat-handler-14] c.e.h.domain.FhirValidationServiceImpl   : バリデーション実行完了：783ms
     2024-04-19T05:57:33.152+09:00  INFO 28176 --- [demo] [tomcat-handler-14] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
     ```    
+
+    - 健康診断結果報告書のFHIRデータを送信する場合
+
+    ```sh
+    # curlコマンド実行
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-Bundle-eCheckupReport-Sample-01.json http://localhost:8080/api/v1/fhir/validate/checkup-report
+
+    # 実行結果は省略    
+    ```
 
 ## 7. SpringBootサンプルAPでのFHIRバリデーションの回帰テスト自動化の例
 - FHIRプロファイルの改訂、HAPIのバージョンアップ等の際、FHIRバリデーションが以前と変わりなく同じように動作すること確認する回帰テストが自動でできる仕組みが必要になることが想像されます。

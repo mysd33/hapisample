@@ -42,19 +42,27 @@ class FhirValidationRegressionTest {
 		// FhirConfigのBean定義通りに、FhirValidationServiceImplインスタンスを作成
 		FhirConfig fhirConfig = new FhirConfig();
 		FhirContext ctx = fhirConfig.fhirContext();
-		sut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirValidator(ctx));
+		sut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
+				fhirConfig.fhirCheckupReportValidator(ctx));
 		// 暖機処理（initメソッド）を呼び出しておく
-		Resource initDataResourceValue = new ClassPathResource("file/Bundle-BundleReferralExample01.json");
-		Field initDataResourceField = sut.getClass().getDeclaredField("initDataResource");
-		initDataResourceField.setAccessible(true);
-		initDataResourceField.set(sut, initDataResourceValue);
+		Resource initDocumentDataResourceValue = new ClassPathResource("file/Bundle-BundleReferralExample01.json");
+		Field initDocumentDataResourceField = sut.getClass().getDeclaredField("initDocumentDataResource");
+		initDocumentDataResourceField.setAccessible(true);
+		initDocumentDataResourceField.set(sut, initDocumentDataResourceValue);
+
+		Resource initCheckupReportDataResourcValue = new ClassPathResource(
+				"file/Bundle-Bundle-eCheckupReport-Sample-01.json");
+		Field initCheckupReportDataResourceField = sut.getClass().getDeclaredField("initCheckupReportDataResource");
+		initCheckupReportDataResourceField.setAccessible(true);
+		initCheckupReportDataResourceField.set(sut, initCheckupReportDataResourcValue);
 		sut.init();
 	}
 
 	// データドリブンテスト
 	@ParameterizedTest
 	@MethodSource
-	void testValidate(String inputFilePath, String expectedResult, List<String> errorMessages) throws IOException {
+	void testValidateDocument(String inputFilePath, String expectedResult, List<String> errorMessages)
+			throws IOException {
 		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
 		FhirValidationResult expected;
 		if (FhirValidationResult.OK.equals(expectedResult)) {
@@ -63,13 +71,13 @@ class FhirValidationRegressionTest {
 			expected = FhirValidationResult.builder().result(expectedResult).details(errorMessages).build();
 		}
 		// FHIRバリデーション実行
-		FhirValidationResult actual = sut.validate(jsonString);
+		FhirValidationResult actual = sut.validateDocument(jsonString);
 		// バリデーション結果の検証
 		assertEquals(expected, actual);
 	}
 
 	// テストケース
-	static Stream<Arguments> testValidate() {
+	static Stream<Arguments> testValidateDocument() {
 		return Stream.of(
 				// テストケース1
 				arguments("testdata/Bundle-BundleReferralExample01.json", FhirValidationResult.OK, null),
@@ -78,12 +86,38 @@ class FhirValidationRegressionTest {
 						"[ERROR]:[Bundle] Rule bdl-3: 'Entry.Requestバッチ/トランザクション/履歴に必須、それ以外の場合は禁止されています / entry.request mandatory for batch/transaction/history, otherwise prohibited' Failed",
 						"[ERROR]:[Bundle] Rule bdl-4: 'Batch-Response/Transaction-Response/historyに必須であり、それ以外の場合は禁止されています / entry.response mandatory for batch-response/transaction-response/history, otherwise prohibited' Failed",
 						"[ERROR]:[Bundle] Rule bdl-12: 'メッセージには最初のリソースとしてメッセージヘッダーが必要です / A message must have a MessageHeader as the first resource' Failed",
-						"[ERROR]:[Bundle] Bundle.type: minimum required = 1, but only found 0 (from http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral)"))// ,
+						"[ERROR]:[Bundle] Bundle.type: minimum required = 1, but only found 0 (from http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral)"))
 		// TODO: 以降に、テストケースを追加していく
-		// テストケース3
-		// arguments("testdata/Bundle-Bundle-eCheckupReport-Sample-01.json",
-		// FhirValidationResult.OK, null)
+		);
 
+	}
+
+	// データドリブンテスト
+	@ParameterizedTest
+	@MethodSource
+	void testValidateCheckupReport(String inputFilePath, String expectedResult, List<String> errorMessages)
+			throws IOException {
+		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
+		FhirValidationResult expected;
+		if (FhirValidationResult.OK.equals(expectedResult)) {
+			expected = FhirValidationResult.builder().result(expectedResult).build();
+		} else {
+			expected = FhirValidationResult.builder().result(expectedResult).details(errorMessages).build();
+		}
+		// FHIRバリデーション実行
+		FhirValidationResult actual = sut.validateCheckupReport(jsonString);
+		// バリデーション結果の検証
+		assertEquals(expected, actual);
+	}
+
+	// テストケース
+	static Stream<Arguments> testValidateCheckupReport() {
+		return Stream.of(
+				// テストケース1
+				// HAPIの通常のorg.hl7.fhir.validationは、6.1.1.2のため、entry.resourceに複数のプロファイルがあるバンドルをバリデーションできなかった不具合がありエラーになる
+				arguments("testdata/Bundle-Bundle-eCheckupReport-Sample-01.json", FhirValidationResult.OK, null)
+
+		// TODO: 以降に、テストケースを追加していく
 		);
 
 	}

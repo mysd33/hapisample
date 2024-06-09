@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -24,13 +25,29 @@ import lombok.extern.slf4j.Slf4j;
  */
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class FhirValidationServiceImpl implements FhirValidationService {
 	private final FhirContext fhirContext;
-	private final FhirValidator validator;
-
+	private final FhirValidator documentValidator;
+	private final FhirValidator checkupReportValidator;
+	
 	@Value("classpath:file/Bundle-BundleReferralExample01.json")
-	private Resource initDataResource;
+	private Resource initDocumentDataResource;
+	@Value("classpath:file/Bundle-Bundle-eCheckupReport-Sample-01.json")
+	private Resource initCheckupReportDataResource;
+
+	/**
+	 * コンストラクタ
+	 * @param fhirContext FHIRコンテキスト
+	 * @param documentValidator 医療文書用バリデータ
+	 * @param checkupReportValidator 健康診断結果報告書用バリデータ
+	 */
+	public FhirValidationServiceImpl(FhirContext fhirContext,
+			@Qualifier("fhirDocumentValidator") FhirValidator documentValidator,
+			@Qualifier("fhirCheckupReportValidator") FhirValidator checkupReportValidator) {
+		this.fhirContext = fhirContext;
+		this.documentValidator = documentValidator;
+		this.checkupReportValidator = checkupReportValidator;
+	}
 
 	/**
 	 * FHIRバリデーションの初回実行には時間がかかるため、AP起動時にダミーデータでバリデーションの初回実行をしておく
@@ -39,16 +56,32 @@ public class FhirValidationServiceImpl implements FhirValidationService {
 	 */
 	@PostConstruct
 	public void init() throws IOException {
-		String fhirString = Files.readString(initDataResource.getFile().toPath());
+		// 医療文書用Validator初回実行
+		initValidator(documentValidator, initDocumentDataResource);
+		// 健康診断結果報告書用Validator初回実行
+		initValidator(checkupReportValidator, initCheckupReportDataResource);
+	}
+
+	@Override
+	public FhirValidationResult validateDocument(String fhirString) {
+		return doValidate(documentValidator, fhirString);
+	}
+
+	@Override
+	public FhirValidationResult validateCheckupReport(String fhirString) {
+		return doValidate(checkupReportValidator, fhirString);
+	}
+
+	private void initValidator(FhirValidator validator, Resource initDocumentDataResource) throws IOException {
 		log.debug("バリデーション暖機処理実行開始");
+		String fhirDocumentString = Files.readString(initDocumentDataResource.getFile().toPath());
 		long startTime = System.nanoTime();
-		validator.validateWithResult(fhirString);
+		validator.validateWithResult(fhirDocumentString);
 		long endTime = System.nanoTime();
 		LogUtils.logElaspedTimeMillSecondUnit(log, "バリデーション暖機処理実行完了", startTime, endTime);
 	}
 
-	@Override
-	public FhirValidationResult validate(String fhirString) {
+	private FhirValidationResult doValidate(FhirValidator validator, String fhirString) {
 		log.debug("FHIRバリデーション開始[FHIRバージョン {}]", fhirContext.getVersion().getVersion().getFhirVersionString());
 		// log.debug("バリデーション対象データ:{}", fhirString);
 		// FHIRバリデーションの実行

@@ -1,0 +1,2926 @@
+{
+  "resourceType": "Bundle",
+  "id": "Bundle-eCheckupReport-Sample-01",
+  "meta": {
+    "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+    "profile": [
+      "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Bundle_eCheckupGeneral"
+    ]
+  },
+  "identifier": {
+    "system": "http://jpfhir.jp/fhir/core/IdSystem/documentInstance-identifier",
+    "value": "12345"
+  },
+  "type": "document",
+  "timestamp": "2024-04-05T13:28:17.239+09:00",
+  "entry": [
+    {
+      "fullUrl": "urn:uuid:fd13ba04-3b58-ac07-fad6-464cec87691d",
+      "resource": {
+        "resourceType": "Composition",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-1-Composition",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Composition_eCheckupGeneral"
+          ]
+        },
+        "language": "ja",
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
+            "valueString": "1.0"
+          }
+        ],
+        "identifier": {
+          "system": "http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier",
+          "value": "12345"
+        },
+        "status": "final",
+        "type": {
+          "coding": [
+            {
+              "code": "53576-5",
+              "system": "http://jpfhir.jp/fhir/Common/CodeSystem/doc-typecodes",
+              "display": "検診・健診報告書"
+            }
+          ]
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "system": "urn:oid:2.16.840.1.113883.2.2.1.6.1001",
+                "code": "10",
+                "display": "特定健診"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "encounter": {
+          "reference": "urn:uuid:3af3232e-1579-d4f6-3578-aa1e799fdcad"
+        },
+        "date": "2024-04-05T13:28:17+09:00",
+        "author": [
+          {
+            "reference": "urn:uuid:6c4ef273-df66-00ab-c021-d05c5a19e0ba"
+          },
+          {
+            "reference": "urn:uuid:d1fb6063-8f12-4c2c-922a-7b5e467c8407"
+          }
+        ],
+        "title": "健康診断結果のお知らせ",
+        "custodian": {
+          "reference": "urn:uuid:d1fb6063-8f12-4c2c-922a-7b5e467c8407"
+        },
+        "event": [
+          {
+            "code": [
+              {
+                "coding": [
+                  {
+                    "code": "010",
+                    "system": "urn:oid:1.2.392.200119.6.1002",
+                    "display": "特定健診"
+                  }
+                ]
+              }
+            ],
+            "period": {
+              "start": "2024-04-05",
+              "end": "2024-04-05"
+            },
+            "detail": [
+              {
+                "reference": "urn:uuid:3af3232e-1579-d4f6-3578-aa1e799fdcad"
+              }
+            ]
+          }
+        ],
+        "section": [
+          {
+            "title": "健診セクション",
+            "code": {
+              "coding": [
+                {
+                  "code": "01011",
+                  "system": "http://jpfhir.jp/fhir/eCheckup/CodeSystem/section-code",
+                  "display": "特定健診検査結果セクション"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><ul><li>身長 162.3 cm</li><li>体重 65.5 kg</li><li>BMI 24.9 kg/m2</li><li>腹囲 70 cm</li><li>メタボリックシンドローム判定 非該当</li><li>保健指導レベル なし</li></ul></div>"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:b41c8c97-f3ad-450a-1738-5f2b4c40c68a"
+              },
+              {
+                "reference": "urn:uuid:cde1fec2-f8af-a793-7fe0-c2c417c9c000"
+              },
+              {
+                "reference": "urn:uuid:51424f15-c213-00bf-5d31-4770244b4f32"
+              },
+              {
+                "reference": "urn:uuid:628244db-68cf-abb6-bc9d-2d89bbc2b3ea"
+              },
+              {
+                "reference": "urn:uuid:ff4472f4-9e44-6aa3-bcd6-abb0662e4641"
+              },
+              {
+                "reference": "urn:uuid:38cbf2cf-61b7-6738-9d8c-a7b29016c48f"
+              },
+              {
+                "reference": "urn:uuid:01b972fc-5183-8fa4-0954-10a7c5f5a36e"
+              },
+              {
+                "reference": "urn:uuid:785fcd39-8c25-4e6d-53bc-a2f8055fd110"
+              },
+              {
+                "reference": "urn:uuid:f8fffea8-5c47-8ab2-b24a-21cd1e929723"
+              },
+              {
+                "reference": "urn:uuid:88134c9e-2016-d460-a3c8-417615b0065b"
+              },
+              {
+                "reference": "urn:uuid:397dd498-07ed-49ce-3e43-2ee1c7db42aa"
+              },
+              {
+                "reference": "urn:uuid:454c83e8-a534-84b9-f4d6-7257f5dc15de"
+              },
+              {
+                "reference": "urn:uuid:e0252472-a245-2340-c3a5-a6c30faf7d11"
+              },
+              {
+                "reference": "urn:uuid:a2cefc2b-95d6-4108-dac5-bee1f991608a"
+              },
+              {
+                "reference": "urn:uuid:d0d3fb12-eacc-c4a2-1762-130b4a65ead2"
+              },
+              {
+                "reference": "urn:uuid:22479301-4726-e239-09d6-257429835c67"
+              },
+              {
+                "reference": "urn:uuid:cbb7812a-8f5a-6547-c821-1dc2304d1066"
+              },
+              {
+                "reference": "urn:uuid:13e56540-0e37-96f8-c774-31d66fb3efa8"
+              },
+              {
+                "reference": "urn:uuid:881e7ffa-4b36-01de-f954-9eff7a7eba24"
+              },
+              {
+                "reference": "urn:uuid:55cb9c64-af3d-9763-a3f5-8d14954c36cc"
+              },
+              {
+                "reference": "urn:uuid:42b66f41-aafe-1452-1f3d-8fc25dfa1ce3"
+              },
+              {
+                "reference": "urn:uuid:54eabf03-1de5-d080-aed6-6b6a2e4da269"
+              },
+              {
+                "reference": "urn:uuid:38f45298-ea42-9f15-7fb2-48ed899d3ab6"
+              },
+              {
+                "reference": "urn:uuid:eac6609a-9821-61f7-3eb9-b7db3d9f5cfc"
+              }
+            ]
+          },
+          {
+            "title": "問診結果セクション",
+            "code": {
+              "coding": [
+                {
+                  "code": "01012",
+                  "system": "http://jpfhir.jp/fhir/eCheckup/CodeSystem/section-code",
+                  "display": "特定健診問診結果セクション"
+                }
+              ]
+            },
+            "text": {
+              "status": "generated",
+              "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>問診結果</p></div>"
+            },
+            "entry": [
+              {
+                "reference": "urn:uuid:71fcdecc-1331-9067-f5b2-24d6ba5eecda"
+              },
+              {
+                "reference": "urn:uuid:e6bd5094-2641-966f-92cf-04aced8624ac"
+              },
+              {
+                "reference": "urn:uuid:84dbe428-621d-90a2-6d8a-93bf7877a623"
+              },
+              {
+                "reference": "urn:uuid:394254aa-ec8b-9460-b807-3f14af30f980"
+              },
+              {
+                "reference": "urn:uuid:771633a6-53fe-93b7-a554-55eba705323a"
+              },
+              {
+                "reference": "urn:uuid:7aba35bb-c544-a4f5-1708-80232eb4ad20"
+              },
+              {
+                "reference": "urn:uuid:3f789a09-3ed8-7b10-0746-3468712a31e0"
+              },
+              {
+                "reference": "urn:uuid:60c85205-13fb-407f-c318-ba6d77f6cbf5"
+              },
+              {
+                "reference": "urn:uuid:cf70c7f5-61e0-08b2-b0bd-6c8de3f17d1e"
+              },
+              {
+                "reference": "urn:uuid:03f32584-e817-3800-1a1b-0875aca196a6"
+              },
+              {
+                "reference": "urn:uuid:653fb95b-8523-a180-7a42-4af7ecab60b8"
+              },
+              {
+                "reference": "urn:uuid:55f1f4c4-ba3a-908f-8bff-9055f97365a2"
+              },
+              {
+                "reference": "urn:uuid:90801144-7e54-4746-e61d-59846d98099a"
+              },
+              {
+                "reference": "urn:uuid:0e01b4a8-0c09-1b58-2806-e92de3772100"
+              },
+              {
+                "reference": "urn:uuid:fa85159b-5e47-2328-0818-19157328ab2d"
+              },
+              {
+                "reference": "urn:uuid:b2dd1122-47d5-1e4e-7032-522c3409f196"
+              },
+              {
+                "reference": "urn:uuid:d23cab05-9bd9-e67d-0b24-067e094862f5"
+              },
+              {
+                "reference": "urn:uuid:029b7c8b-a683-6189-4b28-69eac44785df"
+              },
+              {
+                "reference": "urn:uuid:ddd1124f-f22d-73d9-0205-f23d19ff9d5b"
+              },
+              {
+                "reference": "urn:uuid:58da6db5-8b94-885e-d69d-2c1d61bcf5fc"
+              },
+              {
+                "reference": "urn:uuid:c129aa0a-0324-f741-b3b6-2ede35eef2de"
+              },
+              {
+                "reference": "urn:uuid:4e41601f-3e85-2b45-51a9-8e939a43c9f7"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3",
+      "resource": {
+        "resourceType": "Patient",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-2-Patient",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Patient_eCS"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.392.200119.6.102.11311234567",
+            "value": "34567"
+          }
+        ],
+        "name": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+                "valueCode": "IDE"
+              }
+            ],
+            "use": "official",
+            "text": "健診 太郎",
+            "family": "健診",
+            "given": [
+              "太郎"
+            ]
+          },
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+                "valueCode": "SYL"
+              }
+            ],
+            "use": "official",
+            "text": "ケンシン タロウ",
+            "family": "ケンシン",
+            "given": [
+              "タロウ"
+            ]
+          }
+        ],
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "03-1111-2222",
+            "use": "home"
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1950-05-04",
+        "address": [
+          {
+            "text": "神奈川県横浜市港区１－２－３",
+            "postalCode": "123-4567",
+            "country": "JP"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:6c4ef273-df66-00ab-c021-d05c5a19e0ba",
+      "resource": {
+        "resourceType": "Practitioner",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-3-Practitioner",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Practitioner_eCheckupGeneral"
+          ]
+        },
+        "name": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+                "valueCode": "IDE"
+              }
+            ],
+            "text": "東京 太郎",
+            "family": "東京",
+            "given": [
+              "太郎"
+            ]
+          },
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+                "valueCode": "SYL"
+              }
+            ],
+            "text": "トウキョウ タロウ",
+            "family": "トウキョウ",
+            "given": [
+              "タロウ"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d1fb6063-8f12-4c2c-922a-7b5e467c8407",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-4-Organization",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Organization_eCheckupGeneral"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no",
+            "value": "1311234567"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "prov",
+                "system": "http://terminology.hl7.org/CodeSystem/organization-type"
+              }
+            ]
+          }
+        ],
+        "name": "厚生労働省第一病院",
+        "telecom": [
+          {
+            "system": "phone",
+            "value": "0123-456-7890"
+          }
+        ],
+        "address": [
+          {
+            "text": "東京都千代田区千代田９－９－９",
+            "postalCode": "100-0001",
+            "country": "JP"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3af3232e-1579-d4f6-3578-aa1e799fdcad",
+      "resource": {
+        "resourceType": "Encounter",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-5-Encounter",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Encounter_eCheckupGeneral"
+          ]
+        },
+        "status": "finished",
+        "class": {
+          "code": "checkup",
+          "system": "http://jpfhir.jp/fhir/eCheckup/CodeSystem/encounter-category",
+          "display": "健診"
+        },
+        "period": {
+          "start": "2020-04-04",
+          "end": "2020-04-04"
+        },
+        "serviceProvider": {
+          "reference": "urn:uuid:d1fb6063-8f12-4c2c-922a-7b5e467c8407"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:38f45298-ea42-9f15-7fb2-48ed899d3ab6",
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-6",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_CoverageService_eCheckupGeneral"
+          ]
+        },
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "code": "1",
+              "system": "urn:oid:1.2.392.200119.6.208"
+            }
+          ]
+        },
+        "subscriberId": "24100000123",
+        "beneficiary": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "period": {
+          "start": "2024-04-01",
+          "end": "2025-03-31"
+        },
+        "payor": [
+          {
+            "reference": "urn:uuid:7c9f9f7f-e546-0ac2-6828-a9e0b24e5750"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:eac6609a-9821-61f7-3eb9-b7db3d9f5cfc",
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-7",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_CoverageInsurance_eCheckupGeneral"
+          ]
+        },
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "urn:oid:1.2.392.100495.20.2.61",
+              "code": "1"
+            }
+          ]
+        },
+        "extension": [
+          {
+            "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Coverage_InsuredPersonSymbol",
+            "valueString": "１２３４５"
+          },
+          {
+            "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Coverage_InsuredPersonNumber",
+            "valueString": "６７８９０"
+          },
+          {
+            "url": "http://jpfhir.jp/fhir/core/Extension/StructureDefinition/JP_Coverage_InsuredPersonSubNumber",
+            "valueString": "０１"
+          }
+        ],
+        "identifier": [
+          {
+            "value": "\"１２３４５\",\"６７８９０\",\"０１\""
+          }
+        ],
+        "subscriberId": "\"１２３４５\",\"６７８９０\"",
+        "beneficiary": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "dependent": "０１",
+        "relationship": {
+          "coding": [
+            {
+              "code": "1",
+              "system": "urn:oid:1.2.392.100495.20.2.62",
+              "display": "被保険者"
+            }
+          ]
+        },
+        "period": {
+          "start": "2018-04-01",
+          "end": "2025-03-31"
+        },
+        "payor": [
+          {
+            "reference": "urn:uuid:7c9f9f7f-e546-0ac2-6828-a9e0b24e5750"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7c9f9f7f-e546-0ac2-6828-a9e0b24e5750",
+      "resource": {
+        "resourceType": "Organization",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-8-Insurer",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_OrganizationInsurer_eCheckupGeneral"
+          ]
+        },
+        "identifier": [
+          {
+            "system": "urn:oid:1.2.392.100495.20.3.61",
+            "value": "06123456"
+          }
+        ],
+        "type": [
+          {
+            "coding": [
+              {
+                "code": "ins",
+                "system": "http://terminology.hl7.org/CodeSystem/organization-type"
+              }
+            ]
+          }
+        ],
+        "name": "サンプル健康保険組合"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b41c8c97-f3ad-450a-1738-5f2b4c40c68a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-9-Obs-BH",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "body-measurement",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N001000000000001",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "身長"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueQuantity": {
+          "value": 162.3,
+          "code": "cm",
+          "system": "http://unitsofmeasure.org",
+          "unit": "cm"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cde1fec2-f8af-a793-7fe0-c2c417c9c000",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-10-Obs-BW",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "body-measurement",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N006000000000001",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "体重"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueQuantity": {
+          "value": 65.5,
+          "code": "kg",
+          "system": "http://unitsofmeasure.org",
+          "unit": "kg"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:51424f15-c213-00bf-5d31-4770244b4f32",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-11-Obs-BMI",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "body-measurement",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N011000000000001",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "BMI"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueQuantity": {
+          "value": 24.9,
+          "code": "kg/m2",
+          "system": "http://unitsofmeasure.org",
+          "unit": "kg/m2"
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:628244db-68cf-abb6-bc9d-2d89bbc2b3ea",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-12",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "body-measurement",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N016160100000001",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "腹囲"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueQuantity": {
+          "value": 70,
+          "code": "cm",
+          "system": "http://unitsofmeasure.org",
+          "unit": "cm"
+        },
+        "method": {
+          "coding": [
+            {
+              "code": "9N01610000",
+              "system": "urn:oid:1.2.392.200119.6.1007",
+              "display": "１回目"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ff4472f4-9e44-6aa3-bcd6-abb0662e4641",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-13",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "exam",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N056000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "既往歴"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1",
+              "system": "urn:oid:1.2.392.200119.6.2001",
+              "display": "特記事項有り"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "9N056160400000049",
+                  "system": "urn:oid:1.2.392.200119.6.1005",
+                  "display": "具体的な既往歴"
+                }
+              ]
+            },
+            "valueString": "ヘルニア、膀胱炎"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:38cbf2cf-61b7-6738-9d8c-a7b29016c48f",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-14",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "exam",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N061000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "自覚症状"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1",
+              "system": "urn:oid:1.2.392.200119.6.2001",
+              "display": "特記事項有り"
+            }
+          ]
+        },
+        "component": [
+          {
+            "code": {
+              "coding": [
+                {
+                  "code": "9N061160800000049",
+                  "system": "urn:oid:1.2.392.200119.6.1005",
+                  "display": "自覚症状所見"
+                }
+              ]
+            },
+            "valueString": "胃痛"
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:01b972fc-5183-8fa4-0954-10a7c5f5a36e",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-15",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "exam",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N066000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "他覚症状"
+            }
+          ]
+        },
+        "effectiveDateTime": "2020-04-04",
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2001",
+              "display": "特記事項無し"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:785fcd39-8c25-4e6d-53bc-a2f8055fd110",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-16-1",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "code": {
+          "coding": [
+            {
+              "code": "9A751000000000001",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "収縮期血圧（１回目）"
+            }
+          ]
+        },
+        "valueQuantity": {
+          "value": 149,
+          "code": "mm[Hg]",
+          "system": "http://unitsofmeasure.org",
+          "unit": "mmHg"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "N",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "low": {
+              "value": 80,
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg"
+            },
+            "high": {
+              "value": 130,
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:f8fffea8-5c47-8ab2-b24a-21cd1e929723",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-16-2",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "vital-signs",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "code": {
+          "coding": [
+            {
+              "code": "9A761000000000001",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "拡張期血圧（１回目）"
+            }
+          ]
+        },
+        "valueQuantity": {
+          "value": 90,
+          "code": "mm[Hg]",
+          "system": "http://unitsofmeasure.org",
+          "unit": "mmHg"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "N",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+              }
+            ]
+          }
+        ],
+        "referenceRange": [
+          {
+            "low": {
+              "value": 40,
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg"
+            },
+            "high": {
+              "value": 80,
+              "code": "mm[Hg]",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mmHg"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:88134c9e-2016-d460-a3c8-417615b0065b",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-17",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "3F015000002327101",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "空腹時中性脂肪"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueQuantity": {
+          "value": 60,
+          "code": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "unit": "mg/dl"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "N",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+              }
+            ]
+          }
+        ],
+        "method": {
+          "coding": [
+            {
+              "code": "3F01510000",
+              "system": "urn:oid:1.2.392.200119.6.1007",
+              "display": "可視吸光光度法（酵素比色法・グリセロール消去）"
+            }
+          ]
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 50,
+              "code": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mg/dl"
+            },
+            "high": {
+              "value": 149,
+              "code": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mg/dl"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:397dd498-07ed-49ce-3e43-2ee1c7db42aa",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-18",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "3F070000002327101",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "ＨＤＬコレステロール"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueQuantity": {
+          "value": 45,
+          "code": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "unit": "mg/dl"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "N",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+              }
+            ]
+          }
+        ],
+        "method": {
+          "coding": [
+            {
+              "code": "3F07010000",
+              "system": "urn:oid:1.2.392.200119.6.1007",
+              "display": "可視吸光光度法（直接法（非沈殿法））"
+            }
+          ]
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 40,
+              "code": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mg/dl"
+            },
+            "high": {
+              "value": 96,
+              "code": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mg/dl"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:454c83e8-a534-84b9-f4d6-7257f5dc15de",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-19",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "3F077000002327101",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "ＬＤＬコレステロール"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueQuantity": {
+          "value": 88,
+          "code": "mg/dL",
+          "system": "http://unitsofmeasure.org",
+          "unit": "mg/dl"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "N",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+              }
+            ]
+          }
+        ],
+        "method": {
+          "coding": [
+            {
+              "code": "3F07710000",
+              "system": "urn:oid:1.2.392.200119.6.1007",
+              "display": "可視吸光光度法（直接法（非沈殿法））"
+            }
+          ]
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 70,
+              "code": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mg/dl"
+            },
+            "high": {
+              "value": 140,
+              "code": "mg/dL",
+              "system": "http://unitsofmeasure.org",
+              "unit": "mg/dl"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e0252472-a245-2340-c3a5-a6c30faf7d11",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-20",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "3B035000002327201",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "ＡＳＴ（ＧＯＴ）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueQuantity": {
+          "value": 32,
+          "code": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "unit": "U/l"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "N",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+              }
+            ]
+          }
+        ],
+        "method": {
+          "coding": [
+            {
+              "code": "3B03510000",
+              "system": "urn:oid:1.2.392.200119.6.1007",
+              "display": "紫外吸光光度法（JSCC標準化対応法）"
+            }
+          ]
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 10,
+              "code": "U/L",
+              "system": "http://unitsofmeasure.org",
+              "unit": "U/l"
+            },
+            "high": {
+              "value": 40,
+              "code": "U/L",
+              "system": "http://unitsofmeasure.org",
+              "unit": "U/l"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:a2cefc2b-95d6-4108-dac5-bee1f991608a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-21",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "3B045000002327201",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "ＡＬＴ（ＧＰＴ）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueQuantity": {
+          "value": 16,
+          "code": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "unit": "U/l"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "N",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+              }
+            ]
+          }
+        ],
+        "method": {
+          "coding": [
+            {
+              "code": "3B04510000",
+              "system": "urn:oid:1.2.392.200119.6.1007",
+              "display": "紫外吸光光度法（JSCC標準化対応法）"
+            }
+          ]
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 5,
+              "code": "U/L",
+              "system": "http://unitsofmeasure.org",
+              "unit": "U/l"
+            },
+            "high": {
+              "value": 30,
+              "code": "U/L",
+              "system": "http://unitsofmeasure.org",
+              "unit": "U/l"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d0d3fb12-eacc-c4a2-1762-130b4a65ead2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-22",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "3B090000002327101",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "γ－ＧＴ（γ－ＧＴＰ）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueQuantity": {
+          "value": 55,
+          "code": "U/L",
+          "system": "http://unitsofmeasure.org",
+          "unit": "U/l"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "N",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+              }
+            ]
+          }
+        ],
+        "method": {
+          "coding": [
+            {
+              "code": "3B09010000",
+              "system": "urn:oid:1.2.392.200119.6.1007",
+              "display": "可視吸光光度法（JSCC標準化対応法）"
+            }
+          ]
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 0,
+              "code": "U/L",
+              "system": "http://unitsofmeasure.org",
+              "unit": "U/l"
+            },
+            "high": {
+              "value": 30,
+              "code": "U/L",
+              "system": "http://unitsofmeasure.org",
+              "unit": "U/l"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:22479301-4726-e239-09d6-257429835c67",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-23",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "specimen": {
+          "type": "specimen",
+          "display": "全血（添加物入り）"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "3D046000001906202",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "ＨｂＡ１ｃ（ＮＧＳＰ）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueQuantity": {
+          "value": 7,
+          "code": "%",
+          "system": "http://unitsofmeasure.org",
+          "unit": "%"
+        },
+        "interpretation": [
+          {
+            "coding": [
+              {
+                "code": "H",
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ObservationInterpretation"
+              }
+            ]
+          }
+        ],
+        "method": {
+          "coding": [
+            {
+              "code": "3D04610000",
+              "system": "urn:oid:1.2.392.200119.6.1007",
+              "display": "免疫学的方法（ラテックス凝集比濁法等）"
+            }
+          ]
+        },
+        "referenceRange": [
+          {
+            "low": {
+              "value": 4.3,
+              "code": "%",
+              "system": "http://unitsofmeasure.org",
+              "unit": "%"
+            },
+            "high": {
+              "value": 5.8,
+              "code": "%",
+              "system": "http://unitsofmeasure.org",
+              "unit": "%"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cbb7812a-8f5a-6547-c821-1dc2304d1066",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-24",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N141000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "採血時間（食後）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2202",
+              "display": "食後１０時間以上"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:13e56540-0e37-96f8-c774-31d66fb3efa8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-25",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "specimen": {
+          "type": "specimen",
+          "display": "尿"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "1A020000000191111",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "尿糖"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 1
+                }
+              ],
+              "code": "1",
+              "system": "urn:oid:1.2.392.200119.6.2102",
+              "display": "－"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:881e7ffa-4b36-01de-f954-9eff7a7eba24",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-26",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "specimen": {
+          "type": "specimen",
+          "display": "尿"
+        },
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "laboratory",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "1A010000000191111",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "尿蛋白"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "extension": [
+                {
+                  "url": "http://hl7.org/fhir/StructureDefinition/ordinalValue",
+                  "valueDecimal": 1
+                }
+              ],
+              "code": "1",
+              "system": "urn:oid:1.2.392.200119.6.2102",
+              "display": "－"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:55cb9c64-af3d-9763-a3f5-8d14954c36cc",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-27",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N501000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "メタボリックシンドローム判定"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "3",
+              "system": "urn:oid:1.2.392.200119.6.1008",
+              "display": "非該当"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:42b66f41-aafe-1452-1f3d-8fc25dfa1ce3",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-28",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "survey",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N506000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "保健指導レベル"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "3",
+              "system": "urn:oid:1.2.392.200119.6.3001",
+              "display": "なし"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:54eabf03-1de5-d080-aed6-6b6a2e4da269",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-29",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "exam",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N511000000000049",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "医師の診断（判定）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "performer": [
+          {
+            "reference": "urn:uuid:6c4ef273-df66-00ab-c021-d05c5a19e0ba"
+          }
+        ],
+        "valueString": "肝機能がわずかに異常ですが支障はないと思われます。"
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:71fcdecc-1331-9067-f5b2-24d6ba5eecda",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-30",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N701000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "服薬１（血圧）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:e6bd5094-2641-966f-92cf-04aced8624ac",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-31",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N706000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "服薬２（血糖）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:84dbe428-621d-90a2-6d8a-93bf7877a623",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-32",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N711000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "服薬３（脂質）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:394254aa-ec8b-9460-b807-3f14af30f980",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-33",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N736000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "喫煙"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "3",
+              "system": "urn:oid:1.2.392.200119.6.24060",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:771633a6-53fe-93b7-a554-55eba705323a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-34",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N716000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "既往歴１（脳血管）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:7aba35bb-c544-a4f5-1708-80232eb4ad20",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-35",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N721000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "既往歴２（心血管）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:3f789a09-3ed8-7b10-0746-3468712a31e0",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-36",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N726000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "既往歴３（腎不全・人工透析）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:60c85205-13fb-407f-c318-ba6d77f6cbf5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-37",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N731000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "貧血"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:cf70c7f5-61e0-08b2-b0bd-6c8de3f17d1e",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-38",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N741000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "２０歳からの体重変化"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:03f32584-e817-3800-1a1b-0875aca196a6",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-39",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N746000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "３０分以上の運動習慣"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:653fb95b-8523-a180-7a42-4af7ecab60b8",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-40",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N751000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "歩行又は身体活動"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:55f1f4c4-ba3a-908f-8bff-9055f97365a2",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-41",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N756000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "歩行速度"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "はい"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:90801144-7e54-4746-e61d-59846d98099a",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-42",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N872000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "咀嚼"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1",
+              "system": "urn:oid:1.2.392.200119.6.18030",
+              "display": "何でもかんで食べることができる"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:0e01b4a8-0c09-1b58-2806-e92de3772100",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-43",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N766000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "食べ方1（早食い等）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1",
+              "system": "urn:oid:1.2.392.200119.6.2004",
+              "display": "速い"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:fa85159b-5e47-2328-0818-19157328ab2d",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-44",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N771000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "食べ方２（就寝前）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "はい"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:b2dd1122-47d5-1e4e-7032-522c3409f196",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-45",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N782000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "食べ方３（間食）"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.18040",
+              "display": "時々"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:d23cab05-9bd9-e67d-0b24-067e094862f5",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-46",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N781000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "食習慣"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "はい"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:029b7c8b-a683-6189-4b28-69eac44785df",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-47",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N786000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "飲酒"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "4",
+              "system": "urn:oid:1.2.392.200119.6.24040",
+              "display": "週1～2日"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:ddd1124f-f22d-73d9-0205-f23d19ff9d5b",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-48",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N791000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "飲酒量"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.24050",
+              "display": "１～2合未満"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:58da6db5-8b94-885e-d69d-2c1d61bcf5fc",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-49",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N796000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "睡眠"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:c129aa0a-0324-f741-b3b6-2ede35eef2de",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-50",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N801000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "生活習慣の改善"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "1",
+              "system": "urn:oid:1.2.392.200119.6.2007",
+              "display": "意思なし"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "fullUrl": "urn:uuid:4e41601f-3e85-2b45-51a9-8e939a43c9f7",
+      "resource": {
+        "resourceType": "Observation",
+        "id": "Inline-Instance-for-GOFSH-GENERATED-ID-0-51",
+        "meta": {
+          "lastUpdated": "2024-04-05T13:28:17.239+09:00",
+          "profile": [
+            "http://jpfhir.jp/fhir/eCheckup/StructureDefinition/JP_Observation_eCheckupGeneral"
+          ]
+        },
+        "status": "final",
+        "category": [
+          {
+            "coding": [
+              {
+                "code": "social-history",
+                "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS"
+              }
+            ]
+          }
+        ],
+        "code": {
+          "coding": [
+            {
+              "code": "9N808000000000011",
+              "system": "urn:oid:1.2.392.200119.6.1005",
+              "display": "特定保健指導の受診歴"
+            }
+          ]
+        },
+        "subject": {
+          "reference": "urn:uuid:4bc68294-1895-d159-655b-1bc7e83f52f3"
+        },
+        "effectiveDateTime": "2020-04-04",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "2",
+              "system": "urn:oid:1.2.392.200119.6.2003",
+              "display": "いいえ"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -66,14 +66,14 @@ public class FhirHighPerformanceConfig {
 	}
 
 	/**
-	 * FhirValidatorのBean定義<br>
+	 * 文書（診療情報提供書、退院時サマリ）用のFhirValidatorのBean定義<br>
 	 * 
 	 * FhirValidatorはスレッドセーフ（なお、個々のモジュールはスレッドセーフではない）なので、Bean定義してインスタンスを再利用できるようにする
 	 * 
 	 * @see https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-base/ca/uhn/fhir/validation/FhirValidator.html
 	 */
 	@Bean
-	FhirValidator fhirValidator(FhirContext ctxForR5) throws IOException {
+	FhirValidator fhirDocumentValidator(FhirContext ctxForR5) throws IOException {
 		long startTime = System.nanoTime();
 
 		// R4のContextを一時的に作成
@@ -88,6 +88,76 @@ public class FhirHighPerformanceConfig {
 		NpmPackageValidationSupport npmPackageEDischargeSummarySupport = new NpmPackageValidationSupport(tmpCtxForR4);
 		npmPackageEDischargeSummarySupport.loadPackageFromClasspath(JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE);
 
+		// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(tmpCtxForR4);
+		npmPackageJPCoreSupport.loadPackageFromClasspath(JP_CORE_NPM_PACKAGE);
+
+		// JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(tmpCtxForR4);
+		npmPackageTerminologySupport.loadPackageFromClasspath(JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
+
+		// FHIRベースプロファイルの組み込みの検証ルール
+		DefaultProfileValidationSupport defaultProfileValidationSupport = new DefaultProfileValidationSupport(
+				tmpCtxForR4);
+		// R5変換前に、引数はダミーのURLでよいので、StructureDefinition, ValueSet、CodeSystemsをロードするようにする
+		// 参考
+		// ca.uhn.fhir.context.support.DefaultProfileValidationSupportBundleStrategy.fetchAllStructureDefinitions()メソッド
+		// ca.uhn.fhir.context.support.DefaultProfileValidationSupportBundleStrategy.fetchCodeSystemOrValueSet(String,
+		// boolean)メソッド
+		defaultProfileValidationSupport.flush();
+		defaultProfileValidationSupport.fetchAllStructureDefinitions();
+		defaultProfileValidationSupport.fetchValueSet("http://dummy");
+
+		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
+				// R5モデルに変換したValidationSupportを登録
+				toR5(ctxForR5, defaultProfileValidationSupport), //
+				new CommonCodeSystemsTerminologyService(ctxForR5), //
+				new InMemoryTerminologyServerValidationSupport(ctxForR5), //
+				toR5(ctxForR5, npmPackageTerminologySupport), //
+				toR5(ctxForR5, npmPackageJPCoreSupport), //
+				toR5(ctxForR5, npmPackageEReferralSupport), //
+				toR5(ctxForR5, npmPackageEDischargeSummarySupport));				
+		// @formatter:off
+		/*
+		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
+				// R5モデルに変換したValidationSupportを登録
+				toR5(ctxForR5, npmPackageEReferralSupport), //
+				toR5(ctxForR5, npmPackageEDischargeSummarySupport), //
+				toR5(ctxForR5, npmPackageJPCoreSupport), //
+				toR5(ctxForR5, npmPackageTerminologySupport), //
+				toR5(ctxForR5, defaultProfileValidationSupport), //
+				new CommonCodeSystemsTerminologyService(ctxForR5), //
+				new InMemoryTerminologyServerValidationSupport(ctxForR5)//
+		);*/
+		// @formatter:on
+		// キャッシュ機能の設定
+		CachingValidationSupport validationSupport = new CachingValidationSupport(validationSupportChain);
+		FhirValidator validator = ctxForR5.newValidator();
+		IValidatorModule module = new FhirInstanceValidator(validationSupport);
+		validator.registerValidatorModule(module);
+		long endTime = System.nanoTime();
+		LogUtils.logElaspedTimeMillSecondUnit(log, "FHIRValidator作成", startTime, endTime);
+		return validator;
+	}
+
+	/**
+	 * 健康診断結果報告書用のFhirValidatorのBean定義<br>
+	 * 
+	 * 医療文書（診療情報提供書、退院時サマリ）のプロファイルと一緒に１つのバリデータで定義してしまうと、
+	 * 本来は正常のバリデーション結果がエラーに変わってしまうため、干渉しないよう別バリデータとして定義<br>
+	 * 
+	 * FhirValidatorはスレッドセーフ（なお、個々のモジュールはスレッドセーフではない）なので、Bean定義してインスタンスを再利用できるようにする
+	 * 
+	 * @see https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-base/ca/uhn/fhir/validation/FhirValidator.html
+	 */
+	@Bean
+	FhirValidator fhirCheckupReportValidator(FhirContext ctxForR5) throws IOException {
+		long startTime = System.nanoTime();
+
+		// R4のContextを一時的に作成
+		FhirContext tmpCtxForR4 = FhirContext.forR4();
+
+		// Validatorの作成
 		// 健康診断結果報告書のnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageECheckupReportSupport = new NpmPackageValidationSupport(tmpCtxForR4);
 		npmPackageECheckupReportSupport.loadPackageFromClasspath(JP_E_CHECKUP_REPORT_NPM_PACKAGE);
@@ -119,15 +189,11 @@ public class FhirHighPerformanceConfig {
 				new InMemoryTerminologyServerValidationSupport(ctxForR5), //
 				toR5(ctxForR5, npmPackageTerminologySupport), //
 				toR5(ctxForR5, npmPackageJPCoreSupport), //
-				toR5(ctxForR5, npmPackageEReferralSupport), //
-				toR5(ctxForR5, npmPackageEDischargeSummarySupport), //
 				toR5(ctxForR5, npmPackageECheckupReportSupport));
 		// @formatter:off
 		/*
 		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 				// R5モデルに変換したValidationSupportを登録
-				toR5(ctxForR5, npmPackageEReferralSupport), //
-				toR5(ctxForR5, npmPackageEDischargeSummarySupport), //
 				toR5(ctxForR5, npmPackageECheckupReportSupport), //
 				toR5(ctxForR5, npmPackageJPCoreSupport), //
 				toR5(ctxForR5, npmPackageTerminologySupport), //
@@ -145,7 +211,7 @@ public class FhirHighPerformanceConfig {
 		LogUtils.logElaspedTimeMillSecondUnit(log, "FHIRValidator作成", startTime, endTime);
 		return validator;
 	}
-
+	
 	/**
 	 * R4モデルのValidationSupportをR5モデルのデータ構造のValidationSuportに変換する
 	 * 
