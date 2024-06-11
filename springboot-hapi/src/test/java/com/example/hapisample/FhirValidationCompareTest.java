@@ -34,6 +34,7 @@ class FhirValidationCompareTest {
 	// 暖機処理用のFHIRのデータファイル
 	private static final String INIT_FOR_FHIR_REFERRAL_FILE_PATH = "file/Bundle-BundleReferralExample01.json";
 	private static final String INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH = "file/Bundle-Bundle-eCheckupReport-Sample-01.json";
+	private static final String INIT_FOR_FHIR_CLINS_FILE_PATH = "file/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json";
 	// テスト対象の通常のFHIR Validation機能
 	private static FhirValidationServiceImpl defaultSut;
 	// テスト対象の性能改善版のFHIR Validation機能
@@ -55,7 +56,7 @@ class FhirValidationCompareTest {
 		FhirConfig fhirConfig = new FhirConfig();
 		FhirContext ctx = fhirConfig.fhirContext();
 		defaultSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
-				fhirConfig.fhirCheckupReportValidator(ctx));
+				fhirConfig.fhirCheckupReportValidator(ctx), fhirConfig.fhirClinsValidator(ctx));
 		initValidator(defaultSut);
 	}
 
@@ -65,25 +66,31 @@ class FhirValidationCompareTest {
 		FhirContext ctx = fhirConfig
 				.fhirContext(FhirConfigurationProperties.builder().highPerformanceMode(true).build());
 		highPerformanceSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
-				fhirConfig.fhirCheckupReportValidator(ctx));
+				fhirConfig.fhirCheckupReportValidator(ctx), fhirConfig.fhirClinsValidator(ctx));
 		initValidator(highPerformanceSut);
 	}
 
 	// 暖機処理
 	private static void initValidator(FhirValidationServiceImpl service) throws NoSuchFieldException, SecurityException,
 			IllegalArgumentException, IllegalAccessException, IOException {
-		// 暖機処理（initメソッド）を呼び出しておく
+		// 医療文書
 		Resource initDocumentDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_REFERRAL_FILE_PATH);
 		Field initDocumentDataResourceField = service.getClass().getDeclaredField("initDocumentDataResource");
 		initDocumentDataResourceField.setAccessible(true);
 		initDocumentDataResourceField.set(service, initDocumentDataResourceValue);
-
-		Resource initCheckupReportDataResourcValue = new ClassPathResource(INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH);				
+		// 健康診断結果報告書
+		Resource initCheckupReportDataResourcValue = new ClassPathResource(INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH);
 		Field initCheckupReportDataResourceField = service.getClass().getDeclaredField("initCheckupReportDataResource");
 		initCheckupReportDataResourceField.setAccessible(true);
 		initCheckupReportDataResourceField.set(service, initCheckupReportDataResourcValue);
+		// 臨床情報
+		Resource initClinsDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_CLINS_FILE_PATH);
+		Field initClinsDataResourceField = service.getClass().getDeclaredField("initClinsDataResource");
+		initClinsDataResourceField.setAccessible(true);
+		initClinsDataResourceField.set(service, initClinsDataResourceValue);
+		// 暖機処理（initメソッド）を呼び出しておく
 		service.init();
-		
+
 	}
 
 	// データドリブンテスト
@@ -128,6 +135,34 @@ class FhirValidationCompareTest {
 		return Stream.of(
 				// テストケース1
 				arguments("testdata/Bundle-Bundle-eCheckupReport-Sample-01.json")
+		// TODO: 以降に、テストケースを追加していく
+		);
+	}
+
+	// データドリブンテスト
+	@ParameterizedTest
+	@MethodSource
+	void testValidateClins(String inputFilePath) throws IOException {
+		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
+		// 通常版でのFHIRバリデーション実行結果を期待値とする
+		FhirValidationResult expected = defaultSut.validateClins(jsonString);
+		// 性能改善版でのFHIRバリデーション実行結果を実際の値として比較する。
+		FhirValidationResult actual = highPerformanceSut.validateClins(jsonString);
+		// バリデーション結果の比較検証
+		assertEquals(expected, actual);
+	}
+
+	// テストケース
+	static Stream<Arguments> testValidateClins() {
+		return Stream.of(
+				// テストケース1
+				arguments("testdata/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json"),
+				
+				//TODO: 通常モードではOKだが、パフォーマンス改善モードだとエラーになり、バリデーション結果が異なってしまう
+				// テストケース2
+				arguments("testdata/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-02.json"),
+				// テストケース3
+				arguments("testdata/AllergyIntolerance-Example-JP-DrugContraindications-CLINS-eCS-03.json")
 		// TODO: 以降に、テストケースを追加していく
 		);
 	}

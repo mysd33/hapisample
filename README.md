@@ -64,9 +64,11 @@
                 - 健康診断結果報告書のnpmパッケージ(ver1.1.6)
                     - [snapshot形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2-snap.tgz)
                     - [diff形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2.tgz)
-
-        - その他、臨床情報（6情報、JP-CLINS）なども同様にnpmパッケージで提供されていますので、少し実装を変えれば同様にそれらのnpmパッケージを使って検証することも可能です。                                                 
-            - [臨床情報（6情報、JP-CLINS）](https://jpfhir.jp/fhir/clins/igv1/)
+        - 臨床情報（6情報、JP-CLINS）の文書情報プロファイル
+            - [臨床情報（6情報、JP-CLINS）FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/clins/igv1/)
+                - 臨床情報（6情報、JP-CLINS）のnpmパッケージ(ver0.9.13)
+                    - [snapshot形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-0.9.13-snap.tgz)
+                    - [diff形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-0.9.13.tgz)
 
 ### 1.2. FHIRデータのパース
 - [HAPI FHIRのパーサ](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、パースをしています。    
@@ -409,6 +411,20 @@
 
     # 実行結果は省略    
     ```
+
+    - 臨床情報（JP-CLINS）のFHIRデータを送信する場合
+
+    ```sh
+    # curlコマンド実行
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json http://localhost:8080/api/v1/fhir/validate/clins    
+
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-02.json http://localhost:8080/api/v1/fhir/validate/clins
+
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\AllergyIntolerance-Example-JP-DrugContraindications-CLINS-eCS-03.json http://localhost:8080/api/v1/fhir/validate/clins
+
+    # 実行結果は省略    
+    ```
+
 
 ## 7. SpringBootサンプルAPでのFHIRバリデーションの回帰テスト自動化の例
 - FHIRプロファイルの改訂、HAPIのバージョンアップ等の際、FHIRバリデーションが以前と変わりなく同じように動作すること確認する回帰テストが自動でできる仕組みが必要になることが想像されます。

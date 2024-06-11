@@ -1,0 +1,110 @@
+{
+  "resourceType": "AllergyIntolerance",
+  "id": "Example-JP-AllergyIntolerance-CLINS-eCS-02",
+  "meta": {
+    "lastUpdated": "2023-04-01T10:00:00+09:00",
+    "profile": [
+      "http://jpfhir.jp/fhir/clins/StructureDefinition/JP_AllergyIntolerance_eCS"
+    ],
+    "tag": [
+      {
+        "code": "LTS",
+        "system": "http://jpfhir.jp/fhir/clins/CodeSystem/JP_ehrshrs_indication",
+        "display": "長期保存"
+      }
+    ]
+  },
+  "extension": [
+    {
+      "url": "http://jpfhir.jp/fhir/clins/Extension/StructureDefinition/JP_eCS_InstitutionNumber",
+      "valueIdentifier": {
+        "system": "http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no",
+        "value": "1318814790"
+      }
+    }
+  ],
+  "identifier": [
+    {
+      "system": "http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier",
+      "value": "102934702"
+    }
+  ],
+  "patient": {
+    "identifier": {
+      "system": "http://jpfhir.jp/fhir/clins/Idsystem/JP_Insurance_memberID",
+      "value": "00012345:あいう:１８７:05"
+    }
+  },
+  "contained": [
+    {
+      "resourceType": "Encounter",
+      "id": "Example-JP-Encounter-AMB",
+      "meta": {
+        "profile": [
+          "http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter"
+        ]
+      },
+      "identifier": [
+        {
+          "system": "http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier",
+          "value": "192844"
+        }
+      ],
+      "status": "finished",
+      "class": {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        "code": "AMB",
+        "display": "外来"
+      }
+    }
+  ],
+  "clinicalStatus": {
+    "coding": [
+      {
+        "code": "active",
+        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+        "display": "Active"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "code": "confirmed",
+        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-verification",
+        "display": "Confirmed"
+      }
+    ]
+  },
+  "category": [
+    "food"
+  ],
+  "code": {
+    "coding": [
+      {
+        "code": "J9FC11310000",
+        "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_JfagyFoodAllergen_CS",
+        "display": "さば類"
+      }
+    ],
+    "text": "さば"
+  },
+  "encounter": {
+    "reference": "#Example-JP-Encounter-AMB"
+  },
+  "onsetDateTime": "2020-04-10",
+  "recorder": {
+    "display": "看護師A"
+  },
+  "asserter": {
+    "display": "本人"
+  },
+  "note": [
+    {
+      "text": "さば食後３時間ほどで全身に発疹と腹痛あり"
+    },
+    {
+      "text": "allergyIntoleranceExample02 必須要素と推奨要素とプラスアルファを記述したサンプル"
+    }
+  ]
+}

@@ -32,7 +32,7 @@ class FhirValidationPerformanceTest {
 	// 暖機処理用のFHIRのデータファイル
 	private static final String INIT_FOR_FHIR_REFERRAL_FILE_PATH = "file/Bundle-BundleReferralExample01.json";
 	private static final String INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH = "file/Bundle-Bundle-eCheckupReport-Sample-01.json";
-
+	private static final String INIT_FOR_FHIR_CLINS_FILE_PATH = "file/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json";
 	// テスト対象の通常のFHIR Validation機能
 	private static FhirValidationServiceImpl defaultSut;
 	// テスト対象の性能改善版のFHIR Validation機能
@@ -54,7 +54,7 @@ class FhirValidationPerformanceTest {
 		FhirConfig fhirConfig = new FhirConfig();
 		FhirContext ctx = fhirConfig.fhirContext();
 		defaultSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
-				fhirConfig.fhirCheckupReportValidator(ctx));
+				fhirConfig.fhirCheckupReportValidator(ctx), fhirConfig.fhirClinsValidator(ctx));
 		initValidator(defaultSut);
 	}
 
@@ -64,27 +64,33 @@ class FhirValidationPerformanceTest {
 		FhirContext ctx = fhirConfig
 				.fhirContext(FhirConfigurationProperties.builder().highPerformanceMode(true).build());
 		highPerformanceSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
-				fhirConfig.fhirCheckupReportValidator(ctx));
+				fhirConfig.fhirCheckupReportValidator(ctx), fhirConfig.fhirClinsValidator(ctx));
 		initValidator(highPerformanceSut);
 	}
 
 	// 暖機処理
 	private static void initValidator(FhirValidationServiceImpl service) throws NoSuchFieldException, SecurityException,
 			IllegalArgumentException, IllegalAccessException, IOException {
-		// 暖機処理（initメソッド）を呼び出しておく
+		// 医療文書
 		Resource initDocumentDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_REFERRAL_FILE_PATH);
 		Field initDocumentDataResourceField = service.getClass().getDeclaredField("initDocumentDataResource");
 		initDocumentDataResourceField.setAccessible(true);
 		initDocumentDataResourceField.set(service, initDocumentDataResourceValue);
-
-		Resource initCheckupReportDataResourcValue = new ClassPathResource(INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH);				
+		// 健康診断結果報告書
+		Resource initCheckupReportDataResourcValue = new ClassPathResource(INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH);
 		Field initCheckupReportDataResourceField = service.getClass().getDeclaredField("initCheckupReportDataResource");
 		initCheckupReportDataResourceField.setAccessible(true);
 		initCheckupReportDataResourceField.set(service, initCheckupReportDataResourcValue);
+		// 臨床情報
+		Resource initClinsDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_CLINS_FILE_PATH);
+		Field initClinsDataResourceField = service.getClass().getDeclaredField("initClinsDataResource");
+		initClinsDataResourceField.setAccessible(true);
+		initClinsDataResourceField.set(service, initClinsDataResourceValue);
+		// 暖機処理（initメソッド）を呼び出しておく
 		service.init();
-		
+
 	}
-	
+
 	// validateDocumentメソッドの性能比較
 	@Test
 	void testValidateDocument() throws IOException {

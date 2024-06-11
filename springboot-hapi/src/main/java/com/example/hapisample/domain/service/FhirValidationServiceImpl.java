@@ -17,7 +17,6 @@ import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.validation.FhirValidator;
 import ca.uhn.fhir.validation.ValidationResult;
 import jakarta.annotation.PostConstruct;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -29,24 +28,30 @@ public class FhirValidationServiceImpl implements FhirValidationService {
 	private final FhirContext fhirContext;
 	private final FhirValidator documentValidator;
 	private final FhirValidator checkupReportValidator;
+	private final FhirValidator clinsValidator;
 	
 	@Value("classpath:file/Bundle-BundleReferralExample01.json")
 	private Resource initDocumentDataResource;
 	@Value("classpath:file/Bundle-Bundle-eCheckupReport-Sample-01.json")
 	private Resource initCheckupReportDataResource;
+	@Value("classpath:file/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json")
+	private Resource initClinsDataResource;
 
 	/**
 	 * コンストラクタ
 	 * @param fhirContext FHIRコンテキスト
 	 * @param documentValidator 医療文書用バリデータ
 	 * @param checkupReportValidator 健康診断結果報告書用バリデータ
+	 * @param clinsValidator 臨床情報（JP-CLINS）用バリデータ
 	 */
 	public FhirValidationServiceImpl(FhirContext fhirContext,
 			@Qualifier("fhirDocumentValidator") FhirValidator documentValidator,
-			@Qualifier("fhirCheckupReportValidator") FhirValidator checkupReportValidator) {
+			@Qualifier("fhirCheckupReportValidator") FhirValidator checkupReportValidator,
+			@Qualifier("fhirClinsValidator") FhirValidator clinsValidator) {
 		this.fhirContext = fhirContext;
 		this.documentValidator = documentValidator;
 		this.checkupReportValidator = checkupReportValidator;
+		this.clinsValidator = clinsValidator;
 	}
 
 	/**
@@ -60,6 +65,8 @@ public class FhirValidationServiceImpl implements FhirValidationService {
 		initValidator(documentValidator, initDocumentDataResource);
 		// 健康診断結果報告書用Validator初回実行
 		initValidator(checkupReportValidator, initCheckupReportDataResource);
+		// 臨床情報用Validator初回実行
+		initValidator(clinsValidator, initClinsDataResource);
 	}
 
 	@Override
@@ -70,6 +77,11 @@ public class FhirValidationServiceImpl implements FhirValidationService {
 	@Override
 	public FhirValidationResult validateCheckupReport(String fhirString) {
 		return doValidate(checkupReportValidator, fhirString);
+	}
+	
+	@Override
+	public FhirValidationResult validateClins(String fhirString) {	
+		return doValidate(clinsValidator, fhirString);
 	}
 
 	private void initValidator(FhirValidator validator, Resource initDocumentDataResource) throws IOException {

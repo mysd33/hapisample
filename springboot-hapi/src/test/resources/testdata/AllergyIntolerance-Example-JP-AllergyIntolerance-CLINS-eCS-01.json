@@ -1,0 +1,58 @@
+{
+  "resourceType": "AllergyIntolerance",
+  "id": "Example-JP-AllergyIntolerance-CLINS-eCS-01",
+  "meta": {
+    "lastUpdated": "2023-04-01T10:00:00+09:00",
+    "profile": [
+      "http://jpfhir.jp/fhir/clins/StructureDefinition/JP_AllergyIntolerance_eCS"
+    ]
+  },
+  "extension": [
+    {
+      "url": "http://jpfhir.jp/fhir/clins/Extension/StructureDefinition/JP_eCS_InstitutionNumber",
+      "valueIdentifier": {
+        "system": "http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no",
+        "value": "1318814790"
+      }
+    }
+  ],
+  "identifier": [
+    {
+      "system": "http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier",
+      "value": "102934701"
+    }
+  ],
+  "patient": {
+    "identifier": {
+      "system": "http://jpfhir.jp/fhir/clins/Idsystem/JP_Insurance_memberID",
+      "value": "00012345:あいう:１８７:05"
+    }
+  },
+  "clinicalStatus": {
+    "coding": [
+      {
+        "code": "active",
+        "system": "http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical",
+        "display": "Active"
+      }
+    ]
+  },
+  "code": {
+    "coding": [
+      {
+        "code": "J9FC11310000",
+        "system": "http://jpfhir.jp/fhir/core/CodeSystem/JP_JfagyFoodAllergen_CS",
+        "display": "さば類"
+      }
+    ],
+    "text": "さば"
+  },
+  "note": [
+    {
+      "text": "さば食後３時間ほどで全身に発疹と腹痛あり"
+    },
+    {
+      "text": "allergyIntoleranceExample01 必須要素だけのサンプル"
+    }
+  ]
+}
