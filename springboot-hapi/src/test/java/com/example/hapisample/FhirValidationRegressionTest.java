@@ -43,18 +43,26 @@ class FhirValidationRegressionTest {
 		FhirConfig fhirConfig = new FhirConfig();
 		FhirContext ctx = fhirConfig.fhirContext();
 		sut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
-				fhirConfig.fhirCheckupReportValidator(ctx));
-		// 暖機処理（initメソッド）を呼び出しておく
+				fhirConfig.fhirCheckupReportValidator(ctx), fhirConfig.fhirClinsValidator(ctx));
+		// 暖機処理
+		// 医療文書
 		Resource initDocumentDataResourceValue = new ClassPathResource("file/Bundle-BundleReferralExample01.json");
 		Field initDocumentDataResourceField = sut.getClass().getDeclaredField("initDocumentDataResource");
 		initDocumentDataResourceField.setAccessible(true);
 		initDocumentDataResourceField.set(sut, initDocumentDataResourceValue);
-
+		// 健康診断結果報告書
 		Resource initCheckupReportDataResourcValue = new ClassPathResource(
 				"file/Bundle-Bundle-eCheckupReport-Sample-01.json");
 		Field initCheckupReportDataResourceField = sut.getClass().getDeclaredField("initCheckupReportDataResource");
 		initCheckupReportDataResourceField.setAccessible(true);
 		initCheckupReportDataResourceField.set(sut, initCheckupReportDataResourcValue);
+		// 臨床情報
+		Resource initClinsDataResourceValue = new ClassPathResource(
+				"file/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json");
+		Field initClinsDataResourceField = sut.getClass().getDeclaredField("initClinsDataResource");
+		initClinsDataResourceField.setAccessible(true);
+		initClinsDataResourceField.set(sut, initClinsDataResourceValue);
+		// 暖機処理（initメソッド）を呼び出しておく
 		sut.init();
 	}
 
@@ -120,5 +128,38 @@ class FhirValidationRegressionTest {
 		// TODO: 以降に、テストケースを追加していく
 		);
 
+	}
+
+	// データドリブンテスト
+	@ParameterizedTest
+	@MethodSource
+	void testValidateClins(String inputFilePath, String expectedResult, List<String> errorMessages) throws IOException {
+		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
+		FhirValidationResult expected;
+		if (FhirValidationResult.OK.equals(expectedResult)) {
+			expected = FhirValidationResult.builder().result(expectedResult).build();
+		} else {
+			expected = FhirValidationResult.builder().result(expectedResult).details(errorMessages).build();
+		}
+		// FHIRバリデーション実行
+		FhirValidationResult actual = sut.validateClins(jsonString);
+		// バリデーション結果の検証
+		assertEquals(expected, actual);
+	}
+
+	// テストケース
+	static Stream<Arguments> testValidateClins() {
+		return Stream.of(
+				// テストケース1
+				arguments("testdata/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json",
+						FhirValidationResult.OK, null),
+				// テストケース2
+				arguments("testdata/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-02.json",
+						FhirValidationResult.OK, null),
+				// テストケース3
+				arguments("testdata/AllergyIntolerance-Example-JP-DrugContraindications-CLINS-eCS-03.json",
+						FhirValidationResult.OK, null)
+		// TODO: 以降に、テストケースを追加していく
+		);
 	}
 }

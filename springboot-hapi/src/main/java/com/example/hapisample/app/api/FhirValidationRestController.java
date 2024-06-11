@@ -30,7 +30,6 @@ public class FhirValidationRestController {
 	@PostMapping("/document")
 	@ResponseStatus(HttpStatus.OK)
 	public FhirValidationResult validate(@RequestBody(required = true) String fhirString) {
-		// 本来はJSONでのレスポンスが望ましいが、ここでは簡単のため、バリデーションのエラーメッセージの文字列をそのまま返却している
 		return service.validateDocument(fhirString);
 	}
 	
@@ -43,8 +42,18 @@ public class FhirValidationRestController {
 	@PostMapping("/checkup-report")
 	@ResponseStatus(HttpStatus.OK)
 	public FhirValidationResult validateCheckupReport(@RequestBody(required = true) String fhirString) {
-		// 本来はJSONでのレスポンスが望ましいが、ここでは簡単のため、バリデーションのエラーメッセージの文字列をそのまま返却している
 		return service.validateCheckupReport(fhirString);
 	}
 	
+	/**
+	 * 臨床情報（JP-CLINS）のFHIRバリデーションを実施する
+	 * 
+	 * @param fhirString バリデーション対象のFHIRデータの文字列
+	 * @return バリデーション結果のメッセージ文字列
+	 */
+	@PostMapping("/clins")
+	@ResponseStatus(HttpStatus.OK)
+	public FhirValidationResult validateClins(@RequestBody(required = true) String fhirString) {
+		return service.validateClins(fhirString);
+	}
 }

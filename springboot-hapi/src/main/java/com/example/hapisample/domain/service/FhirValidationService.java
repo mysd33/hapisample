@@ -21,4 +21,14 @@ public interface FhirValidationService {
 	 * @return バリデーション結果のメッセージ文字列
 	 */
 	FhirValidationResult validateCheckupReport(String fhirString);
+	
+	
+	/**
+	 * 臨床情報（JP-CLINS）のFHIRバリデーションを実施する
+	 * 
+	 * @param fhirString バリデーション対象のFHIRデータの文字列
+	 * @return バリデーション結果のメッセージ文字列
+	 * 
+	 */
+	FhirValidationResult validateClins(String fhirString);
 }
