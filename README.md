@@ -432,7 +432,10 @@
     - [FhirValidationRegressionTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationRegressionTest.java)
 
 
-## 8. SpringBootサンプルAPでのFHIRバリデーションのパフォーマンス改善モード
+## 【没】8. SpringBootサンプルAPでのFHIRバリデーションのパフォーマンス改善モード
+> [!WARNING]
+> 本モードは、FHIRバリデーションが動作しないケースが出たため、没となりました。
+
 - HAPIのValidatorは、R5以前のバージョンも動作するように下位互換性が担保されている作りとなっているが、実装上、内部ではFHIRのR5のデータ構造に変換して処理する。このため、R4のプロファイルを利用する場合に、バリデーション実行時に、StructureDefinitionやValueSet、CodeSystem等の定義情報を参照する際、都度R4からR5のデータ構造へ変換するための処理が発生し、オーバヘッドになることがある。
 - このため、よりR4→R5変換が少なく済むよう、事前に定義情報R4→R5のデータ構造に変換してからバリデーションを実施するための実装方法も用意している。
 - これを有効化したい場合は、application.ymlに、以下の設定を追加する。
@@ -483,7 +486,10 @@ fhir:
 2024-04-24T08:51:09.863+09:00  INFO 15552 --- [demo] [tomcat-handler-4] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です
 ```
 
-## 9. SpringBootサンプルAPでのFHIRバリデーションのパフォーマンス比較
+## 【没】9. SpringBootサンプルAPでのFHIRバリデーションのパフォーマンス比較
+> [!WARNING]
+> 本モードは、FHIRバリデーションが動作しないケースが出たため、NG案
+
 - 以下のテストコードを使うと、通常版と、8.のパフォーマンス改善版の処理時間を比較できる
     - [FhirValidationPerformanceTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationPerformanceTest.java)
 
@@ -496,6 +502,9 @@ fhir:
 14:53:13.912 [main] INFO com.example.hapisample.FhirValidationPerformanceTest -- 性能改善版のFHIR Validation機能の平均処理時間:121.621ms
 ```
 
-## 10. SpringBootサンプルAPでのFHIRバリデーション実行結果比較
+## 【没】10. SpringBootサンプルAPでのFHIRバリデーション実行結果比較
+> [!WARNING]
+> 本モードは、FHIRバリデーションが動作しないケースが出たため、NG案
+
 - 以下のテストコードを使うと、通常版と、8.のパフォーマンス改善版のバリデーション結果を比較できる
     - [FhirValidationCompareTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationCompareTest.java)

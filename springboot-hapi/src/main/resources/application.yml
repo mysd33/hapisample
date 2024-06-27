@@ -12,5 +12,5 @@ spring:
       enabled: true 
       
 # Fhir Configuration(high performance mode)
-fhir:
-  high-performance-mode: true
+#fhir:
+#  high-performance-mode: true

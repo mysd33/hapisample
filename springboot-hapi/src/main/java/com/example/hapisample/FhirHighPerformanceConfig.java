@@ -27,9 +27,11 @@ import ca.uhn.fhir.validation.IValidatorModule;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * FHIR Validationのパフォーマンス向上版のBean定義
+ * FHIR Validationのパフォーマンス向上版のBean定義<br>
  * 
+ * 本モードは、FHIRバリデーションが動作しないケースが出たため、没となりました。
  */
+@Deprecated(since = "0.0.1", forRemoval = true)
 @Slf4j
 @Configuration
 @ConditionalOnProperty(prefix = "fhir", name = "high-performance-mode", havingValue = "true", matchIfMissing = false)
