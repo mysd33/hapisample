@@ -453,12 +453,12 @@
 - ~~これを有効化したい場合は、application.ymlに、以下の設定を追加する。~~
     - ~~[springboot-hapi/src/main/resources/application.yml](springboot-hapi/src/main/resources/application.yml)~~
 
-```yaml
-fhir:
-  high-performance-mode: true
-```
+~~```yaml~~
+~~fhir:~~
+~~  high-performance-mode: true~~
+~~```~~
 
-- APログ
+- ~~APログ~~
 
 ```
 2024-04-24T08:41:26.481+09:00  INFO 15552 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Starting SpringBootHapiApplication using Java 21.0.2 with PID 15552 (D:\git\hapisample\springboot-hapi\target\classes started by dell in D:\git\hapisample\springboot-hapi)
