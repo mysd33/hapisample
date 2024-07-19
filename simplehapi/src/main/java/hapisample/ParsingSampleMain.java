@@ -55,18 +55,16 @@ public class ParsingSampleMain {
 			// Validatorの作成
 			// 診療情報提供書のnpmパッケージファイルに基づくValidationSuportを追加
 			NpmPackageValidationSupport npmPackageEReferralSupport = new NpmPackageValidationSupport(ctx);
-			// npmPackageEReferralSupport.loadPackageFromClasspath("classpath:package/jp-eReferral.r4-1.1.6.tgz");
-			npmPackageEReferralSupport.loadPackageFromClasspath("classpath:package/jp-eReferral.r4-1.1.6-snap.tgz");
+			npmPackageEReferralSupport.loadPackageFromClasspath(Constants.JP_E_REFERRAL_NPM_PACKAGE);
 
 			// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 			NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
 			// JPCoreは、diff形式にすると、SnapshotGeneratingValidationSupportの処理で、OutOfMemoryエラーが発生する
-			// npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.2.tgz");
-			npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.2-snap.tgz");
+			npmPackageJPCoreSupport.loadPackageFromClasspath(Constants.JP_CORE_NPM_PACKAGE);
 
 			// JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
 			NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);
-			npmPackageTerminologySupport.loadPackageFromClasspath("classpath:package/jpfhir-terminology.r4-1.1.1.tgz");
+			npmPackageTerminologySupport.loadPackageFromClasspath(Constants.JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
 
 			ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 					// FHIRプロファイルに基づいているかの組み込みの検証ルール

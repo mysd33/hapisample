@@ -37,6 +37,7 @@ public class FhirValidationServiceImpl implements FhirValidationService {
 	@Value("classpath:file/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json")
 	private Resource initClinsDataResource;
 
+	//TODO: サンプルデータ提供後、新JP-CLINSのバリデータを利用できるようにする
 	/**
 	 * コンストラクタ
 	 * @param fhirContext FHIRコンテキスト

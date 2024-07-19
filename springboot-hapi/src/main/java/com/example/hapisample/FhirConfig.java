@@ -29,13 +29,6 @@ import lombok.extern.slf4j.Slf4j;
 @ConditionalOnProperty(prefix = "fhir", name = "high-performance-mode", havingValue = "false", matchIfMissing = true)
 @EnableConfigurationProperties(FhirConfigurationProperties.class)
 public class FhirConfig {
-	private static final String JP_E_REFERRAL_NPM_PACKAGE = "classpath:package/jp-eReferral.r4-1.1.6-snap.tgz";
-	private static final String JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE = "classpath:package/jp-eDischargeSummary.r4-1.1.6-snap.tgz";
-	private static final String JP_E_CHECKUP_REPORT_NPM_PACKAGE = "classpath:package/jp-eCheckupReport.r4-1.1.2-snap.tgz";
-	private static final String JP_CLINS_NPM_PACKAGE = "classpath:package/jp-clins.r4-0.9.13-snap.tgz";
-	private static final String JP_CORE_NPM_PACKAGE = "classpath:package/jp-core.r4-1.1.2-snap.tgz";
-	private static final String JP_FHIR_TERMINOLOGY_NPM_PACKAGE = "classpath:package/jpfhir-terminology.r4-1.1.1.tgz";
-
 	/**
 	 * FhirContextのBean定義<br>
 	 * 
@@ -68,19 +61,19 @@ public class FhirConfig {
 		// Validatorの作成
 		// 診療情報提供書のnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageEReferralSupport = new NpmPackageValidationSupport(ctx);
-		npmPackageEReferralSupport.loadPackageFromClasspath(JP_E_REFERRAL_NPM_PACKAGE);
+		npmPackageEReferralSupport.loadPackageFromClasspath(Constants.JP_E_REFERRAL_NPM_PACKAGE);
 
 		// 退院時サマリののnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageEDischargeSummarySupport = new NpmPackageValidationSupport(ctx);
-		npmPackageEDischargeSummarySupport.loadPackageFromClasspath(JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE);
+		npmPackageEDischargeSummarySupport.loadPackageFromClasspath(Constants.JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE);
 
 		// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
-		npmPackageJPCoreSupport.loadPackageFromClasspath(JP_CORE_NPM_PACKAGE);
+		npmPackageJPCoreSupport.loadPackageFromClasspath(Constants.JP_CORE_NPM_PACKAGE);
 
 		// JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);
-		npmPackageTerminologySupport.loadPackageFromClasspath(JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
+		npmPackageTerminologySupport.loadPackageFromClasspath(Constants.JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
 		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 				// FHIRベースプロファイルの組み込みの検証ルール
 				new DefaultProfileValidationSupport(ctx), //
@@ -129,15 +122,15 @@ public class FhirConfig {
 		// Validatorの作成
 		// 健康診断結果報告書のnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageECheckupReportSupport = new NpmPackageValidationSupport(ctx);
-		npmPackageECheckupReportSupport.loadPackageFromClasspath(JP_E_CHECKUP_REPORT_NPM_PACKAGE);
+		npmPackageECheckupReportSupport.loadPackageFromClasspath(Constants.JP_E_CHECKUP_REPORT_NPM_PACKAGE);
 
 		// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
-		npmPackageJPCoreSupport.loadPackageFromClasspath(JP_CORE_NPM_PACKAGE);
+		npmPackageJPCoreSupport.loadPackageFromClasspath(Constants.JP_CORE_NPM_PACKAGE);
 
 		// JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);
-		npmPackageTerminologySupport.loadPackageFromClasspath(JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
+		npmPackageTerminologySupport.loadPackageFromClasspath(Constants.JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
 		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 				// FHIRベースプロファイルの組み込みの検証ルール
 				new DefaultProfileValidationSupport(ctx), //
@@ -180,16 +173,16 @@ public class FhirConfig {
 		long startTime = System.nanoTime();
 		// Validatorの作成
 		// 臨床情報（JP-CLINS）のnpmパッケージファイルに基づくValidationSuportを追加
-		NpmPackageValidationSupport npmPackageClinsSupport = new NpmPackageValidationSupport(ctx);
-		npmPackageClinsSupport.loadPackageFromClasspath(JP_CLINS_NPM_PACKAGE);
+		NpmPackageValidationSupport npmPackageJPClinsSupport = new NpmPackageValidationSupport(ctx);
+		npmPackageJPClinsSupport.loadPackageFromClasspath(Constants.JP_CLINS_NPM_PACKAGE);
 
 		// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
-		npmPackageJPCoreSupport.loadPackageFromClasspath(JP_CORE_NPM_PACKAGE);
+		npmPackageJPCoreSupport.loadPackageFromClasspath(Constants.JP_CORE_NPM_PACKAGE);
 
 		// JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);
-		npmPackageTerminologySupport.loadPackageFromClasspath(JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
+		npmPackageTerminologySupport.loadPackageFromClasspath(Constants.JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
 		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 				// FHIRベースプロファイルの組み込みの検証ルール
 				new DefaultProfileValidationSupport(ctx), //
@@ -197,11 +190,11 @@ public class FhirConfig {
 				new InMemoryTerminologyServerValidationSupport(ctx), //
 				npmPackageTerminologySupport, //
 				npmPackageJPCoreSupport, //
-				npmPackageClinsSupport);				
+				npmPackageJPClinsSupport);				
 		// @formatter:off
 		/*
 		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
-				npmPackageClinsSupport, //
+				npmPackageJPClinsSupport, //
 				npmPackageJPCoreSupport, //
 				npmPackageTerminologySupport,
 				// FHIRベースプロファイルの組み込みの検証ルール
@@ -219,4 +212,57 @@ public class FhirConfig {
 		LogUtils.logElaspedTimeMillSecondUnit(log, "臨床情報FHIRValidator作成", startTime, endTime);
 		return validator;
 	}	
+
+	/**
+	 * 新JP-CLINS（(電子カルテ情報共有サービス2文書5情報+患者サマリー)用のFhirValidatorのBean定義<br>
+	 * 
+	 * FhirValidatorはスレッドセーフ（なお、個々のモジュールはスレッドセーフではない）なので、Bean定義してインスタンスを再利用できるようにする
+	 * 
+	 * @see https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-base/ca/uhn/fhir/validation/FhirValidator.html
+	 */
+	@Bean
+	FhirValidator fhirNewClinsValidator(FhirContext ctx) throws IOException {
+		long startTime = System.nanoTime();
+		// Validatorの作成
+		// JP-CLINSのnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageNewJPClinsSupport = new NpmPackageValidationSupport(ctx);
+		npmPackageNewJPClinsSupport.loadPackageFromClasspath(Constants.JP_CLINS_NPM_PACKAGE);
+
+		// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
+		npmPackageJPCoreSupport.loadPackageFromClasspath(Constants.JP_CORE_NPM_PACKAGE);
+
+		// JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);
+		npmPackageTerminologySupport.loadPackageFromClasspath(Constants.JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
+		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
+				// FHIRベースプロファイルの組み込みの検証ルール
+				new DefaultProfileValidationSupport(ctx), //
+				new CommonCodeSystemsTerminologyService(ctx), //
+				new InMemoryTerminologyServerValidationSupport(ctx), //
+				npmPackageTerminologySupport, //
+				npmPackageJPCoreSupport, //
+				npmPackageNewJPClinsSupport);				
+		// @formatter:off
+		/*
+		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
+				npmPackageNewJPClinsSupport, //
+				npmPackageJPCoreSupport, //
+				npmPackageTerminologySupport,
+				// FHIRベースプロファイルの組み込みの検証ルール
+				new DefaultProfileValidationSupport(ctx), //
+				new CommonCodeSystemsTerminologyService(ctx), //
+				new InMemoryTerminologyServerValidationSupport(ctx)//
+		);*/
+		// @formatter:on
+		// キャッシュ機能の設定
+		CachingValidationSupport validationSupport = new CachingValidationSupport(validationSupportChain);
+		FhirValidator validator = ctx.newValidator();
+		IValidatorModule module = new FhirInstanceValidator(validationSupport);
+		validator.registerValidatorModule(module);
+		long endTime = System.nanoTime();
+		LogUtils.logElaspedTimeMillSecondUnit(log, "新JP-CLINS FHIRValidator作成", startTime, endTime);
+		return validator;
+	}
+
 }

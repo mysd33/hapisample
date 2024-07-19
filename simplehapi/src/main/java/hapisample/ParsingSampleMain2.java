@@ -42,19 +42,17 @@ public class ParsingSampleMain2 {
 			// Validatorの作成
 			// 退院時サマリーのnpmパッケージファイルに基づくValidationSuportを追加
 			NpmPackageValidationSupport npmPackageEDischargeSummary = new NpmPackageValidationSupport(ctx);
-			// npmPackageEDischargeSummary.loadPackageFromClasspath("classpath:package/jp-eDischargeSummary.r4-1.1.6.tgz");
 			npmPackageEDischargeSummary
-					.loadPackageFromClasspath("classpath:package/jp-eDischargeSummary.r4-1.1.6-snap.tgz");
+					.loadPackageFromClasspath(Constants.JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE);
 
 			// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 			NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
-			// JPCoreは、diff形式にすると、SnapshotGeneratingValidationSupportの処理で、OutOfMemoryエラーが発生する
-			// npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.2.tgz");
-			npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.2-snap.tgz");
+			// JPCoreは、diff形式にすると、SnapshotGeneratingValidationSupportの処理で、OutOfMemoryエラーが発生する			
+			npmPackageJPCoreSupport.loadPackageFromClasspath(Constants.JP_CORE_NPM_PACKAGE);
 
 			// JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
-			NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);
-			npmPackageTerminologySupport.loadPackageFromClasspath("classpath:package/jpfhir-terminology.r4-1.1.1.tgz");
+			NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);			
+			npmPackageTerminologySupport.loadPackageFromClasspath(Constants.JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
 
 			ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 					// FHIRプロファイルに基づいているかの組み込みの検証ルール

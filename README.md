@@ -1,6 +1,6 @@
 # HAPI FHIRのサンプル
 
-- [HAPI FHIR](https://hapifhir.io/)を使って、[診療情報提供書HL7FHIR記述仕様](https://std.jpfhir.jp/)に基づくサンプルデータ（Bundle-BundleReferralExample01.json）に対して検証（FHIRバリデーション）し、Bundleリソースとしてパースするサンプルプログラムです。
+- [HAPI FHIR](https://hapifhir.io/)を使って、[FHIR厚生労働省標準規格](https://std.jpfhir.jp/)に基づくサンプルデータに対して検証（FHIRバリデーション）し、Bundleリソースとしてパースするサンプルプログラムです。
 
 - HAPI FHIRのバージョンは、7.2.1を使用しています。
 
@@ -15,15 +15,15 @@
 
 - [FHIR IGポータル](https://std.jpfhir.jp/)のサイトから、公式バリデータを使った[バリデーションガイド](https://jpfhir.jp/fhir/eReferral/igv1/validationGuide.html)が公開されていますが、ここでは、[HAPI FHIR](https://hapifhir.io)を使って、同様のバリデーションを行うサンプルプログラムを作成しています。
 
-- 【注意】公式バリデータ（org.hl7.fhir.validation）の個別バージョンアップ
-    - HAPIのバリデーション機能（hapi-fhir-validaiton）は、内部で使用しているHL7が管理する公式バリデータ含む[HL7 FHIR Core Artifacts(org.hl7.fhir.core)](https://github.com/hapifhir/org.hl7.fhir.core)バージョンは、[hapi-fhir-validaitonのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/hapi-fhir-validation/pom.xml#L38)を見ると、${fhir_core_version}のプロパティで定義されており、[hapi-fhirの最上位プロジェクトのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/pom.xml#L929)でバージョン（現在は6.1.1.2）に統制されています。
+    - 【注意】公式バリデータ（org.hl7.fhir.validation）の個別バージョンアップ
+        - HAPIのバリデーション機能（hapi-fhir-validaiton）は、内部で使用しているHL7が管理する公式バリデータ含む[HL7 FHIR Core Artifacts(org.hl7.fhir.core)](https://github.com/hapifhir/org.hl7.fhir.core)バージョンは、[hapi-fhir-validaitonのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/hapi-fhir-validation/pom.xml#L38)を見ると、${fhir_core_version}のプロパティで定義されており、[hapi-fhirの最上位プロジェクトのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/pom.xml#L929)でバージョン（現在は6.1.1.2）に統制されています。
 
-    - このため、バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョンが6.1.8となっており、HAPIが利用するバージョンと齟齬があります。
+        - このため、バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョンが6.1.8となっており、HAPIが利用するバージョンと齟齬があります。
 
-    - 健診結果報告書のサンプルデータがうまく動作するよう、entry.resourceに複数のプロファイルがあるバンドルをバリデーションできなかった不具合に対応した[6.1.4](https://github.com/hapifhir/org.hl7.fhir.core/releases/tag/6.1.4)のバージョンで実行できるよう、このサンプルでは、HAPI FHIRが内部で使用するバージョンをバリデーションガイドでの公式バリデータのバージョンと合わせる個別対応を行っています。
-        - [pom.xml](simplehapi/pom.xml)
-        - [pom.xml](springboot-hapi/pom.xml)    
-    - なお、同様の方法で、バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョン6.1.8にしてしまうと、APIの互換性がないため、実行時エラー（java.lang.NoSuchMethodError）が発生してしまいます。
+        - 健診結果報告書のサンプルデータがうまく動作するよう、entry.resourceに複数のプロファイルがあるバンドルをバリデーションできなかった不具合に対応した[6.1.4](https://github.com/hapifhir/org.hl7.fhir.core/releases/tag/6.1.4)のバージョンで実行できるよう、このサンプルでは、HAPI FHIRが内部で使用するバージョンをバリデーションガイドでの公式バリデータのバージョンと合わせる個別対応を行っています。
+            - [pom.xml](simplehapi/pom.xml)
+            - [pom.xml](springboot-hapi/pom.xml)    
+        - なお、同様の方法で、バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョン6.1.8にしてしまうと、APIの互換性がないため、実行時エラー（java.lang.NoSuchMethodError）が発生してしまいます。
 
 - また、FHIRリソース(Bundle)として作成したオブジェクトを、FHIRのJSON文字列で出力（シリアライズ）するサンプルプログラムもあります。
     - [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSONのほんの一部分を生成しています。
@@ -41,34 +41,46 @@
         - npmパッケージには、diff形式とsnapshot形式の2つがありますが、通常は、FHIRが親のプロファイルを継承して定義される思想からdiff形式のパッケージを使いたいのですが、以下の2点の理由によりsnapshot形式のパッケージを使って実行しています。
             1. JPCoreのnpmパッケージは、diff形式のパッケージが提供されているが、[SnapshotGeneratingValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#snapshotgeneratingvalidationsupport)による処理でjava.lang.OutOfMemoryErrorが発生する。
             1. HAPIのValidatorは、R5以前のバージョンも動作するように下位互換性が担保されている作りとなっているが、実装上、内部ではFHIRのR5のデータ構造に変換して処理する。このため、R4のプロファイルを利用する場合に、バリデーション実行時に、StructureDefinitionやValueSet、CodeSystem等の定義情報を参照する際、都度R4からR5のデータ構造へ変換するための処理が発生し、オーバヘッドになることがある。SnapshotGeneratingValidationSupportを使った場合にもこの処理が発生するため、処理が遅くなる可能性がある。また、SnapshotGeneratingValidationSupportは、そもそも、diff形式のパッケージに対してValidation実行時にSnapshot形式の定義情報を自動生成するクラスであるため、全てsnapshot形式のパッケージを使う場合は、SnapshotGeneratingValidationSupportを使わなくて済む。
-                - なお、パフォーマンス改善については、SpringBootのサンプルAPでは、よりR4→R5変換が少なく済む実装方法も用意している。
-        - JPCoreのプロファイル
-            - [JPCore実装ガイド](https://jpfhir.jp/fhir/core/)のサイトにJPCoreの実装ガイドとTerminologyのnpmパッケージがあります。
-                - JPCoreのnpmパッケージ(ver1.1.2)
-                    - [snapshot形式](https://jpfhir.jp/fhir/core/1.1.2/jp-core.r4-1.1.2-snap.tgz)
-                    - [diff形式](https://jpfhir.jp/fhir/core/1.1.2/jp-core.r4-1.1.2.tgz) 
-                - [Terminologyのnpmパッケージ(ver1.1.1)](https://jpfhir.jp/fhir/core/terminology/jpfhir-terminology.r4-1.1.1.tgz)
-        - 診療情報提供書の文書情報プロファイル
-            - [診療情報提供書FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eReferral/igv1/)にnpmパッケージがあります。
-                - 診療情報提供のnpmパッケージ(ver1.1.6) 
-                    - [snapshot形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6-snap.tgz)
-                    - [diff形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6.tgz)
-        - 退院時サマリーの文書情報プロファイル        
-            - [退院時サマリーFHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eDischargeSummary/igv1/)
-                - 退院時サマリのnpmパッケージ(ver1.1.6)
-                    - [snapshot形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6-snap.tgz)
-                    - [diff形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6.tgz)     
-            - Springboot-hapiフォルダのサンプルAPに関しては、診療情報提供書のnpmパッケージだけでなく、退院時サマリーのnpmパッケージも読み込んでいるので、サンプルデータを送信すると、退院時サマリーのバリデーションも実施することができるようになっています。
-        - 健康診断診断結果報告書の文書情報プロファイル
-            - [健康診断結果報告書FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eCheckup/igv1/)
-                - 健康診断結果報告書のnpmパッケージ(ver1.1.6)
-                    - [snapshot形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2-snap.tgz)
-                    - [diff形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2.tgz)
-        - 臨床情報（6情報、JP-CLINS）の文書情報プロファイル
-            - [臨床情報（6情報、JP-CLINS）FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/clins/igv1/)
-                - 臨床情報（6情報、JP-CLINS）のnpmパッケージ(ver0.9.13)
-                    - [snapshot形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-0.9.13-snap.tgz)
-                    - [diff形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-0.9.13.tgz)
+
+    - JPCoreのプロファイル
+        - [JPCore実装ガイド](https://jpfhir.jp/fhir/core/)のサイトにJPCoreの実装ガイドがあります。
+            - JPCoreのnpmパッケージ(ver1.1.2)
+                - [snapshot形式](https://jpfhir.jp/fhir/core/1.1.2/jp-core.r4-1.1.2-snap.tgz)
+                - [diff形式](https://jpfhir.jp/fhir/core/1.1.2/jp-core.r4-1.1.2.tgz)         
+    - Terminologyのプロファイル
+        - [JP-FHIR-Terminology](https://jpfhir.jp/fhir/core/terminology/ig/)のサイトにJP FHIR Terminologyの実装ガイドがあります。    
+            - ~~[Terminologyのnpmパッケージ(ver1.1.1)](https://jpfhir.jp/fhir/core/terminology/jpfhir-terminology.r4-1.1.1.tgz)~~
+            - [Terminologyのnpmパッケージ(ver1.2.0)](https://jpfhir.jp/fhir/core/terminology/jpfhir-terminology.r4-1.2.0.tgz)
+
+    > [!WARNING]
+    > 臨床情報（5情報）だけなく、診療情報提供書と退院時サマリーのプロファイルが、JP-CLINSに統合されるようです。  
+    > サンプルデータが入手できれば、本サンプルAPでも、JP-CLINSのnpmパッケージを使ってバリデーションを行う予定です。
+
+    - ~~診療情報提供書の文書情報プロファイル~~
+        - ~~[診療情報提供書FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eReferral/igv1/)にnpmパッケージがあります。~~
+            - ~~診療情報提供のnpmパッケージ(ver1.1.6) ~~
+                - ~~[snapshot形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6-snap.tgz)~~
+                - ~~[diff形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6.tgz)~~
+    - ~~退院時サマリーの文書情報プロファイル~~
+        - ~~[退院時サマリーFHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eDischargeSummary/igv1/)~~
+            - ~~退院時サマリのnpmパッケージ(ver1.1.6)~~
+                - ~~[snapshot形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6-snap.tgz)~~
+                - ~~[diff形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6.tgz)~~
+    - ~~臨床情報（6情報、JP-CLINS）の文書情報プロファイル~~
+        - ~~[臨床情報（6情報、JP-CLINS）FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/clins/igv1/)~~
+            - ~~臨床情報（6情報、JP-CLINS）のnpmパッケージ(ver0.9.13)~~
+                - ~~[snapshot形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-0.9.13-snap.tgz)~~
+                - ~~[diff形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-0.9.13.tgz)~~
+    - JP-CLINS（電子カルテ情報共有サービス2文書5情報+患者サマリー　FHIR仕様）の文書情報プロファイル
+        - [電子カルテ情報共有サービス2文書5情報+患者サマリー FHIR実装ガイド](https://jpfhir.jp/fhir/clins/igv1/)
+            - JP-CLINSのnpmパッケージ(ver0.9.13)
+                - [snapshot形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-1.3.0-rc3.tgz)
+                - [diff形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-1.3.0-rc3-snap.tgz)
+    - 健康診断診断結果報告書の文書情報プロファイル
+        - [健康診断結果報告書FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eCheckup/igv1/)
+            - 健康診断結果報告書のnpmパッケージ(ver1.1.2)
+                - [snapshot形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2-snap.tgz)
+                - [diff形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2.tgz)
 
 ### 1.2. FHIRデータのパース
 - [HAPI FHIRのパーサ](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、パースをしています。    
@@ -412,7 +424,7 @@
     # 実行結果は省略    
     ```
 
-    - 臨床情報（JP-CLINS）のFHIRデータを送信する場合
+    - 臨床情報（5情報）のFHIRデータを送信する場合
 
     ```sh
     # curlコマンド実行
@@ -436,10 +448,10 @@
 > [!WARNING]
 > 本モードは、FHIRバリデーションが動作しないケースが出たため、没となりました。
 
-- HAPIのValidatorは、R5以前のバージョンも動作するように下位互換性が担保されている作りとなっているが、実装上、内部ではFHIRのR5のデータ構造に変換して処理する。このため、R4のプロファイルを利用する場合に、バリデーション実行時に、StructureDefinitionやValueSet、CodeSystem等の定義情報を参照する際、都度R4からR5のデータ構造へ変換するための処理が発生し、オーバヘッドになることがある。
-- このため、よりR4→R5変換が少なく済むよう、事前に定義情報R4→R5のデータ構造に変換してからバリデーションを実施するための実装方法も用意している。
-- これを有効化したい場合は、application.ymlに、以下の設定を追加する。
-    - [springboot-hapi/src/main/resources/application.yml](springboot-hapi/src/main/resources/application.yml)
+- ~~HAPIのValidatorは、R5以前のバージョンも動作するように下位互換性が担保されている作りとなっているが、実装上、内部ではFHIRのR5のデータ構造に変換して処理する。このため、R4のプロファイルを利用する場合に、バリデーション実行時に、StructureDefinitionやValueSet、CodeSystem等の定義情報を参照する際、都度R4からR5のデータ構造へ変換するための処理が発生し、オーバヘッドになることがある。~~
+- ~~このため、よりR4→R5変換が少なく済むよう、事前に定義情報R4→R5のデータ構造に変換してからバリデーションを実施するための実装方法も用意している。~~
+- ~~これを有効化したい場合は、application.ymlに、以下の設定を追加する。~~
+    - ~~[springboot-hapi/src/main/resources/application.yml](springboot-hapi/src/main/resources/application.yml)~~
 
 ```yaml
 fhir:
@@ -488,13 +500,13 @@ fhir:
 
 ## 【没】9. SpringBootサンプルAPでのFHIRバリデーションのパフォーマンス比較
 > [!WARNING]
-> 本モードは、FHIRバリデーションが動作しないケースが出たため、NG案
+> 本モードは、FHIRバリデーションが動作しないケースが出たため、没となりました。
 
-- 以下のテストコードを使うと、通常版と、8.のパフォーマンス改善版の処理時間を比較できる
-    - [FhirValidationPerformanceTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationPerformanceTest.java)
+- ~~以下のテストコードを使うと、通常版と、8.のパフォーマンス改善版の処理時間を比較できる~~
+    - ~~[FhirValidationPerformanceTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationPerformanceTest.java)~~
 
-- APログ（比較結果）
-  - テストデータの特性にもよると思うが、性能改善版の方が高速になっていることが分かる。
+- ~~APログ（比較結果）~~
+  - ~~テストデータの特性にもよると思うが、性能改善版の方が高速になっていることが分かる。~~
 
 ```
 14:53:13.880 [main] INFO com.example.hapisample.FhirValidationPerformanceTest -- 試行回数:10回
@@ -504,7 +516,7 @@ fhir:
 
 ## 【没】10. SpringBootサンプルAPでのFHIRバリデーション実行結果比較
 > [!WARNING]
-> 本モードは、FHIRバリデーションが動作しないケースが出たため、NG案
+> 本モードは、FHIRバリデーションが動作しないケースが出たため、没となりました。
 
-- 以下のテストコードを使うと、通常版と、8.のパフォーマンス改善版のバリデーション結果を比較できる
-    - [FhirValidationCompareTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationCompareTest.java)
+- ~~以下のテストコードを使うと、通常版と、8.のパフォーマンス改善版のバリデーション結果を比較できる~~
+    - ~~[FhirValidationCompareTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationCompareTest.java)~~

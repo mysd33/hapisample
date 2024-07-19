@@ -12,6 +12,7 @@ import lombok.Data;
 @Builder
 @ConfigurationProperties(prefix = "fhir")
 public class FhirConfigurationProperties {
-	// ハイパフォーマンスモード
+	// ハイパフォーマンスモード（）
+	@Deprecated
 	private boolean highPerformanceMode = false;
 }

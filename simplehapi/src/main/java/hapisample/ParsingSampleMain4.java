@@ -41,19 +41,17 @@ public class ParsingSampleMain4 {
 
 			// Validatorの作成
 			// 臨床情報のnpmパッケージファイルに基づくValidationSuportを追加
-			NpmPackageValidationSupport npmPackageClins = new NpmPackageValidationSupport(ctx);
-			// npmPackageClins.loadPackageFromClasspath("classpath:package/jp-clins.r4-0.9.13.tgz");
-			npmPackageClins.loadPackageFromClasspath("classpath:package/jp-clins.r4-0.9.13-snap.tgz");
+			NpmPackageValidationSupport npmPackageJPClinsSupport = new NpmPackageValidationSupport(ctx);
+			npmPackageJPClinsSupport.loadPackageFromClasspath(Constants.JP_CLINS_NPM_PACKAGE);
 
 			// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 			NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
-			// JPCoreは、diff形式にすると、SnapshotGeneratingValidationSupportの処理で、OutOfMemoryエラーが発生する
-			// npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.2.tgz");
-			npmPackageJPCoreSupport.loadPackageFromClasspath("classpath:package/jp-core.r4-1.1.2-snap.tgz");
+			// JPCoreは、diff形式にすると、SnapshotGeneratingValidationSupportの処理で、OutOfMemoryエラーが発生する			
+			npmPackageJPCoreSupport.loadPackageFromClasspath(Constants.JP_CORE_NPM_PACKAGE);
 
 			// JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
-			NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);
-			npmPackageTerminologySupport.loadPackageFromClasspath("classpath:package/jpfhir-terminology.r4-1.1.1.tgz");
+			NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);			
+			npmPackageTerminologySupport.loadPackageFromClasspath(Constants.JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
 
 			ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
 					// FHIRプロファイルに基づいているかの組み込みの検証ルール
@@ -62,14 +60,14 @@ public class ParsingSampleMain4 {
 					new InMemoryTerminologyServerValidationSupport(ctx), //
 					npmPackageTerminologySupport, //
 					npmPackageJPCoreSupport, //
-					npmPackageClins// , //
+					npmPackageJPClinsSupport// , //
 			// diff形式の場合にはSnapshotGeneratingValidationSupportを使用する必要があるがsnapshotでは不要
 			// new SnapshotGeneratingValidationSupport(ctx)
 			);
 			// @formatter:off
 			/*
 			ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
-					npmPackageClins, //
+					npmPackageJPClinsSupport, //
 					npmPackageJPCoreSupport, //
 					npmPackageTerminologySupport, //
 					// FHIRプロファイルに基づいているかの組み込みの検証ルール
