@@ -42,6 +42,11 @@
             1. JPCoreのnpmパッケージは、diff形式のパッケージが提供されているが、[SnapshotGeneratingValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#snapshotgeneratingvalidationsupport)による処理でjava.lang.OutOfMemoryErrorが発生する。
             1. HAPIのValidatorは、R5以前のバージョンも動作するように下位互換性が担保されている作りとなっているが、実装上、内部ではFHIRのR5のデータ構造に変換して処理する。このため、R4のプロファイルを利用する場合に、バリデーション実行時に、StructureDefinitionやValueSet、CodeSystem等の定義情報を参照する際、都度R4からR5のデータ構造へ変換するための処理が発生し、オーバヘッドになることがある。SnapshotGeneratingValidationSupportを使った場合にもこの処理が発生するため、処理が遅くなる可能性がある。また、SnapshotGeneratingValidationSupportは、そもそも、diff形式のパッケージに対してValidation実行時にSnapshot形式の定義情報を自動生成するクラスであるため、全てsnapshot形式のパッケージを使う場合は、SnapshotGeneratingValidationSupportを使わなくて済む。
 
+> [!WARNING]
+> 臨床情報（5情報）だけなく、診療情報提供書と退院時サマリーのプロファイルが、JP-CLINSに統合されるようです。現状は、従来の診療情報提供書、退院時サマリ、臨床情報のプロファイルを使用したサンプルになっています。
+> サンプルデータが入手できれば、本サンプルAPでも、JP-CLINSのnpmパッケージを使ってバリデーションを行う予定です。
+
+- サンプルAPで利用する各種プロファイル
     - JPCoreのプロファイル
         - [JPCore実装ガイド](https://jpfhir.jp/fhir/core/)のサイトにJPCoreの実装ガイドがあります。
             - JPCoreのnpmパッケージ(ver1.1.2)
@@ -52,13 +57,9 @@
             - ~~[Terminologyのnpmパッケージ(ver1.1.1)](https://jpfhir.jp/fhir/core/terminology/jpfhir-terminology.r4-1.1.1.tgz)~~
             - [Terminologyのnpmパッケージ(ver1.2.0)](https://jpfhir.jp/fhir/core/terminology/jpfhir-terminology.r4-1.2.0.tgz)
 
-    > [!WARNING]
-    > 臨床情報（5情報）だけなく、診療情報提供書と退院時サマリーのプロファイルが、JP-CLINSに統合されるようです。  
-    > サンプルデータが入手できれば、本サンプルAPでも、JP-CLINSのnpmパッケージを使ってバリデーションを行う予定です。
-
     - ~~診療情報提供書の文書情報プロファイル~~
         - ~~[診療情報提供書FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eReferral/igv1/)にnpmパッケージがあります。~~
-            - ~~診療情報提供のnpmパッケージ(ver1.1.6) ~~
+            - ~~診療情報提供のnpmパッケージ(ver1.1.6)~~
                 - ~~[snapshot形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6-snap.tgz)~~
                 - ~~[diff形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6.tgz)~~
     - ~~退院時サマリーの文書情報プロファイル~~
