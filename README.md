@@ -286,24 +286,15 @@
 
 ## 5. springboot-hapiフォルダのSpringBootサンプルAP実行方法
 - サンプルAPの使い方
-    - 「springboot-hapiフォルダ」はMavenプロジェクトになっていますので、 通常は、Eclipse(STS)等のIDEを使ってインポートし、「SpringBootHapiApplication」クラスをSpringBootアプリケーションとして実行するのが簡単です。  
+    - 「springboot-hapiフォルダ」はMavenプロジェクトになっています
+    
+    - 通常は、Eclipse(STS)等のIDEを使ってインポートし、「SpringBootHapiApplication」クラスをSpringBootアプリケーション（またはJavaアプリケーション）として実行するのが簡単です。  
 
-    - もしMavenで実行する際は、以下のコマンドを実行してください。
-        - Mavenでビルド
-        ```sh
-        cd springboot-hapi
-        mvnw clean package
-        
-        # Windowsの場合
-        mvnw.cmd clean package
-        ```
-        - SpringBootアプリケーションの実行
-        ```sh
-        mvnw spring-boot:run
-
-        # Windowsの場合
-        mvnw.cmd spring-boot:run
-        ```
+    - Mavenで実行する際は、以下のコマンドを実行してください。        
+    
+    ```sh
+    mvnw spring-boot:run
+    ```
 
 ## 6. springboot-hapiフォルダのSpringBootサンプルAP実行結果
 
