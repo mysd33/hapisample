@@ -44,7 +44,7 @@
 
 > [!WARNING]
 > 臨床情報（5情報）だけなく、診療情報提供書と退院時サマリーのプロファイルが、JP-CLINSに統合されるようです。現状は、従来の診療情報提供書、退院時サマリ、臨床情報のプロファイルを使用したサンプルになっています。
-> サンプルデータが入手できれば、本サンプルAPでも、JP-CLINSのnpmパッケージを使ってバリデーションを行う予定です。
+> 近日中に、本サンプルAPでも、JP-CLINSのnpmパッケージを使ったバリデーションに対応予定です。
 
 - サンプルAPで利用する各種プロファイル
     - JPCoreのプロファイル
@@ -82,6 +82,9 @@
             - 健康診断結果報告書のnpmパッケージ(ver1.1.2)
                 - [snapshot形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2-snap.tgz)
                 - [diff形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2.tgz)
+
+- サンプルデータ
+  - [本実装ガイドに準拠したデータのサンプルの一覧](https://jpfhir.jp/fhir/clins/igv1.3-rc3/artifacts.html#example-example-instances)
 
 ### 1.2. FHIRデータのパース
 - [HAPI FHIRのパーサ](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、パースをしています。    
