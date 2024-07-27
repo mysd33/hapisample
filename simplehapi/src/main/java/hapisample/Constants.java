@@ -9,12 +9,16 @@ public final class Constants {
 
 	// JP Core
 	public static final String JP_CORE_NPM_PACKAGE = "classpath:package/jp-core.r4-1.1.2-snap.tgz";
+	// JPCoreは、diff形式にすると、SnapshotGeneratingValidationSupportの処理で、OutOfMemoryエラーが発生する
+	//public static final String JP_CORE_NPM_PACKAGE = "classpath:package/jp-core.r4-1.1.2.tgz";
+	
 	// JP FHIR Terminology
-	//public static final String JP_FHIR_TERMINOLOGY_NPM_PACKAGE = "classpath:package/old/jpfhir-terminology.r4-1.1.1.tgz";
 	public static final String JP_FHIR_TERMINOLOGY_NPM_PACKAGE = "classpath:package/jpfhir-terminology.r4-1.2.0.tgz";
 	
 	// 新JP-CLINS(電子カルテ情報共有サービス2文書5情報+患者サマリー)
-	public static final String JP_NEW_CLINS_NPM_PACKAGE = "classpath:package/jp-clins.r4-1.3.0-rc3-snap.tgz";
+	//public static final String JP_NEW_CLINS_NPM_PACKAGE = "classpath:package/jp-clins.r4-1.3.0-rc3-snap.tgz";
+	// スナップショット形式だとエラーにになってしまうため、diff形式を使用
+	public static final String JP_NEW_CLINS_NPM_PACKAGE = "classpath:package/jp-clins.r4-1.3.0-rc3.tgz";
 
 	// 診療情報提供書 old
 	public static final String JP_E_REFERRAL_NPM_PACKAGE = "classpath:package/old/jp-eReferral.r4-1.1.6-snap.tgz";

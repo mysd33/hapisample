@@ -12,6 +12,7 @@ import org.hl7.fhir.common.hapi.validation.support.CachingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.CommonCodeSystemsTerminologyService;
 import org.hl7.fhir.common.hapi.validation.support.InMemoryTerminologyServerValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.NpmPackageValidationSupport;
+import org.hl7.fhir.common.hapi.validation.support.SnapshotGeneratingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.ValidationSupportChain;
 import org.hl7.fhir.common.hapi.validation.validator.FhirInstanceValidator;
 import org.hl7.fhir.r4.model.Bundle;
@@ -34,7 +35,7 @@ import ca.uhn.fhir.validation.SingleValidationMessage;
 import ca.uhn.fhir.validation.ValidationResult;
 
 /**
- * 診療情報提供書のFHIRサンプルデータをバリデーション＆パースする
+ * 新しいJP-CLINS（電子カルテ情報共有サービス2文書５情報+患者サマリー）でFHIRサンプルデータをバリデーション＆パースする
  */
 public class ParsingSampleMain {
 	private static Logger logger = LoggerFactory.getLogger(ParsingSampleMain.class);
@@ -53,9 +54,10 @@ public class ParsingSampleMain {
 			long createContextTime = System.nanoTime();
 
 			// Validatorの作成
-			// 診療情報提供書のnpmパッケージファイルに基づくValidationSuportを追加
-			NpmPackageValidationSupport npmPackageEReferralSupport = new NpmPackageValidationSupport(ctx);
-			npmPackageEReferralSupport.loadPackageFromClasspath(Constants.JP_E_REFERRAL_NPM_PACKAGE);
+			// 新しいJP-CLINSのnpmパッケージファイルに基づくValidationSuportを追加
+			NpmPackageValidationSupport npmPackageNewJPClinsSupport = new NpmPackageValidationSupport(ctx);
+			// 新しいJP-CLINSは、snapshot形式にすると、エラーが発生するため、diff形式を使用
+			npmPackageNewJPClinsSupport.loadPackageFromClasspath(Constants.JP_NEW_CLINS_NPM_PACKAGE);
 
 			// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 			NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
@@ -73,9 +75,9 @@ public class ParsingSampleMain {
 					new InMemoryTerminologyServerValidationSupport(ctx), //
 					npmPackageTerminologySupport, //
 					npmPackageJPCoreSupport, //
-					npmPackageEReferralSupport// , //
-			// diff形式の場合にはSnapshotGeneratingValidationSupportを使用する必要があるがsnapshotでは不要
-			// new SnapshotGeneratingValidationSupport(ctx)
+					npmPackageNewJPClinsSupport, //
+					// diff形式の場合にはSnapshotGeneratingValidationSupportを使用する必要がある
+					new SnapshotGeneratingValidationSupport(ctx)
 			);
 
 			// @formatter:off
@@ -102,7 +104,7 @@ public class ParsingSampleMain {
 			long createValidatorTime = System.nanoTime();
 
 			// 診療情報提供書のHL7 FHIRのサンプルデータを読み込み
-			String filePath = "file/input/Bundle-BundleReferralExample01.json";
+			String filePath = "file/input/Bundle-Bundle-CLINS-Referral-Example-01.json";			
 
 			// 生のFHIRデータ(json文字列）に対して、直接FHIRバリデーション実行
 			String jsonString = Files.readString(Paths.get(filePath));

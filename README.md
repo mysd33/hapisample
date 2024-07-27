@@ -2,7 +2,7 @@
 
 - [HAPI FHIR](https://hapifhir.io/)を使って、[FHIR厚生労働省標準規格](https://std.jpfhir.jp/)に基づくサンプルデータに対して検証（FHIRバリデーション）し、Bundleリソースとしてパースするサンプルプログラムです。
 
-- HAPI FHIRのバージョンは、7.2.1を使用しています。
+- HAPI FHIRのバージョンは、最新の7.2.2を使用しています。
 
 - 各フォルダに、以下の2つのサンプルAPプロジェクトを作成しています。HAPIはJava11以上で動作すると書かれていますが、本サンプルは最新のLTSのJava21で作成しています。
     - simplehapiフォルダ
@@ -38,13 +38,13 @@
         - JPCore、診療情報提供書等の文書情報のプロファイル（実装ガイド）は、[FHIR package仕様](https://registry.fhir.org/learn)に従ったnpmパッケージ形式で提供されています。
         - HAPIのバリデータでは、[NpmPackageValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#npmpackagevalidationsupport)クラスにより、npmパッケージを読み込み、検証することができます。
             - NpmPackageValidationSupportクラスによる、パッケージを使ったバリデーションの実装方法については、[HAPI FHIRのドキュメントの「Validating Using Packages」](https://hapifhir.io/hapi-fhir/docs/validation/instance_validator.html#packages)を参考に実装しています。    
-        - npmパッケージには、diff形式とsnapshot形式の2つがありますが、通常は、FHIRが親のプロファイルを継承して定義される思想からdiff形式のパッケージを使いたいのですが、以下の2点の理由によりsnapshot形式のパッケージを使って実行しています。
-            1. JPCoreのnpmパッケージは、diff形式のパッケージが提供されているが、[SnapshotGeneratingValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#snapshotgeneratingvalidationsupport)による処理でjava.lang.OutOfMemoryErrorが発生する。
-            1. HAPIのValidatorは、R5以前のバージョンも動作するように下位互換性が担保されている作りとなっているが、実装上、内部ではFHIRのR5のデータ構造に変換して処理する。このため、R4のプロファイルを利用する場合に、バリデーション実行時に、StructureDefinitionやValueSet、CodeSystem等の定義情報を参照する際、都度R4からR5のデータ構造へ変換するための処理が発生し、オーバヘッドになることがある。SnapshotGeneratingValidationSupportを使った場合にもこの処理が発生するため、処理が遅くなる可能性がある。また、SnapshotGeneratingValidationSupportは、そもそも、diff形式のパッケージに対してValidation実行時にSnapshot形式の定義情報を自動生成するクラスであるため、全てsnapshot形式のパッケージを使う場合は、SnapshotGeneratingValidationSupportを使わなくて済む。
+        - npmパッケージには、diff形式とsnapshot形式の2つがありますが、通常は、FHIRが親のプロファイルを継承して定義される思想からdiff形式のパッケージを使います。ただし、下の問題が発生しています。
+            1. JPCoreのnpmパッケージは、diff形式のパッケージの場合、[SnapshotGeneratingValidationSupport](https://hapifhir.io/hapi-fhir/docs/validation/validation_support_modules.html#snapshotgeneratingvalidationsupport)による処理でjava.lang.OutOfMemoryErrorが発生するため、snapshot形式のパッケージを使っています。
+            1. 新しいJP-CLINSのnpmパッケージは、snapshoto形式のパッケージを使用すると、バリデーション時にエラーが発生するのでdiff形式のパッケージを使用しています。
+            
+> [!NOTE]
+> 臨床情報（5情報）だけなく、診療情報提供書と退院時サマリーのプロファイルが、JP-CLINSに統合されました。
 
-> [!WARNING]
-> 臨床情報（5情報）だけなく、診療情報提供書と退院時サマリーのプロファイルが、JP-CLINSに統合されるようです。現状は、従来の診療情報提供書、退院時サマリ、臨床情報のプロファイルを使用したサンプルになっています。
-> 近日中に、本サンプルAPでも、JP-CLINSのnpmパッケージを使ったバリデーションに対応予定です。
 
 - サンプルAPで利用する各種プロファイル
     - JPCoreのプロファイル
@@ -53,8 +53,7 @@
                 - [snapshot形式](https://jpfhir.jp/fhir/core/1.1.2/jp-core.r4-1.1.2-snap.tgz)
                 - [diff形式](https://jpfhir.jp/fhir/core/1.1.2/jp-core.r4-1.1.2.tgz)         
     - Terminologyのプロファイル
-        - [JP-FHIR-Terminology](https://jpfhir.jp/fhir/core/terminology/ig/)のサイトにJP FHIR Terminologyの実装ガイドがあります。    
-            - ~~[Terminologyのnpmパッケージ(ver1.1.1)](https://jpfhir.jp/fhir/core/terminology/jpfhir-terminology.r4-1.1.1.tgz)~~
+        - [JP-FHIR-Terminology](https://jpfhir.jp/fhir/core/terminology/ig/)のサイトにJP FHIR Terminologyの実装ガイドがあります。
             - [Terminologyのnpmパッケージ(ver1.2.0)](https://jpfhir.jp/fhir/core/terminology/jpfhir-terminology.r4-1.2.0.tgz)
 
     - ~~診療情報提供書の文書情報プロファイル~~
@@ -107,77 +106,64 @@
 
 #### 4.1.1 処理結果
 ```
-09:24:45.679 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 7.0.2 - Rev 95beaec894
-09:24:45.689 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
-09:24:48.514 [main] INFO  ca.uhn.fhir.util.XmlUtil - Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
-09:24:55.059 [main] INFO  c.uhn.fhir.validation.FhirValidator - Ph-schematron library not found on classpath, will not attempt to perform schematron validation
-09:24:55.062 [main] INFO  hapisample.ParsingSampleMain - バリデーション初回
-09:24:55.154 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
-09:24:56.238 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
-09:24:56.357 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
-09:24:56.668 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
-09:24:58.670 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
-09:24:59.000 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-09:24:59.001 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
-09:24:59.252 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-09:24:59.253 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
-09:2a4:59.379 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-09:25:00.425 [main] INFO  hapisample.ParsingSampleMain - バリデーション2回目
-09:25:00.897 [main] INFO  hapisample.ParsingSampleMain - ドキュメントは有効です
-09:25:00.908 [main] INFO  hapisample.ParsingSampleMain - Bundle type:Document
-09:25:00.910 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Composition
-09:25:00.911 [main] INFO  hapisample.ParsingSampleMain - 文書名: 診療情報提供書
-09:25:00.911 [main] INFO  hapisample.ParsingSampleMain - subject display: 患者リソースPatient
-09:25:00.911 [main] INFO  hapisample.ParsingSampleMain - subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
-09:25:00.911 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Patient
-09:25:00.912 [main] INFO  hapisample.ParsingSampleMain - Composition.subjectの参照先のPatient:urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
-09:25:00.912 [main] INFO  hapisample.ParsingSampleMain - 患者番号:12345
-09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - 患者氏名:田中 太郎
-09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - 患者カナ氏名:タナカ タロウ
-09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
-09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
-09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
-09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
-09:25:00.913 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
-09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
-09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-09:25:00.914 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
-09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
-09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
-09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
+21:50:54.341 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 7.2.2 - Rev d8c89128bc
+21:50:54.351 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
+21:50:56.031 [main] INFO  ca.uhn.fhir.util.XmlUtil - Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
+21:51:03.568 [main] INFO  c.uhn.fhir.validation.FhirValidator - Ph-schematron library not found on classpath, will not attempt to perform schematron validation
+21:51:03.571 [main] INFO  hapisample.ParsingSampleMain - バリデーション初回
+21:51:03.666 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
+21:51:05.020 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
+21:51:05.093 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
+21:51:05.350 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
+21:51:14.346 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
+21:51:14.864 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+21:51:14.865 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
+21:51:15.292 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+21:51:15.293 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
+21:51:15.456 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+21:51:17.513 [main] INFO  hapisample.ParsingSampleMain - バリデーション2回目
+21:51:18.202 [main] INFO  hapisample.ParsingSampleMain - ドキュメントは有効です
+21:51:18.266 [main] INFO  hapisample.ParsingSampleMain - Bundle type:Document
+21:51:18.271 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Composition
+21:51:18.272 [main] INFO  hapisample.ParsingSampleMain - 文書名: 診療情報提供書
+21:51:18.273 [main] INFO  hapisample.ParsingSampleMain - subject display: 患者リソースPatient
+21:51:18.273 [main] INFO  hapisample.ParsingSampleMain - subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+21:51:18.273 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Patient
+21:51:18.273 [main] INFO  hapisample.ParsingSampleMain - Composition.subjectの参照先のPatient:urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+21:51:18.274 [main] INFO  hapisample.ParsingSampleMain - 患者番号:000999739
+21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - 患者氏名:牧野 爛漫
+21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - 患者カナ氏名:マキノ ランマン
+21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
+21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
+21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
+21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
+21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
+21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
+21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
+21:51:18.277 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
 ```
 
 #### 4.1.2 処理時間
 - Validator作成などの初期化、Validationの初回実行に時間がかかるのが分かります。
 - 2回目以降のValidation実行は、高速にできているのが分かりますので、実際にアプリケーションを作成する際は一度ダミーデータでValidationを実行しておくと良いことが分かりました。
 
-    - HAPI FHIRのバージョン(7.0.2)の場合
+    - HAPI FHIRのバージョン(7.2.2)の場合
 
     ```
-    09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Context作成時間：40ms
-    09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validator作成時間：9371ms
-    09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（初回）：5364ms
-    09:25:00.915 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（2回目）：471ms
-    09:25:00.916 [main] INFO  hapisample.ParsingSampleMain - Parser作成時間：0ms
-    09:25:00.916 [main] INFO  hapisample.ParsingSampleMain - Parse処理時間：10ms
-    09:25:00.916 [main] INFO  hapisample.ParsingSampleMain - モデル処理時間：8ms
-    ```
-
-    - （参考）以前使っていた古いHAPI FHIRのバージョン(6.4.4)の処理時間
-        - 6.x→7.xで処理時間はほぼ変わっていなさそう。
-
-    ```
-    09:26:56.212 [main] INFO  hapisample.ParsingSampleMain - Context作成時間：62ms
-    09:26:56.213 [main] INFO  hapisample.ParsingSampleMain - Validator作成時間：9536ms
-    09:26:56.213 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（初回）：5373ms
-    09:26:56.213 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（2回目）：541ms
-    09:26:56.213 [main] INFO  hapisample.ParsingSampleMain - Parser作成時間：0ms
-    09:26:56.213 [main] INFO  hapisample.ParsingSampleMain - Parse処理時間：12ms
-    09:26:56.214 [main] INFO  hapisample.ParsingSampleMain - モデル処理時間：7ms
+    21:51:18.277 [main] INFO  hapisample.ParsingSampleMain - Context作成時間：54.685ms
+    21:51:18.277 [main] INFO  hapisample.ParsingSampleMain - Validator作成時間：9218.453ms
+    21:51:18.277 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（初回）：13942.289ms
+    21:51:18.277 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（2回目）：688.931ms
+    21:51:18.278 [main] INFO  hapisample.ParsingSampleMain - Parser作成時間：0.007ms
+    21:51:18.278 [main] INFO  hapisample.ParsingSampleMain - Parse処理時間：61.829ms
+    21:51:18.278 [main] INFO  hapisample.ParsingSampleMain - モデル処理時間：12.737ms
     ```
 
 ### 4.2 シリアライズ
