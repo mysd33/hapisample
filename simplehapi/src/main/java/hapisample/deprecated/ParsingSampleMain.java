@@ -39,7 +39,7 @@ import hapisample.Constants;
  * 
  * このクラスは、古いバージョン実装ガイドを使用しているため、今後削除される可能性があります
  */
-@Deprecated
+@Deprecated(since = "0.0.1", forRemoval = true)
 public class ParsingSampleMain {
 	private static Logger logger = LoggerFactory.getLogger(ParsingSampleMain.class);
 

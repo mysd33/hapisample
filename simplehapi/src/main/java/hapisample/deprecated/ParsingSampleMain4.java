@@ -1,4 +1,4 @@
-package hapisample;
+package hapisample.deprecated;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -19,12 +19,14 @@ import ca.uhn.fhir.validation.FhirValidator;
 import ca.uhn.fhir.validation.IValidatorModule;
 import ca.uhn.fhir.validation.SingleValidationMessage;
 import ca.uhn.fhir.validation.ValidationResult;
+import hapisample.Constants;
 
 /**
- * 健康診断結果報告書のFHIRサンプルデータをバリデーションする
+ * 臨床情報（JP-CLINS）のFHIRサンプルデータをバリデーションする
  */
-public class ParsingSampleMain3 {
-	private static Logger logger = LoggerFactory.getLogger(ParsingSampleMain3.class);
+@Deprecated(since = "0.0.1", forRemoval = true)
+public class ParsingSampleMain4 {
+	private static Logger logger = LoggerFactory.getLogger(ParsingSampleMain4.class);
 
 	// （参考）
 	// https://hapifhir.io/hapi-fhir/docs/model/parsers.html
@@ -40,17 +42,17 @@ public class ParsingSampleMain3 {
 			long createContextTime = System.nanoTime();
 
 			// Validatorの作成
-			// 健康診断結果報告書のnpmパッケージファイルに基づくValidationSuportを追加
-			NpmPackageValidationSupport npmPackageECheckupReport = new NpmPackageValidationSupport(ctx);
-			npmPackageECheckupReport.loadPackageFromClasspath(Constants.JP_E_CHECKUP_REPORT_NPM_PACKAGE);
+			// 臨床情報のnpmパッケージファイルに基づくValidationSuportを追加
+			NpmPackageValidationSupport npmPackageJPClinsSupport = new NpmPackageValidationSupport(ctx);
+			npmPackageJPClinsSupport.loadPackageFromClasspath(Constants.JP_CLINS_NPM_PACKAGE);
 
 			// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 			NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
-			// JPCoreは、diff形式にすると、SnapshotGeneratingValidationSupportの処理で、OutOfMemoryエラーが発生する
+			// JPCoreは、diff形式にすると、SnapshotGeneratingValidationSupportの処理で、OutOfMemoryエラーが発生する			
 			npmPackageJPCoreSupport.loadPackageFromClasspath(Constants.JP_CORE_NPM_PACKAGE);
 
 			// JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
-			NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);
+			NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);			
 			npmPackageTerminologySupport.loadPackageFromClasspath(Constants.JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
 
 			ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
@@ -60,14 +62,14 @@ public class ParsingSampleMain3 {
 					new InMemoryTerminologyServerValidationSupport(ctx), //
 					npmPackageTerminologySupport, //
 					npmPackageJPCoreSupport, //
-					npmPackageECheckupReport// , //
+					npmPackageJPClinsSupport// , //
 			// diff形式の場合にはSnapshotGeneratingValidationSupportを使用する必要があるがsnapshotでは不要
 			// new SnapshotGeneratingValidationSupport(ctx)
 			);
 			// @formatter:off
 			/*
 			ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
-					npmPackageECheckupReport, //
+					npmPackageJPClinsSupport, //
 					npmPackageJPCoreSupport, //
 					npmPackageTerminologySupport, //
 					// FHIRプロファイルに基づいているかの組み込みの検証ルール
@@ -87,8 +89,10 @@ public class ParsingSampleMain3 {
 			// 時間計測
 			long createValidatorTime = System.nanoTime();
 
-			// 健康診断結果報告書のHL7 FHIRのサンプルデータを読み込み
-			String filePath = "file/input/Bundle-Bundle-eCheckupReport-Sample-01.json";
+			// 臨床情報　のHL7 FHIRのサンプルデータを読み込み
+			//String filePath = "file/input/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json";
+			//String filePath = "file/input/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-02.json";
+			String filePath = "file/input/old/AllergyIntolerance-Example-JP-DrugContraindications-CLINS-eCS-03.json";
 			
 
 			// 生のFHIRデータ(json文字列）に対して、直接FHIRバリデーション実行

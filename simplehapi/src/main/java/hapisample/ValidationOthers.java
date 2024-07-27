@@ -1,11 +1,7 @@
 package hapisample;
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
-import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import org.hl7.fhir.common.hapi.validation.support.CachingValidationSupport;
@@ -15,30 +11,21 @@ import org.hl7.fhir.common.hapi.validation.support.NpmPackageValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.SnapshotGeneratingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.ValidationSupportChain;
 import org.hl7.fhir.common.hapi.validation.validator.FhirInstanceValidator;
-import org.hl7.fhir.r4.model.Bundle;
-import org.hl7.fhir.r4.model.Bundle.BundleEntryComponent;
-import org.hl7.fhir.r4.model.Composition;
-import org.hl7.fhir.r4.model.HumanName;
-import org.hl7.fhir.r4.model.Patient;
-import org.hl7.fhir.r4.model.Reference;
-import org.hl7.fhir.r4.model.Resource;
-import org.hl7.fhir.r4.model.ResourceType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import ca.uhn.fhir.context.FhirContext;
 import ca.uhn.fhir.context.support.DefaultProfileValidationSupport;
-import ca.uhn.fhir.parser.IParser;
 import ca.uhn.fhir.validation.FhirValidator;
 import ca.uhn.fhir.validation.IValidatorModule;
 import ca.uhn.fhir.validation.SingleValidationMessage;
 import ca.uhn.fhir.validation.ValidationResult;
 
 /**
- * 新しいJP-CLINS（電子カルテ情報共有サービス2文書５情報+患者サマリー）で、診療情報提供書のFHIRサンプルデータをバリデーション＆パースする
+ * 新しいJP-CLINS（電子カルテ情報共有サービス2文書５情報+患者サマリー）で、その他のFHIRサンプルデータをバリデーション＆パースする
  */
-public class ParsingSampleMain {
-	private static Logger logger = LoggerFactory.getLogger(ParsingSampleMain.class);
+public class ValidationOthers {
+	private static Logger logger = LoggerFactory.getLogger(ValidationOthers.class);
 
 	// （参考）
 	// https://hapifhir.io/hapi-fhir/docs/model/parsers.html
@@ -77,9 +64,7 @@ public class ParsingSampleMain {
 					npmPackageJPCoreSupport, //
 					npmPackageNewJPClinsSupport, //
 					// diff形式の場合にはSnapshotGeneratingValidationSupportを使用する必要がある
-					new SnapshotGeneratingValidationSupport(ctx)
-			);
-
+					new SnapshotGeneratingValidationSupport(ctx));
 			// @formatter:off
 			/*
 			ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
@@ -89,10 +74,10 @@ public class ParsingSampleMain {
 					// FHIRプロファイルに基づいているかの組み込みの検証ルール
 					new DefaultProfileValidationSupport(ctx), //
 					new CommonCodeSystemsTerminologyService(ctx), //
-					new InMemoryTerminologyServerValidationSupport(ctx), //
+					new InMemoryTerminologyServerValidationSupport(ctx), //					
 					new SnapshotGeneratingValidationSupport(ctx)
 			);*/
-			// @formatter:on
+			// @fomatter:on
 			// キャッシュ機能の設定
 			CachingValidationSupport validationSupport = new CachingValidationSupport(validationSupportChain);
 			FhirValidator validator = ctx.newValidator();
@@ -102,9 +87,16 @@ public class ParsingSampleMain {
 			// 時間計測
 			long createValidatorTime = System.nanoTime();
 
-			// 診療情報提供書のHL7 FHIRのサンプルデータを読み込み
-			String filePath = "file/input/Bundle-Bundle-CLINS-Referral-Example-01.json";			
+			// FHIRのサンプルデータを読み込み
+			String filePath = "file/input/Bundle-Bundle-CLINS-PCS-Example-01.json";			
+			
+			// TODO: こちらのデータは以下のバリデーションエラーが出てしまう
+			// [Bundle.entry[2]] This element does not match any known slice  defined in the profile http://jpfhir.jp/fhir/clins/StructureDefinition/JP_Bundle_CLINS|1.3.0-rc3 and slicing is CLOSED: Bundle.entry[2]: Does not match slice 'patient' (discriminator: resource.conformsTo('http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Patient_eCS')), Bundle.entry[2]: Details for Bundle matching against profile http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Patient_eCS|1.3.0-rc3, Bundle.entry[2]: Does not match slice 'allergyIntolerance' (discriminator: resource.conformsTo('http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_AllergyIntolerance_eCS')), Bundle.entry[2]: Details for Bundle matching against profile http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_AllergyIntolerance_eCS|1.3.0-rc3, Bundle.entry[2]: Does not match slice 'condition' (discriminator: resource.conformsTo('http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Condition_eCS')), Bundle.entry[2]: Details for Bundle matching against profile http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Condition_eCS|1.3.0-rc3, Bundle.entry[2]: Does not match slice 'medicationRequest' (discriminator: resource.conformsTo('http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_MedicationRequest_eCS')), Bundle.entry[2]: Details for Bundle matching against profile http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_MedicationRequest_eCS|1.3.0-rc3, Bundle.entry[2]: Does not match slice 'observationLaboResult' (discriminator: resource.conformsTo('http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Observation_LabResult_eCS')), Bundle.entry[2]: Details for Bundle matching against profile http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Observation_LabResult_eCS|1.3.0-rc3
+			// [Bundle.entry[0].resource/*Patient/InlineExample-JP-Patient-standard*/] Resource has a language, but the XHTML does not have an lang or an xml:lang tag (needs both - see https://www.w3.org/TR/i18n-html-tech-lang/#langvalues)
+			// [Bundle.entry[2].resource.code] Unknown code 'http://jpfhir.jp/fhir/clins/CodeSystem/JP_CLINS_ObsLabResult_CoreLabo_CS#3H015000002326101' for in-memory expansion of ValueSet 'http://jpfhir.jp/fhir/core/ValueSet/JP_ObservationLabResultCode_VS'
 
+			//String filePath = "file/input/Bundle-Bundle-CLINS-Observations-Example-01.json";
+					
 			// 生のFHIRデータ(json文字列）に対して、直接FHIRバリデーション実行
 			String jsonString = Files.readString(Paths.get(filePath));
 			logger.info("バリデーション初回");
@@ -117,7 +109,6 @@ public class ParsingSampleMain {
 			ValidationResult validationResult = validator.validateWithResult(jsonString);
 			// 時間計測2
 			long validationTime2 = System.nanoTime();
-
 			if (validationResult.isSuccessful()) {
 				logger.info("ドキュメントは有効です");
 			} else {
@@ -125,83 +116,14 @@ public class ParsingSampleMain {
 				// 検証結果の出力
 				for (SingleValidationMessage validationMessage : validationResult.getMessages()) {
 					logger.warn("[{}]:[{}] {}", validationMessage.getSeverity(), validationMessage.getLocationString(),
-							validationMessage.getMessage());
+						validationMessage.getMessage());
 				}
 			}
-
-			// 時間計測
-			long parseStartTime = System.nanoTime();
-			// パーサを作成
-			IParser parser = ctx.newJsonParser();
-			// 時間計測
-			long createParserTime = System.nanoTime();
-
-			// サンプルデータをパースしBundleリソースを取得
-			InputStream is = new BufferedInputStream(new FileInputStream(filePath));
-			Bundle bundle = parser.parseResource(Bundle.class, is);
-			// 時間計測
-			long parseTime = System.nanoTime();
-
-			// Bundleリソースを解析
-			logger.info("Bundle type:{}", bundle.getType().getDisplay());
-			// BundleからEntryを取得
-			List<BundleEntryComponent> entries = bundle.getEntry();
-			String subjectRefId = null;
-			// Entry内のResourceを取得
-			for (BundleEntryComponent entry : entries) {
-				Resource resource = entry.getResource();
-				ResourceType resourceType = resource.getResourceType();
-				logger.info("Resource Type: {}", resourceType.name());
-				switch (resourceType) {
-				case Composition:
-					// Compositionリソースを解析する例
-					Composition composition = (Composition) resource;
-					String title = composition.getTitle();
-					logger.info("文書名: {}", title);
-					// subjectの参照先のUUIDを取得
-					Reference subjectRef = composition.getSubject();
-					subjectRefId = subjectRef.getReference();
-					logger.info("subject display: {}", subjectRef.getDisplay());
-					logger.info("subject reference Id: {}", subjectRefId);
-					// TODO: 各参照先のUUIDを取得する処理の追加
-					break;
-				case Patient:
-					// Patientリソースを解析する例
-					if (!entry.getFullUrl().equals(subjectRefId)) {
-						break;
-					}
-					logger.info("Composition.subjectの参照先のPatient:{}", subjectRefId);
-					Patient patient = (Patient) resource;
-					// 患者番号の取得
-					logger.info("患者番号:{}", patient.getIdentifier().get(0).getValue());
-					// 患者氏名の取得
-					List<HumanName> humanNames = patient.getName();
-					humanNames.forEach(humanName -> {
-						String valueCode = humanName.getExtensionString(
-								"http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation");
-						if ("IDE".equals(valueCode)) {
-							logger.info("患者氏名:{}", humanName.getText());
-						} else {
-							logger.info("患者カナ氏名:{}", humanName.getText());
-						}
-					});
-					break;
-				// TODO: リソース毎に処理の追加
-				default:
-					break;
-				}
-			}
-			// 時間計測
-			long walkFhirModelTime = System.nanoTime();
-
+	
 			logElaspedTime("Context作成時間", startTime, createContextTime);
 			logElaspedTime("Validator作成時間", createContextTime, createValidatorTime);
 			logElaspedTime("Validation処理時間（初回）", createValidatorTime, validationTime);
 			logElaspedTime("Validation処理時間（2回目）", validationTime, validationTime2);
-			logElaspedTime("Parser作成時間", parseStartTime, createParserTime);
-			logElaspedTime("Parse処理時間", createParserTime, parseTime);
-			logElaspedTime("モデル処理時間", parseTime, walkFhirModelTime);
-
 		} catch (Exception e) {
 			logger.error("予期せぬエラーが発生しました", e);
 		}
