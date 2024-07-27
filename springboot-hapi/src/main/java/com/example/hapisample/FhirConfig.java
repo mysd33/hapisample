@@ -6,6 +6,7 @@ import org.hl7.fhir.common.hapi.validation.support.CachingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.CommonCodeSystemsTerminologyService;
 import org.hl7.fhir.common.hapi.validation.support.InMemoryTerminologyServerValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.NpmPackageValidationSupport;
+import org.hl7.fhir.common.hapi.validation.support.SnapshotGeneratingValidationSupport;
 import org.hl7.fhir.common.hapi.validation.support.ValidationSupportChain;
 import org.hl7.fhir.common.hapi.validation.validator.FhirInstanceValidator;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -47,25 +48,21 @@ public class FhirConfig {
 		LogUtils.logElaspedTimeMillSecondUnit(log, "FHIRContext作成", startTime, endTime);
 		return ctx;
 	}
-
+	
 	/**
-	 * 医療文書（診療情報提供書、退院時サマリ）用のFhirValidatorのBean定義<br>
+	 * 新JP-CLINS（(電子カルテ情報共有サービス2文書5情報+患者サマリー)用のFhirValidatorのBean定義<br>
 	 * 
 	 * FhirValidatorはスレッドセーフ（なお、個々のモジュールはスレッドセーフではない）なので、Bean定義してインスタンスを再利用できるようにする
 	 * 
 	 * @see https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-base/ca/uhn/fhir/validation/FhirValidator.html
 	 */
 	@Bean
-	FhirValidator fhirDocumentValidator(FhirContext ctx) throws IOException {
+	FhirValidator fhirNewClinsValidator(FhirContext ctx) throws IOException {
 		long startTime = System.nanoTime();
 		// Validatorの作成
-		// 診療情報提供書のnpmパッケージファイルに基づくValidationSuportを追加
-		NpmPackageValidationSupport npmPackageEReferralSupport = new NpmPackageValidationSupport(ctx);
-		npmPackageEReferralSupport.loadPackageFromClasspath(Constants.JP_E_REFERRAL_NPM_PACKAGE);
-
-		// 退院時サマリののnpmパッケージファイルに基づくValidationSuportを追加
-		NpmPackageValidationSupport npmPackageEDischargeSummarySupport = new NpmPackageValidationSupport(ctx);
-		npmPackageEDischargeSummarySupport.loadPackageFromClasspath(Constants.JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE);
+		// JP-CLINSのnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageNewJPClinsSupport = new NpmPackageValidationSupport(ctx);
+		npmPackageNewJPClinsSupport.loadPackageFromClasspath(Constants.JP_NEW_CLINS_NPM_PACKAGE);
 
 		// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
 		NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
@@ -81,19 +78,19 @@ public class FhirConfig {
 				new InMemoryTerminologyServerValidationSupport(ctx), //
 				npmPackageTerminologySupport, //
 				npmPackageJPCoreSupport, //
-				npmPackageEReferralSupport, //
-				npmPackageEDischargeSummarySupport);
+				npmPackageNewJPClinsSupport,
+				new SnapshotGeneratingValidationSupport(ctx));				
 		// @formatter:off
 		/*
 		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
-				npmPackageEReferralSupport, //
-				npmPackageEDischargeSummarySupport, //
+				npmPackageNewJPClinsSupport, //
 				npmPackageJPCoreSupport, //
 				npmPackageTerminologySupport,
 				// FHIRベースプロファイルの組み込みの検証ルール
 				new DefaultProfileValidationSupport(ctx), //
 				new CommonCodeSystemsTerminologyService(ctx), //
-				new InMemoryTerminologyServerValidationSupport(ctx)//
+				new InMemoryTerminologyServerValidationSupport(ctx), //
+				new SnapshotGeneratingValidationSupport(ctx)
 		);*/
 		// @formatter:on
 		// キャッシュ機能の設定
@@ -102,9 +99,9 @@ public class FhirConfig {
 		IValidatorModule module = new FhirInstanceValidator(validationSupport);
 		validator.registerValidatorModule(module);
 		long endTime = System.nanoTime();
-		LogUtils.logElaspedTimeMillSecondUnit(log, "医療文書FHIRValidator作成", startTime, endTime);
+		LogUtils.logElaspedTimeMillSecondUnit(log, "新JP-CLINS FHIRValidator作成", startTime, endTime);
 		return validator;
-	}
+	}	
 
 	/**
 	 * 健康診断結果報告書用のFhirValidatorのBean定義<br>
@@ -161,6 +158,66 @@ public class FhirConfig {
 		return validator;
 	}
 	
+	
+	/**
+	 * 医療文書（診療情報提供書、退院時サマリ）用のFhirValidatorのBean定義<br>
+	 * 
+	 * FhirValidatorはスレッドセーフ（なお、個々のモジュールはスレッドセーフではない）なので、Bean定義してインスタンスを再利用できるようにする
+	 * 
+	 * @see https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-base/ca/uhn/fhir/validation/FhirValidator.html
+	 */
+	@Bean
+	@Deprecated(since = "0.0.1", forRemoval = true)
+	FhirValidator fhirDocumentValidator(FhirContext ctx) throws IOException {
+		long startTime = System.nanoTime();
+		// Validatorの作成
+		// 診療情報提供書のnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageEReferralSupport = new NpmPackageValidationSupport(ctx);
+		npmPackageEReferralSupport.loadPackageFromClasspath(Constants.JP_E_REFERRAL_NPM_PACKAGE);
+
+		// 退院時サマリののnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageEDischargeSummarySupport = new NpmPackageValidationSupport(ctx);
+		npmPackageEDischargeSummarySupport.loadPackageFromClasspath(Constants.JP_E_DISCHARGE_SUMMARY_NPM_PACKAGE);
+
+		// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
+		npmPackageJPCoreSupport.loadPackageFromClasspath(Constants.JP_CORE_NPM_PACKAGE);
+
+		// JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
+		NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);
+		npmPackageTerminologySupport.loadPackageFromClasspath(Constants.JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
+		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
+				// FHIRベースプロファイルの組み込みの検証ルール
+				new DefaultProfileValidationSupport(ctx), //
+				new CommonCodeSystemsTerminologyService(ctx), //
+				new InMemoryTerminologyServerValidationSupport(ctx), //
+				npmPackageTerminologySupport, //
+				npmPackageJPCoreSupport, //
+				npmPackageEReferralSupport, //
+				npmPackageEDischargeSummarySupport);
+		// @formatter:off
+		/*
+		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
+				npmPackageEReferralSupport, //
+				npmPackageEDischargeSummarySupport, //
+				npmPackageJPCoreSupport, //
+				npmPackageTerminologySupport,
+				// FHIRベースプロファイルの組み込みの検証ルール
+				new DefaultProfileValidationSupport(ctx), //
+				new CommonCodeSystemsTerminologyService(ctx), //
+				new InMemoryTerminologyServerValidationSupport(ctx)//
+		);*/
+		// @formatter:on
+		// キャッシュ機能の設定
+		CachingValidationSupport validationSupport = new CachingValidationSupport(validationSupportChain);
+		FhirValidator validator = ctx.newValidator();
+		IValidatorModule module = new FhirInstanceValidator(validationSupport);
+		validator.registerValidatorModule(module);
+		long endTime = System.nanoTime();
+		LogUtils.logElaspedTimeMillSecondUnit(log, "医療文書FHIRValidator作成", startTime, endTime);
+		return validator;
+	}
+	
 	/**
 	 * 臨床情報（JP-CLINS）用のFhirValidatorのBean定義<br>
 	 * 
@@ -169,6 +226,7 @@ public class FhirConfig {
 	 * @see https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-base/ca/uhn/fhir/validation/FhirValidator.html
 	 */
 	@Bean
+	@Deprecated(since = "0.0.1", forRemoval = true)
 	FhirValidator fhirClinsValidator(FhirContext ctx) throws IOException {
 		long startTime = System.nanoTime();
 		// Validatorの作成
@@ -213,56 +271,6 @@ public class FhirConfig {
 		return validator;
 	}	
 
-	/**
-	 * 新JP-CLINS（(電子カルテ情報共有サービス2文書5情報+患者サマリー)用のFhirValidatorのBean定義<br>
-	 * 
-	 * FhirValidatorはスレッドセーフ（なお、個々のモジュールはスレッドセーフではない）なので、Bean定義してインスタンスを再利用できるようにする
-	 * 
-	 * @see https://hapifhir.io/hapi-fhir/apidocs/hapi-fhir-base/ca/uhn/fhir/validation/FhirValidator.html
-	 */
-	@Bean
-	FhirValidator fhirNewClinsValidator(FhirContext ctx) throws IOException {
-		long startTime = System.nanoTime();
-		// Validatorの作成
-		// JP-CLINSのnpmパッケージファイルに基づくValidationSuportを追加
-		NpmPackageValidationSupport npmPackageNewJPClinsSupport = new NpmPackageValidationSupport(ctx);
-		npmPackageNewJPClinsSupport.loadPackageFromClasspath(Constants.JP_CLINS_NPM_PACKAGE);
 
-		// JPCoreのnpmパッケージファイルに基づくValidationSuportを追加
-		NpmPackageValidationSupport npmPackageJPCoreSupport = new NpmPackageValidationSupport(ctx);
-		npmPackageJPCoreSupport.loadPackageFromClasspath(Constants.JP_CORE_NPM_PACKAGE);
-
-		// JPCoreのTerminologyのnpmパッケージファイルに基づくValidationSuportを追加
-		NpmPackageValidationSupport npmPackageTerminologySupport = new NpmPackageValidationSupport(ctx);
-		npmPackageTerminologySupport.loadPackageFromClasspath(Constants.JP_FHIR_TERMINOLOGY_NPM_PACKAGE);
-		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
-				// FHIRベースプロファイルの組み込みの検証ルール
-				new DefaultProfileValidationSupport(ctx), //
-				new CommonCodeSystemsTerminologyService(ctx), //
-				new InMemoryTerminologyServerValidationSupport(ctx), //
-				npmPackageTerminologySupport, //
-				npmPackageJPCoreSupport, //
-				npmPackageNewJPClinsSupport);				
-		// @formatter:off
-		/*
-		ValidationSupportChain validationSupportChain = new ValidationSupportChain(//
-				npmPackageNewJPClinsSupport, //
-				npmPackageJPCoreSupport, //
-				npmPackageTerminologySupport,
-				// FHIRベースプロファイルの組み込みの検証ルール
-				new DefaultProfileValidationSupport(ctx), //
-				new CommonCodeSystemsTerminologyService(ctx), //
-				new InMemoryTerminologyServerValidationSupport(ctx)//
-		);*/
-		// @formatter:on
-		// キャッシュ機能の設定
-		CachingValidationSupport validationSupport = new CachingValidationSupport(validationSupportChain);
-		FhirValidator validator = ctx.newValidator();
-		IValidatorModule module = new FhirInstanceValidator(validationSupport);
-		validator.registerValidatorModule(module);
-		long endTime = System.nanoTime();
-		LogUtils.logElaspedTimeMillSecondUnit(log, "新JP-CLINS FHIRValidator作成", startTime, endTime);
-		return validator;
-	}
 
 }

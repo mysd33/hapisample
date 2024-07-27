@@ -30,11 +30,12 @@ import ch.qos.logback.classic.Logger;
  * 性能改善版の通常版でのバリデーション結果に差異がないか自動検知する
  * 
  */
+@Deprecated(since = "0.0.1", forRemoval = true)
 class FhirValidationCompareTest {
 	// 暖機処理用のFHIRのデータファイル
-	private static final String INIT_FOR_FHIR_REFERRAL_FILE_PATH = "file/Bundle-BundleReferralExample01.json";
+	private static final String INIT_FOR_FHIR_REFERRAL_FILE_PATH = "file/old/Bundle-BundleReferralExample01.json";
 	private static final String INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH = "file/Bundle-Bundle-eCheckupReport-Sample-01.json";
-	private static final String INIT_FOR_FHIR_CLINS_FILE_PATH = "file/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json";
+	private static final String INIT_FOR_FHIR_CLINS_FILE_PATH = "file/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json";
 	// テスト対象の通常のFHIR Validation機能
 	private static FhirValidationServiceImpl defaultSut;
 	// テスト対象の性能改善版のFHIR Validation機能
@@ -110,9 +111,9 @@ class FhirValidationCompareTest {
 	static Stream<Arguments> testValidateDocument() {
 		return Stream.of(
 				// テストケース1
-				arguments("testdata/Bundle-BundleReferralExample01.json"),
+				arguments("testdata/old/Bundle-BundleReferralExample01.json"),
 				// テストケース2
-				arguments("testdata/Bundle-BundleReferralExample02.json")
+				arguments("testdata/old/Bundle-BundleReferralExample02.json")
 		// TODO: 以降に、テストケースを追加していく
 		);
 	}
@@ -156,13 +157,13 @@ class FhirValidationCompareTest {
 	static Stream<Arguments> testValidateClins() {
 		return Stream.of(
 				// テストケース1
-				arguments("testdata/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json"),
+				arguments("testdata/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json"),
 				
 				//TODO: 通常モードではOKだが、パフォーマンス改善モードだとエラーになり、バリデーション結果が異なってしまう
 				// テストケース2
-				arguments("testdata/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-02.json"),
+				arguments("testdata/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-02.json"),
 				// テストケース3
-				arguments("testdata/AllergyIntolerance-Example-JP-DrugContraindications-CLINS-eCS-03.json")
+				arguments("testdata/old/AllergyIntolerance-Example-JP-DrugContraindications-CLINS-eCS-03.json")
 		// TODO: 以降に、テストケースを追加していく
 		);
 	}

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.4</version>
+		<version>3.3.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -18,6 +18,10 @@
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>	
 		<hapi.version>7.2.2</hapi.version>
+		<!-- fhir core validation version override for workaround　-->				
+		<fhir_core_version>6.1.4</fhir_core_version>
+		<!-- バリデーションガイドの公式バリデータのバージョン6.1.8にするとAPI非互換により実行時エラーになる　-->				
+		<!--<fhir_core_version>6.1.8</fhir_core_version>-->		
 	</properties>
 	<dependencies>
 		<dependency>
@@ -67,7 +71,62 @@
 		    <artifactId>hapi-fhir-caching-caffeine</artifactId>
 		    <version>${hapi.version}</version>
 		</dependency>
-									
+
+		<!-- fhir core validation version override for workaround　-->
+		<dependency>
+			<groupId>ca.uhn.hapi.fhir</groupId>
+			<artifactId>org.hl7.fhir.validation</artifactId>
+			<version>${fhir_core_version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>info.cqframework</groupId>
+					<artifactId>elm</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>info.cqframework</groupId>
+					<artifactId>cql-to-elm</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>info.cqframework</groupId>
+					<artifactId>quick</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>info.cqframework</groupId>
+					<artifactId>qdm</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>info.cqframework</groupId>
+					<artifactId>cql</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>info.cqframework</groupId>
+					<artifactId>model</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.javalin</groupId>
+					<artifactId>javalin</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.apache.commons</groupId>
+					<artifactId>commons-collections4</artifactId>
+				</exclusion>
+
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>ca.uhn.hapi.fhir</groupId>
+			<artifactId>org.hl7.fhir.utilities</artifactId>
+			<version>${fhir_core_version}</version>
+		</dependency>		
+		<dependency>
+			<groupId>ca.uhn.hapi.fhir</groupId>
+			<artifactId>org.hl7.fhir.r4</artifactId>
+			<version>${fhir_core_version}</version>
+		</dependency>									
 	</dependencies>
 
 	<build>

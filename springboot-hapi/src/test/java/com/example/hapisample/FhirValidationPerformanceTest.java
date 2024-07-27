@@ -25,14 +25,15 @@ import lombok.extern.slf4j.Slf4j;
  * 
  * HAPIの通常の実装版と、性能改善版（R4→R5事前変換）の比較ができるようになっている。
  */
+@Deprecated(since = "0.0.1", forRemoval = true)
 @Slf4j
 class FhirValidationPerformanceTest {
 	// 測定時の試行回数
 	private static final int ATTEMPT_COUNT = 10;
 	// 暖機処理用のFHIRのデータファイル
-	private static final String INIT_FOR_FHIR_REFERRAL_FILE_PATH = "file/Bundle-BundleReferralExample01.json";
+	private static final String INIT_FOR_FHIR_REFERRAL_FILE_PATH = "file/old/Bundle-BundleReferralExample01.json";
 	private static final String INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH = "file/Bundle-Bundle-eCheckupReport-Sample-01.json";
-	private static final String INIT_FOR_FHIR_CLINS_FILE_PATH = "file/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json";
+	private static final String INIT_FOR_FHIR_CLINS_FILE_PATH = "file/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json";
 	// テスト対象の通常のFHIR Validation機能
 	private static FhirValidationServiceImpl defaultSut;
 	// テスト対象の性能改善版のFHIR Validation機能

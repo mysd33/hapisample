@@ -2,7 +2,7 @@
 
 - [HAPI FHIR](https://hapifhir.io/)を使って、[FHIR厚生労働省標準規格](https://std.jpfhir.jp/)に基づくサンプルデータに対して検証（FHIRバリデーション）し、Bundleリソースとしてパースするサンプルプログラムです。
 
-- HAPI FHIRのバージョンは、最新の7.2.2を使用しています。
+- HAPI FHIRのバージョンは、7.2.2を使用しています。
 
 - 各フォルダに、以下の2つのサンプルAPプロジェクトを作成しています。HAPIはJava11以上で動作すると書かれていますが、本サンプルは最新のLTSのJava21で作成しています。
     - simplehapiフォルダ
@@ -16,7 +16,8 @@
 - [FHIR IGポータル](https://std.jpfhir.jp/)のサイトから、公式バリデータを使った[バリデーションガイド](https://jpfhir.jp/fhir/eReferral/igv1/validationGuide.html)が公開されていますが、ここでは、[HAPI FHIR](https://hapifhir.io)を使って、同様のバリデーションを行うサンプルプログラムを作成しています。
 
     - 【注意】公式バリデータ（org.hl7.fhir.validation）の個別バージョンアップ
-        - HAPIのバリデーション機能（hapi-fhir-validaiton）は、内部で使用しているHL7が管理する公式バリデータ含む[HL7 FHIR Core Artifacts(org.hl7.fhir.core)](https://github.com/hapifhir/org.hl7.fhir.core)バージョンは、[hapi-fhir-validaitonのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/hapi-fhir-validation/pom.xml#L38)を見ると、${fhir_core_version}のプロパティで定義されており、[hapi-fhirの最上位プロジェクトのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/pom.xml#L929)でバージョン（現在は6.1.1.2）に統制されています。
+        - HAPIのバリデーション機能（hapi-fhir-validaiton）は、内部で使用しているHL7が管理する公式バリデータ含む[HL7 FHIR Core Artifacts(org.hl7.fhir.core)](https://github.com/hapifhir/org.hl7.fhir.core)バージョンは、[hapi-fhir-validaitonのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/hapi-fhir-validation/pom.xml#L38)を見ると、${fhir_core_version}のプロパティで定義されており、[hapi-fhirの最上位プロジェクトのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/v7.2.2/pom.xml#L928)でバージョン（現在は6.1.1.2）に統制されています。
+            - [開発中の最新版（7.5.0-SNAPSHOT）](https://github.com/hapifhir/hapi-fhir/blob/master/pom.xml#L941)は、6.3.18にバージョンアップされていますので、7.5.0系ではコアバージョンもアップされると思われます。
 
         - このため、バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョンが6.1.8となっており、HAPIが利用するバージョンと齟齬があります。
 
@@ -296,7 +297,7 @@
     ```sh
     # curlコマンド実行
     cd springboot-hapi
-    curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-BundleReferralExample01.json http://localhost:8080/api/v1/fhir/validate/document
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\old\Bundle-BundleReferralExample01.json http://localhost:8080/api/v1/fhir/validate/document
 
     # 正常応答
     {"result":"OK"}
@@ -409,11 +410,11 @@
 
     ```sh
     # curlコマンド実行
-    curl -H "Content-Type: application/json" -d @src\main\resources\file\AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json http://localhost:8080/api/v1/fhir/validate/clins    
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\old\AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json http://localhost:8080/api/v1/fhir/validate/clins    
 
-    curl -H "Content-Type: application/json" -d @src\main\resources\file\AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-02.json http://localhost:8080/api/v1/fhir/validate/clins
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\old\AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-02.json http://localhost:8080/api/v1/fhir/validate/clins
 
-    curl -H "Content-Type: application/json" -d @src\main\resources\file\AllergyIntolerance-Example-JP-DrugContraindications-CLINS-eCS-03.json http://localhost:8080/api/v1/fhir/validate/clins
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\old\AllergyIntolerance-Example-JP-DrugContraindications-CLINS-eCS-03.json http://localhost:8080/api/v1/fhir/validate/clins
 
     # 実行結果は省略    
     ```

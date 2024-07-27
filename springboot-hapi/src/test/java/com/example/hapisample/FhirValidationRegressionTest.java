@@ -46,7 +46,7 @@ class FhirValidationRegressionTest {
 				fhirConfig.fhirCheckupReportValidator(ctx), fhirConfig.fhirClinsValidator(ctx));
 		// 暖機処理
 		// 医療文書
-		Resource initDocumentDataResourceValue = new ClassPathResource("file/Bundle-BundleReferralExample01.json");
+		Resource initDocumentDataResourceValue = new ClassPathResource("file/old/Bundle-BundleReferralExample01.json");
 		Field initDocumentDataResourceField = sut.getClass().getDeclaredField("initDocumentDataResource");
 		initDocumentDataResourceField.setAccessible(true);
 		initDocumentDataResourceField.set(sut, initDocumentDataResourceValue);
@@ -58,7 +58,7 @@ class FhirValidationRegressionTest {
 		initCheckupReportDataResourceField.set(sut, initCheckupReportDataResourcValue);
 		// 臨床情報
 		Resource initClinsDataResourceValue = new ClassPathResource(
-				"file/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json");
+				"file/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json");
 		Field initClinsDataResourceField = sut.getClass().getDeclaredField("initClinsDataResource");
 		initClinsDataResourceField.setAccessible(true);
 		initClinsDataResourceField.set(sut, initClinsDataResourceValue);
@@ -88,9 +88,9 @@ class FhirValidationRegressionTest {
 	static Stream<Arguments> testValidateDocument() {
 		return Stream.of(
 				// テストケース1
-				arguments("testdata/Bundle-BundleReferralExample01.json", FhirValidationResult.OK, null),
+				arguments("testdata/old/Bundle-BundleReferralExample01.json", FhirValidationResult.OK, null),
 				// テストケース2
-				arguments("testdata/Bundle-BundleReferralExample02.json", FhirValidationResult.NG, List.of(
+				arguments("testdata/old/Bundle-BundleReferralExample02.json", FhirValidationResult.NG, List.of(
 						// org.hl7.fhir.validationのバージョンを6.1.4に変更することで、日本語対応されたので、エラーメッセージが変わり、エラーになる
 						
 						//"[ERROR]:[Bundle] Rule bdl-3: 'Entry.Requestバッチ/トランザクション/履歴に必須、それ以外の場合は禁止されています / entry.request mandatory for batch/transaction/history, otherwise prohibited' Failed",
@@ -175,13 +175,13 @@ class FhirValidationRegressionTest {
 	static Stream<Arguments> testValidateClins() {
 		return Stream.of(
 				// テストケース1
-				arguments("testdata/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json",
+				arguments("testdata/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json",
 						FhirValidationResult.OK, null),
 				// テストケース2
-				arguments("testdata/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-02.json",
+				arguments("testdata/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-02.json",
 						FhirValidationResult.OK, null),
 				// テストケース3
-				arguments("testdata/AllergyIntolerance-Example-JP-DrugContraindications-CLINS-eCS-03.json",
+				arguments("testdata/old/AllergyIntolerance-Example-JP-DrugContraindications-CLINS-eCS-03.json",
 						FhirValidationResult.OK, null)
 		// TODO: 以降に、テストケースを追加していく
 		);

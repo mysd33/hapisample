@@ -30,11 +30,11 @@ public class FhirValidationServiceImpl implements FhirValidationService {
 	private final FhirValidator checkupReportValidator;
 	private final FhirValidator clinsValidator;
 	
-	@Value("classpath:file/Bundle-BundleReferralExample01.json")
+	@Value("classpath:file/old/Bundle-BundleReferralExample01.json")
 	private Resource initDocumentDataResource;
 	@Value("classpath:file/Bundle-Bundle-eCheckupReport-Sample-01.json")
 	private Resource initCheckupReportDataResource;
-	@Value("classpath:file/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json")
+	@Value("classpath:file/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json")
 	private Resource initClinsDataResource;
 
 	//TODO: サンプルデータ提供後、新JP-CLINSのバリデータを利用できるようにする
