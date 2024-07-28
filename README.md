@@ -10,7 +10,7 @@
         - 実行には[simplehapiフォルダのサンプルAP実行方法](#3-simplehapiフォルダのサンプルap実行方法)を参照してください。
     - springboot-hapiフォルダ
         - REST APIでFHIRバリデーションを実施する応用編のSpringBootアプリケーション
-            - SpringBoot3.2で作成しており、SpringBoot3.xよりJava17以上が必要です。またはSpringBoot3.2からはJava21を利用すると仮想スレッド機能が使用できることから、Java21を利用しています。
+            - SpringBoot3.3で作成しており、SpringBoot3.xよりJava17以上が必要です。またSpringBoot3.2からはJava21を利用すると仮想スレッド機能が使用できることから、Java21を利用しています。
         - 実行には[springboot-hapiフォルダのSpringBootサンプルAP実行方法](#5-springboot-hapiフォルダのspringbootサンプルap実行方法)を参照してください。
 
 - [FHIR IGポータル](https://std.jpfhir.jp/)のサイトから、公式バリデータを使った[バリデーションガイド](https://jpfhir.jp/fhir/eReferral/igv1/validationGuide.html)が公開されていますが、ここでは、[HAPI FHIR](https://hapifhir.io)を使って、同様のバリデーションを行うサンプルプログラムを作成しています。
@@ -297,7 +297,7 @@
     ```sh
     # curlコマンド実行
     cd springboot-hapi
-    curl -H "Content-Type: application/json" -d @src\main\resources\file\old\Bundle-BundleReferralExample01.json http://localhost:8080/api/v1/fhir/validate/document
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-Bundle-CLINS-Referral-Example-01.json http://localhost:8080/api/v1/fhir/validate/clins
 
     # 正常応答
     {"result":"OK"}
@@ -397,6 +397,17 @@
     2024-04-19T05:57:33.152+09:00  INFO 28176 --- [demo] [tomcat-handler-14] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
     ```    
 
+    - 臨床情報（5情報）のFHIRデータを送信する場合
+
+    ```sh
+    # curlコマンド実行
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-Bundle-CLINS-PCS-Example-01.json http://localhost:8080/api/v1/fhir/validate/clins
+    
+    curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-Bundle-CLINS-Observations-Example-01.json http://localhost:8080/api/v1/fhir/validate/clins    
+
+    # 実行結果は省略    
+    ```
+  
     - 健康診断結果報告書のFHIRデータを送信する場合
 
     ```sh
@@ -406,18 +417,7 @@
     # 実行結果は省略    
     ```
 
-    - 臨床情報（5情報）のFHIRデータを送信する場合
-
-    ```sh
-    # curlコマンド実行
-    curl -H "Content-Type: application/json" -d @src\main\resources\file\old\AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json http://localhost:8080/api/v1/fhir/validate/clins    
-
-    curl -H "Content-Type: application/json" -d @src\main\resources\file\old\AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-02.json http://localhost:8080/api/v1/fhir/validate/clins
-
-    curl -H "Content-Type: application/json" -d @src\main\resources\file\old\AllergyIntolerance-Example-JP-DrugContraindications-CLINS-eCS-03.json http://localhost:8080/api/v1/fhir/validate/clins
-
-    # 実行結果は省略    
-    ```
+    
 
 
 ## 7. SpringBootサンプルAPでのFHIRバリデーションの回帰テスト自動化の例
@@ -485,7 +485,7 @@
 > 本モードは、FHIRバリデーションが動作しないケースが出たため、没となりました。
 
 - ~~以下のテストコードを使うと、通常版と、8.のパフォーマンス改善版の処理時間を比較できる~~
-    - ~~[FhirValidationPerformanceTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationPerformanceTest.java)~~
+    - ~~[FhirValidationPerformanceTest.java](springboot-hapi/src/test/java/com/example/hapisample/deprecated/FhirValidationPerformanceTest.java)~~
 
 - ~~APログ（比較結果）~~
   - ~~テストデータの特性にもよると思うが、性能改善版の方が高速になっていることが分かる。~~
@@ -501,4 +501,4 @@
 > 本モードは、FHIRバリデーションが動作しないケースが出たため、没となりました。
 
 - ~~以下のテストコードを使うと、通常版と、8.のパフォーマンス改善版のバリデーション結果を比較できる~~
-    - ~~[FhirValidationCompareTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationCompareTest.java)~~
+    - ~~[FhirValidationCompareTest.java](springboot-hapi/src/test/java/com/example/hapisample/deprecated/FhirValidationCompareTest.java)~~

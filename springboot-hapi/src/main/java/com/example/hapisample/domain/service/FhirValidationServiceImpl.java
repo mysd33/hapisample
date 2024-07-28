@@ -26,31 +26,26 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class FhirValidationServiceImpl implements FhirValidationService {
 	private final FhirContext fhirContext;
-	private final FhirValidator documentValidator;
 	private final FhirValidator checkupReportValidator;
 	private final FhirValidator clinsValidator;
-	
-	@Value("classpath:file/old/Bundle-BundleReferralExample01.json")
-	private Resource initDocumentDataResource;
-	@Value("classpath:file/Bundle-Bundle-eCheckupReport-Sample-01.json")
-	private Resource initCheckupReportDataResource;
-	@Value("classpath:file/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json")
+
+	@Value("classpath:file/Bundle-Bundle-CLINS-Referral-Example-01.json")
 	private Resource initClinsDataResource;
 
-	//TODO: サンプルデータ提供後、新JP-CLINSのバリデータを利用できるようにする
+	@Value("classpath:file/Bundle-Bundle-eCheckupReport-Sample-01.json")
+	private Resource initCheckupReportDataResource;
+
 	/**
 	 * コンストラクタ
-	 * @param fhirContext FHIRコンテキスト
-	 * @param documentValidator 医療文書用バリデータ
+	 * 
+	 * @param fhirContext            FHIRコンテキスト
+	 * @param clinsValidator         JP-CLINS用バリデータ
 	 * @param checkupReportValidator 健康診断結果報告書用バリデータ
-	 * @param clinsValidator 臨床情報（JP-CLINS）用バリデータ
 	 */
 	public FhirValidationServiceImpl(FhirContext fhirContext,
-			@Qualifier("fhirDocumentValidator") FhirValidator documentValidator,
-			@Qualifier("fhirCheckupReportValidator") FhirValidator checkupReportValidator,
-			@Qualifier("fhirClinsValidator") FhirValidator clinsValidator) {
-		this.fhirContext = fhirContext;
-		this.documentValidator = documentValidator;
+			@Qualifier("fhirClinsValidator") FhirValidator clinsValidator,
+			@Qualifier("fhirCheckupReportValidator") FhirValidator checkupReportValidator) {
+		this.fhirContext = fhirContext;		
 		this.checkupReportValidator = checkupReportValidator;
 		this.clinsValidator = clinsValidator;
 	}
@@ -62,26 +57,26 @@ public class FhirValidationServiceImpl implements FhirValidationService {
 	 */
 	@PostConstruct
 	public void init() throws IOException {
-		// 医療文書用Validator初回実行
-		initValidator(documentValidator, initDocumentDataResource);
+		// JP-CLINS用Validator初回実行
+		initValidator(clinsValidator, initClinsDataResource);
+
 		// 健康診断結果報告書用Validator初回実行
 		initValidator(checkupReportValidator, initCheckupReportDataResource);
-		// 臨床情報用Validator初回実行
-		initValidator(clinsValidator, initClinsDataResource);
 	}
 
 	@Override
-	public FhirValidationResult validateDocument(String fhirString) {
-		return doValidate(documentValidator, fhirString);
+	public FhirValidationResult validateClins(String fhirString) {
+		return doValidate(clinsValidator, fhirString);
 	}
 
 	@Override
 	public FhirValidationResult validateCheckupReport(String fhirString) {
 		return doValidate(checkupReportValidator, fhirString);
 	}
-	
+
 	@Override
-	public FhirValidationResult validateClins(String fhirString) {	
+	@Deprecated(since = "0.0.1", forRemoval = true)
+	public FhirValidationResult validateDocument(String fhirString) {
 		return doValidate(clinsValidator, fhirString);
 	}
 

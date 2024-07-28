@@ -1,4 +1,4 @@
-package com.example.hapisample;
+package com.example.hapisample.deprecated;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
@@ -16,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import com.example.hapisample.FhirConfig;
+import com.example.hapisample.FhirConfigurationProperties;
 import com.example.hapisample.domain.service.FhirValidationServiceImpl;
 import com.example.hapisample.domain.vo.FhirValidationResult;
 
@@ -33,9 +35,9 @@ import ch.qos.logback.classic.Logger;
 @Deprecated(since = "0.0.1", forRemoval = true)
 class FhirValidationCompareTest {
 	// 暖機処理用のFHIRのデータファイル
-	private static final String INIT_FOR_FHIR_REFERRAL_FILE_PATH = "file/old/Bundle-BundleReferralExample01.json";
+	private static final String INIT_FOR_FHIR_CLINS_FILE_PATH = "file/Bundle-Bundle-CLINS-Referral-Example-01.json";
 	private static final String INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH = "file/Bundle-Bundle-eCheckupReport-Sample-01.json";
-	private static final String INIT_FOR_FHIR_CLINS_FILE_PATH = "file/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json";
+
 	// テスト対象の通常のFHIR Validation機能
 	private static FhirValidationServiceImpl defaultSut;
 	// テスト対象の性能改善版のFHIR Validation機能
@@ -56,8 +58,8 @@ class FhirValidationCompareTest {
 	private static void initDefaultSut() throws IOException, NoSuchFieldException, IllegalAccessException {
 		FhirConfig fhirConfig = new FhirConfig();
 		FhirContext ctx = fhirConfig.fhirContext();
-		defaultSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
-				fhirConfig.fhirCheckupReportValidator(ctx), fhirConfig.fhirClinsValidator(ctx));
+		defaultSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirClinsValidator(ctx),
+				fhirConfig.fhirCheckupReportValidator(ctx));
 		initValidator(defaultSut);
 	}
 
@@ -66,59 +68,56 @@ class FhirValidationCompareTest {
 		FhirHighPerformanceConfig fhirConfig = new FhirHighPerformanceConfig();
 		FhirContext ctx = fhirConfig
 				.fhirContext(FhirConfigurationProperties.builder().highPerformanceMode(true).build());
-		highPerformanceSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirDocumentValidator(ctx),
-				fhirConfig.fhirCheckupReportValidator(ctx), fhirConfig.fhirClinsValidator(ctx));
+		highPerformanceSut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirClinsValidator(ctx),
+				fhirConfig.fhirCheckupReportValidator(ctx));
 		initValidator(highPerformanceSut);
 	}
 
 	// 暖機処理
 	private static void initValidator(FhirValidationServiceImpl service) throws NoSuchFieldException, SecurityException,
 			IllegalArgumentException, IllegalAccessException, IOException {
-		// 医療文書
-		Resource initDocumentDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_REFERRAL_FILE_PATH);
-		Field initDocumentDataResourceField = service.getClass().getDeclaredField("initDocumentDataResource");
-		initDocumentDataResourceField.setAccessible(true);
-		initDocumentDataResourceField.set(service, initDocumentDataResourceValue);
+		// JP-CLINS
+		Resource initClinsDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_CLINS_FILE_PATH);
+		Field initClinsDataResourceField = service.getClass().getDeclaredField("initClinsDataResource");
+		initClinsDataResourceField.setAccessible(true);
+		initClinsDataResourceField.set(service, initClinsDataResourceValue);
+
 		// 健康診断結果報告書
 		Resource initCheckupReportDataResourcValue = new ClassPathResource(INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH);
 		Field initCheckupReportDataResourceField = service.getClass().getDeclaredField("initCheckupReportDataResource");
 		initCheckupReportDataResourceField.setAccessible(true);
 		initCheckupReportDataResourceField.set(service, initCheckupReportDataResourcValue);
-		// 臨床情報
-		Resource initClinsDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_CLINS_FILE_PATH);
-		Field initClinsDataResourceField = service.getClass().getDeclaredField("initClinsDataResource");
-		initClinsDataResourceField.setAccessible(true);
-		initClinsDataResourceField.set(service, initClinsDataResourceValue);
 		// 暖機処理（initメソッド）を呼び出しておく
 		service.init();
+	}	
 
-	}
-
-	// データドリブンテスト
+	// JP-CLINSのデータドリブンテスト
 	@ParameterizedTest
 	@MethodSource
-	void testValidateDocument(String inputFilePath) throws IOException {
+	void testValidateClins(String inputFilePath) throws IOException {
 		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
 		// 通常版でのFHIRバリデーション実行結果を期待値とする
-		FhirValidationResult expected = defaultSut.validateDocument(jsonString);
+		FhirValidationResult expected = defaultSut.validateClins(jsonString);
 		// 性能改善版でのFHIRバリデーション実行結果を実際の値として比較する。
-		FhirValidationResult actual = highPerformanceSut.validateDocument(jsonString);
+		FhirValidationResult actual = highPerformanceSut.validateClins(jsonString);
 		// バリデーション結果の比較検証
 		assertEquals(expected, actual);
 	}
 
 	// テストケース
-	static Stream<Arguments> testValidateDocument() {
+	static Stream<Arguments> testValidateClins() {
 		return Stream.of(
 				// テストケース1
-				arguments("testdata/old/Bundle-BundleReferralExample01.json"),
+				arguments("testdata/Bundle-Bundle-CLINS-Referral-Example-01.json"),
 				// テストケース2
-				arguments("testdata/old/Bundle-BundleReferralExample02.json")
+				arguments("testdata/Bundle-Bundle-CLINS-PCS-Example-01.json"),
+				// テストケース3
+				arguments("testdata/Bundle-Bundle-CLINS-Observations-Example-01.json")						
 		// TODO: 以降に、テストケースを追加していく
 		);
 	}
 
-	// データドリブンテスト
+	// 健康診断結果報告書のデータドリブンテスト
 	@ParameterizedTest
 	@MethodSource
 	void testValidateCheckupReport(String inputFilePath) throws IOException {
@@ -136,34 +135,6 @@ class FhirValidationCompareTest {
 		return Stream.of(
 				// テストケース1
 				arguments("testdata/Bundle-Bundle-eCheckupReport-Sample-01.json")
-		// TODO: 以降に、テストケースを追加していく
-		);
-	}
-
-	// データドリブンテスト
-	@ParameterizedTest
-	@MethodSource
-	void testValidateClins(String inputFilePath) throws IOException {
-		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
-		// 通常版でのFHIRバリデーション実行結果を期待値とする
-		FhirValidationResult expected = defaultSut.validateClins(jsonString);
-		// 性能改善版でのFHIRバリデーション実行結果を実際の値として比較する。
-		FhirValidationResult actual = highPerformanceSut.validateClins(jsonString);
-		// バリデーション結果の比較検証
-		assertEquals(expected, actual);
-	}
-
-	// テストケース
-	static Stream<Arguments> testValidateClins() {
-		return Stream.of(
-				// テストケース1
-				arguments("testdata/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-01.json"),
-				
-				//TODO: 通常モードではOKだが、パフォーマンス改善モードだとエラーになり、バリデーション結果が異なってしまう
-				// テストケース2
-				arguments("testdata/old/AllergyIntolerance-Example-JP-AllergyIntolerance-CLINS-eCS-02.json"),
-				// テストケース3
-				arguments("testdata/old/AllergyIntolerance-Example-JP-DrugContraindications-CLINS-eCS-03.json")
 		// TODO: 以降に、テストケースを追加していく
 		);
 	}

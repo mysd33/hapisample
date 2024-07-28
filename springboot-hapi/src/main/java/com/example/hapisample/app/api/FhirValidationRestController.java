@@ -20,17 +20,17 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class FhirValidationRestController {
 	private final FhirValidationService service;
-
+	
 	/**
-	 * 医療文書（診療情報提供書、退院時サマリ）のFHIRバリデーションを実施する
+	 * JP-CLINSのFHIRバリデーションを実施する
 	 * 
 	 * @param fhirString バリデーション対象のFHIRデータの文字列
 	 * @return バリデーション結果のメッセージ文字列
 	 */
-	@PostMapping("/document")
+	@PostMapping("/clins")
 	@ResponseStatus(HttpStatus.OK)
-	public FhirValidationResult validate(@RequestBody(required = true) String fhirString) {
-		return service.validateDocument(fhirString);
+	public FhirValidationResult validateClins(@RequestBody(required = true) String fhirString) {
+		return service.validateClins(fhirString);
 	}
 	
 	/**
@@ -43,17 +43,20 @@ public class FhirValidationRestController {
 	@ResponseStatus(HttpStatus.OK)
 	public FhirValidationResult validateCheckupReport(@RequestBody(required = true) String fhirString) {
 		return service.validateCheckupReport(fhirString);
-	}
+	}	
 	
 	/**
-	 * 臨床情報（JP-CLINS）のFHIRバリデーションを実施する
+	 * 医療文書（診療情報提供書、退院時サマリ）のFHIRバリデーションを実施する
 	 * 
+	 * @deprecated JP-CLINSに統合されたことから、このメソッドは削除予定です。代わりに{@link #validateClins(String)}を使用してください。
 	 * @param fhirString バリデーション対象のFHIRデータの文字列
 	 * @return バリデーション結果のメッセージ文字列
 	 */
-	@PostMapping("/clins")
+	@Deprecated(since = "0.0.1", forRemoval = true)
+	@PostMapping("/document")
 	@ResponseStatus(HttpStatus.OK)
-	public FhirValidationResult validateClins(@RequestBody(required = true) String fhirString) {
-		return service.validateClins(fhirString);
+	public FhirValidationResult validate(@RequestBody(required = true) String fhirString) {
+		return service.validateDocument(fhirString);
 	}
+	
 }

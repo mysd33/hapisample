@@ -1,0 +1,405 @@
+{
+  "resourceType" : "Bundle",
+  "id" : "Bundle-CLINS-PCS-Example-01",
+  "meta" : {
+    "lastUpdated" : "2024-07-07T10:00:00+09:00",
+    "profile" : ["http://jpfhir.jp/fhir/clins/StructureDefinition/JP_Bundle_ePCS"]
+  },
+  "language" : "ja",
+  "identifier" : {
+    "system" : "http://jpfhir.jp/fhir/clins/bundle-identifier",
+    "value" : "1318814790^2024^0123-PCS-203949583949"
+  },
+  "type" : "document",
+  "timestamp" : "2024-07-07T10:00:00+09:00",
+  "entry" : [{
+    "fullUrl" : "urn:uuid:830ec2d1-67a7-427e-b6fe-ad0eb29da7fb",
+    "resource" : {
+      "resourceType" : "Composition",
+      "id" : "compositionPCSExample01Inline",
+      "meta" : {
+        "lastUpdated" : "2024-07-07T10:00:00+09:00",
+        "profile" : ["http://jpfhir.jp/fhir/ePCS/StructureDefinition/JP_Composition_ePCS"]
+      },
+      "language" : "ja",
+      "text" : {
+        "status" : "extensions",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"ja\" lang=\"ja\"><a name=\"Composition_compositionPCSExample01Inline\"> </a><p><b>Generated Narrative: Composition </b><a name=\"compositionPCSExample01Inline\"> </a><a name=\"hccompositionPCSExample01Inline\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceComposition &quot;compositionPCSExample01Inline&quot; Updated&quot;2024-07-07 10:00:00+0900&quot;  (Language&quot;ja&quot;) </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Composition-ePCS.html\">JP_Composition_ePCS</a></p></div><p><b>Composition Version Number</b>: 1.0</p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/1311234567-2021-12345678</p><p><b>status</b>: final</p><p><b>type</b>: 計画書 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-jp-codeSystem-documentTypeCode.html\">FHIR文書の文書区分（医療文書全般）</a>#56447-6)</span></p><p><b>category</b>: 外来文書 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-jp-codeSystem-documentSubTypeCode.html\">FHIR文書の文書サブ区分（医療文書全般）</a>#OUTPATIENT)</span></p><p><b>encounter</b>: See on this page: urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e: 受診\u3000Encounterリソース</p><p><b>date</b>: 2024-07-07 12:12:20+0900</p><p><b>author</b>: </p><ul><li>See on this page: urn:uuid:22212c2d-4837-fd90-c6c5-6ee2a4b7eed2: 患者療養計画サマリー作成者\u3000Practitionerリソース</li><li>See on this page: urn:uuid:ee271941-92f0-07cf-7b6e-db8ce65c9543: 患者療養計画サマリー作成機関と診療科\u3000Organizationリソース</li></ul><p><b>title</b>: 患者サマリー（療養計画書）</p></div>"
+      },
+      "extension" : [{
+        "url" : "http://hl7.org/fhir/StructureDefinition/composition-clinicaldocument-versionNumber",
+        "valueString" : "1.0"
+      }],
+      "identifier" : {
+        "system" : "http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier",
+        "value" : "1311234567-2021-12345678"
+      },
+      "status" : "final",
+      "type" : {
+        "coding" : [{
+          "system" : "http://jpfhir.jp/fhir/Common/CodeSystem/doc-typecodes",
+          "code" : "56447-6",
+          "display" : "計画書"
+        }]
+      },
+      "category" : [{
+        "coding" : [{
+          "system" : "http://jpfhir.jp/fhir/Common/CodeSystem/doc-subtypecodes",
+          "code" : "OUTPATIENT",
+          "display" : "外来文書"
+        }]
+      }],
+      "subject" : {
+        "reference" : "urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd",
+        "type" : "Patient",
+        "display" : "患者\u3000Patientリソース"
+      },
+      "encounter" : {
+        "reference" : "urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e",
+        "type" : "Encounter",
+        "display" : "受診\u3000Encounterリソース"
+      },
+      "date" : "2024-07-07T12:12:20+09:00",
+      "author" : [{
+        "reference" : "urn:uuid:22212c2d-4837-fd90-c6c5-6ee2a4b7eed2",
+        "type" : "Practitioner",
+        "display" : "患者療養計画サマリー作成者\u3000Practitionerリソース"
+      },
+      {
+        "reference" : "urn:uuid:ee271941-92f0-07cf-7b6e-db8ce65c9543",
+        "type" : "Organization",
+        "display" : "患者療養計画サマリー作成機関と診療科\u3000Organizationリソース"
+      }],
+      "title" : "患者サマリー（療養計画書）",
+      "section" : [{
+        "title" : "計画サマリー",
+        "code" : {
+          "coding" : [{
+            "system" : "http://jpfhir.jp/fhir/clins/CodeSystem/document-section",
+            "code" : "422",
+            "display" : "計画サマリーセクション"
+          }]
+        },
+        "entry" : [{
+          "reference" : "urn:uuid:6399da0f-77c7-4eb9-fd93-4559d39f1beb"
+        },
+        {
+          "reference" : "urn:uuid:54b73122-69e7-6864-d6b2-eb8dbf372e65"
+        }]
+      }]
+    }
+  },
+  {
+    "fullUrl" : "urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd",
+    "resource" : {
+      "resourceType" : "Patient",
+      "id" : "Example-JP-Patient-eCS-MAKINOInline",
+      "meta" : {
+        "lastUpdated" : "2021-11-26T10:00:00+09:00",
+        "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Patient_eCS"]
+      },
+      "language" : "ja",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"ja\" lang=\"ja\"><a name=\"Patient_Example-JP-Patient-eCS-MAKINOInline\"> </a><p><b>Generated Narrative: Patient </b><a name=\"Example-JP-Patient-eCS-MAKINOInline\"> </a><a name=\"hcExample-JP-Patient-eCS-MAKINOInline\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourcePatient &quot;Example-JP-Patient-eCS-MAKINOInline&quot; Updated&quot;2021-11-26 10:00:00+0900&quot;  (Language&quot;ja&quot;) </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Patient-eCS.html\">eCS/CLINS:JP_Patient_eCS</a></p></div><p><b>identifier</b>: <code>urn:oid:1.2.392.100495.20.3.51.11318814790</code>/000999739, <code>http://jpfhir.jp/fhir/clins/Idsystem/JP_Insurance_memberID</code>/00012345:あいう:１８７:05</p><p><b>active</b>: true</p><p><b>name</b>: 牧野 爛漫, マキノ ランマン</p><p><b>telecom</b>: ph: 03-123-1234(HOME)</p><p><b>gender</b>: female</p><p><b>birthDate</b>: 1930-06-28</p><p><b>address</b>: 高知県高知市五台山4200-6</p><h3>Contacts</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Telecom</b></td></tr><tr><td style=\"display: none\">*</td><td>ph: 03-0123-4545   99991(WORK)</td></tr></table></div>"
+      },
+      "identifier" : [{
+        "system" : "urn:oid:1.2.392.100495.20.3.51.11318814790",
+        "value" : "000999739"
+      },
+      {
+        "system" : "http://jpfhir.jp/fhir/clins/Idsystem/JP_Insurance_memberID",
+        "value" : "00012345:あいう:１８７:05"
+      }],
+      "active" : true,
+      "name" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+          "valueCode" : "IDE"
+        }],
+        "text" : "牧野 爛漫",
+        "family" : "牧野",
+        "given" : ["爛漫"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+          "valueCode" : "SYL"
+        }],
+        "text" : "マキノ ランマン",
+        "family" : "マキノ",
+        "given" : ["ランマン"]
+      }],
+      "telecom" : [{
+        "system" : "phone",
+        "value" : "03-123-1234",
+        "use" : "home",
+        "rank" : 1
+      }],
+      "gender" : "female",
+      "birthDate" : "1930-06-28",
+      "address" : [{
+        "text" : "高知県高知市五台山4200-6",
+        "city" : "高知市",
+        "state" : "高知県",
+        "postalCode" : "781-8125"
+      }],
+      "contact" : [{
+        "telecom" : [{
+          "system" : "phone",
+          "value" : "03-0123-4545   99991",
+          "use" : "work",
+          "rank" : 2
+        }]
+      }]
+    }
+  },
+  {
+    "fullUrl" : "urn:uuid:22212c2d-4837-fd90-c6c5-6ee2a4b7eed2",
+    "resource" : {
+      "resourceType" : "Practitioner",
+      "id" : "Example-JP-Practitioner-eCS-PCS-Author-Inline",
+      "meta" : {
+        "lastUpdated" : "2024-07-07T10:00:00+09:00",
+        "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Practitioner_eCS"]
+      },
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Practitioner_Example-JP-Practitioner-eCS-PCS-Author-Inline\"> </a><p><b>Generated Narrative: Practitioner </b><a name=\"Example-JP-Practitioner-eCS-PCS-Author-Inline\"> </a><a name=\"hcExample-JP-Practitioner-eCS-PCS-Author-Inline\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourcePractitioner &quot;Example-JP-Practitioner-eCS-PCS-Author-Inline&quot; Updated&quot;2024-07-07 10:00:00+0900&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Practitioner-eCS.html\">eCS/CLINS:JP_Practitioner_eCS</a></p></div><p><b>identifier</b>: <code>urn:oid:1.2.392.100495.20.3.41.11311234567</code>/U4403020</p><p><b>name</b>: 石川 さおり(Official), イシカワ サオリ(Official)</p></div>"
+      },
+      "identifier" : [{
+        "system" : "urn:oid:1.2.392.100495.20.3.41.11311234567",
+        "value" : "U4403020"
+      }],
+      "name" : [{
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+          "valueCode" : "IDE"
+        }],
+        "use" : "official",
+        "text" : "石川 さおり",
+        "family" : "石川",
+        "given" : ["さおり"]
+      },
+      {
+        "extension" : [{
+          "url" : "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+          "valueCode" : "SYL"
+        }],
+        "use" : "official",
+        "text" : "イシカワ サオリ",
+        "family" : "イシカワ",
+        "given" : ["サオリ"]
+      }]
+    }
+  },
+  {
+    "fullUrl" : "urn:uuid:ee271941-92f0-07cf-7b6e-db8ce65c9543",
+    "resource" : {
+      "resourceType" : "Organization",
+      "id" : "Example-JP-Org-eCS-InstWithDepartment-Inline",
+      "meta" : {
+        "lastUpdated" : "2024-07-07T10:00:00+09:00",
+        "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Organization_eCS"]
+      },
+      "text" : {
+        "status" : "extensions",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Organization_Example-JP-Org-eCS-InstWithDepartment-Inline\"> </a><p><b>Generated Narrative: Organization </b><a name=\"Example-JP-Org-eCS-InstWithDepartment-Inline\"> </a><a name=\"hcExample-JP-Org-eCS-InstWithDepartment-Inline\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceOrganization &quot;Example-JP-Org-eCS-InstWithDepartment-Inline&quot; Updated&quot;2024-07-07 10:00:00+0900&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Organization-eCS.html\">JP_Organization_eCS</a></p></div><p><b>JP eCS Department Extension</b>: 循環器科 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.0&amp;canonical=urn:oid:1.2.392.200250.2.2.2\">JP Core Department SS-MIX CodeSystem</a>#08)</span></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no</code>/1311234567</p><p><b>type</b>: Healthcare Provider <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/6.0.0/CodeSystem-organization-type.html\">Organization type</a>#prov)</span></p><p><b>name</b>: みなと診療所</p></div>"
+      },
+      "extension" : [{
+        "url" : "http://jpfhir.jp/fhir/eCS/Extension/StructureDefinition/JP_eCS_Department",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "urn:oid:1.2.392.200250.2.2.2",
+            "code" : "08",
+            "display" : "循環器科"
+          }]
+        }
+      }],
+      "identifier" : [{
+        "system" : "http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no",
+        "value" : "1311234567"
+      }],
+      "type" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/organization-type",
+          "code" : "prov"
+        }]
+      }],
+      "name" : "みなと診療所"
+    }
+  },
+  {
+    "fullUrl" : "urn:uuid:7cad1f19-3435-451d-9a71-a81b61f3358e",
+    "resource" : {
+      "resourceType" : "Encounter",
+      "id" : "Example-JP-Encounter-eCS-AMB-01Inline",
+      "meta" : {
+        "lastUpdated" : "2021-11-26T10:00:00+09:00",
+        "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Encounter_eCS"]
+      },
+      "language" : "ja",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"ja\" lang=\"ja\"><a name=\"Encounter_Example-JP-Encounter-eCS-AMB-01Inline\"> </a><p><b>Generated Narrative: Encounter </b><a name=\"Example-JP-Encounter-eCS-AMB-01Inline\"> </a><a name=\"hcExample-JP-Encounter-eCS-AMB-01Inline\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceEncounter &quot;Example-JP-Encounter-eCS-AMB-01Inline&quot; Updated&quot;2021-11-26 10:00:00+0900&quot;  (Language&quot;ja&quot;) </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Encounter-eCS.html\">eCS/CLINS:JP_Encounter-eCS</a></p></div><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: finished</p><p><b>class</b>: 外来 (Details: ActCode code AMB  = ' ambulatory ', stated as ' 外来 ')</p><h3>ClassHistories</h3><table class=\"grid\"><tr><td style=\"display: none\">-</td><td><b>Class</b></td><td><b>Period</b></td></tr><tr><td style=\"display: none\">*</td><td>外来 (Details: ActCode code AMB  = ' ambulatory ', stated as ' 外来 ')</td><td>2020-08-20 --&gt; (ongoing)</td></tr></table></div>"
+      },
+      "identifier" : [{
+        "system" : "http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier",
+        "value" : "192844"
+      }],
+      "status" : "finished",
+      "class" : {
+        "system" : "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        "code" : "AMB",
+        "display" : "外来"
+      },
+      "classHistory" : [{
+        "class" : {
+          "system" : "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code" : "AMB",
+          "display" : "外来"
+        },
+        "period" : {
+          "start" : "2020-08-20"
+        }
+      }]
+    }
+  },
+  {
+    "fullUrl" : "urn:uuid:6399da0f-77c7-4eb9-fd93-4559d39f1beb",
+    "resource" : {
+      "resourceType" : "CarePlan",
+      "id" : "Example-JP-CarePlan-eCS-HT",
+      "meta" : {
+        "lastUpdated" : "2024-07-07T10:00:00+09:00",
+        "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_CarePlan_ePCS",
+        "http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_CarePlan_eCS"]
+      },
+      "language" : "ja",
+      "text" : {
+        "status" : "generated",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"ja\" lang=\"ja\"><a name=\"CarePlan_Example-JP-CarePlan-eCS-HT\"> </a><p><b>Generated Narrative: CarePlan </b><a name=\"Example-JP-CarePlan-eCS-HT\"> </a><a name=\"hcExample-JP-CarePlan-eCS-HT\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceCarePlan &quot;Example-JP-CarePlan-eCS-HT&quot; Updated&quot;2024-07-07 10:00:00+0900&quot;  (Language&quot;ja&quot;) </p><p style=\"margin-bottom: 0px\">Profiles: <a href=\"StructureDefinition-JP-CarePlan-ePCS.html\">JP_CarePlan_ePCS</a>, <a href=\"StructureDefinition-JP-CarePlan-eCS.html\">JP_CarePlan_eCS</a></p></div><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192838</p><p><b>status</b>: active</p><p><b>intent</b>: plan</p><p><b>category</b>: 外来診療経過中プラン <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-jp-careplancategory-cs.html\">ケアプランのタイプコード</a>#followup-plan)</span></p><p><b>title</b>: 療養計画</p><p><b>description</b>: 高血圧について内服を継続してください。\r\n1日30分でも軽い運動を継続しましょう。</p><p><b>subject</b>: See on this page: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd</p><p><b>period</b>: 2024-07-07 --&gt; (ongoing)</p><p><b>created</b>: 2024-07-07</p></div>"
+      },
+      "identifier" : [{
+        "system" : "http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier",
+        "value" : "192838"
+      }],
+      "status" : "active",
+      "intent" : "plan",
+      "category" : [{
+        "coding" : [{
+          "system" : "http://jpfhir.jp/fhir/CarePlan/CodeSystem/category",
+          "code" : "followup-plan",
+          "display" : "外来診療経過中プラン"
+        }]
+      }],
+      "title" : "療養計画",
+      "description" : "高血圧について内服を継続してください。\r\n1日30分でも軽い運動を継続しましょう。",
+      "subject" : {
+        "reference" : "urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd"
+      },
+      "period" : {
+        "start" : "2024-07-07"
+      },
+      "created" : "2024-07-07"
+    }
+  },
+  {
+    "fullUrl" : "urn:uuid:54b73122-69e7-6864-d6b2-eb8dbf372e65",
+    "resource" : {
+      "resourceType" : "Condition",
+      "id" : "Example-JP-Condition-eCS-HT-Principal-Active-Inline",
+      "meta" : {
+        "lastUpdated" : "2021-11-26T10:00:00+09:00",
+        "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Condition_eCS"]
+      },
+      "text" : {
+        "status" : "extensions",
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Condition_Example-JP-Condition-eCS-HT-Principal-Active-Inline\"> </a><p><b>Generated Narrative: Condition </b><a name=\"Example-JP-Condition-eCS-HT-Principal-Active-Inline\"> </a><a name=\"hcExample-JP-Condition-eCS-HT-Principal-Active-Inline\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceCondition &quot;Example-JP-Condition-eCS-HT-Principal-Active-Inline&quot; Updated&quot;2021-11-26 10:00:00+0900&quot; </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Condition-eCS.html\">eCS/CLINS:JP_Condition_eCS</a></p></div><p><b>JP eCS InstitutionNumber Extension</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no</code>/1318814790</p><p><b>JP eCS Department Extension</b>: 循環器診療科 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.0&amp;canonical=urn:oid:1.2.392.200250.2.2.2\">JP Core Department SS-MIX CodeSystem</a>#08 &quot;循環器科&quot;)</span></p><p><b>JP eCS Disgnostic Type Extension</b>: 主病名 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.0&amp;canonical=http://terminology.hl7.org/CodeSystem/ex-diagnosistype\">Example Diagnosis Type Codes</a>#principal)</span></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192839-01</p><p><b>clinicalStatus</b>: Active <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/6.0.0/CodeSystem-condition-clinical.html\">Condition Clinical Status Codes</a>#active)</span></p><p><b>verificationStatus</b>: Confirmed <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/6.0.0/CodeSystem-condition-ver-status.html\">ConditionVerificationStatus</a>#confirmed)</span></p><p><b>category</b>: Encounter Diagnosis <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"http://terminology.hl7.org/6.0.0/CodeSystem-condition-category.html\">Condition Category Codes</a>#encounter-diagnosis)</span></p><p><b>code</b>: 高血圧 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.0&amp;canonical=urn:oid:1.2.392.200119.4.101.2\">MEDIS病名管理番号 propertyなし</a>#20061593 &quot;高血圧症&quot;)</span></p><p><b>subject</b>: See on this page: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd</p><p><b>encounter</b>: <a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><blockquote><p/><p><a name=\"Example-Contained-JP-Encounter-AMB\"> </a></p><p><a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: finished</p><p><b>class</b>: 外来 (Details: ActCode code AMB  = ' ambulatory ', stated as ' 外来 ')</p></blockquote><p><b>onset</b>: 2018-08-21</p><hr/><blockquote><p><b>Generated Narrative: Encounter  #Example-Contained-JP-Encounter-AMB</b><a name=\"Example-Contained-JP-Encounter-AMB\"> </a><a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: finished</p><p><b>class</b>: 外来 (Details: ActCode code AMB  = ' ambulatory ', stated as ' 外来 ')</p></blockquote></div>"
+      },
+      "contained" : [{
+        "resourceType" : "Encounter",
+        "id" : "Example-Contained-JP-Encounter-AMB",
+        "meta" : {
+          "profile" : ["http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter"]
+        },
+        "language" : "ja",
+        "identifier" : [{
+          "system" : "http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier",
+          "value" : "192844"
+        }],
+        "status" : "finished",
+        "class" : {
+          "system" : "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+          "code" : "AMB",
+          "display" : "外来"
+        }
+      }],
+      "extension" : [{
+        "url" : "http://jpfhir.jp/fhir/clins/Extension/StructureDefinition/JP_eCS_InstitutionNumber",
+        "valueIdentifier" : {
+          "system" : "http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no",
+          "value" : "1318814790"
+        }
+      },
+      {
+        "url" : "http://jpfhir.jp/fhir/eCS/Extension/StructureDefinition/JP_eCS_Department",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "urn:oid:1.2.392.200250.2.2.2",
+            "code" : "08",
+            "display" : "循環器科"
+          }],
+          "text" : "循環器診療科"
+        }
+      },
+      {
+        "url" : "http://jpfhir.jp/fhir/eCS/Extension/StructureDefinition/JP_eCS_DiagnosisType",
+        "valueCodeableConcept" : {
+          "coding" : [{
+            "system" : "http://terminology.hl7.org/CodeSystem/ex-diagnosistype",
+            "code" : "principal",
+            "display" : "主病名"
+          }]
+        }
+      }],
+      "identifier" : [{
+        "system" : "http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier",
+        "value" : "192839-01"
+      }],
+      "clinicalStatus" : {
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code" : "active"
+        }]
+      },
+      "verificationStatus" : {
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code" : "confirmed"
+        }]
+      },
+      "category" : [{
+        "coding" : [{
+          "system" : "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code" : "encounter-diagnosis"
+        }]
+      }],
+      "code" : {
+        "coding" : [{
+          "system" : "urn:oid:1.2.392.200119.4.101.2",
+          "code" : "20061593",
+          "display" : "高血圧症"
+        }],
+        "text" : "高血圧"
+      },
+      "subject" : {
+        "reference" : "urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd"
+      },
+      "encounter" : {
+        "reference" : "#Example-Contained-JP-Encounter-AMB"
+      },
+      "onsetDateTime" : "2018-08-21"
+    }
+  }]
+}
