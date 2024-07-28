@@ -44,8 +44,7 @@
             1. 新しいJP-CLINSのnpmパッケージは、snapshoto形式のパッケージを使用すると、バリデーション時にエラーが発生するのでdiff形式のパッケージを使用しています。
             
 > [!NOTE]
-> 臨床情報（5情報）だけなく、診療情報提供書と退院時サマリーのプロファイルが、JP-CLINSに統合されました。
-
+> 診療情報提供書と退院時サマリーのプロファイルが、電子カルテ情報共有サービスのための実装ガイドJP-CLINSに統合されました。
 
 - サンプルAPで利用する各種プロファイル
     - JPCoreのプロファイル
@@ -56,22 +55,6 @@
     - Terminologyのプロファイル
         - [JP-FHIR-Terminology](https://jpfhir.jp/fhir/core/terminology/ig/)のサイトにJP FHIR Terminologyの実装ガイドがあります。
             - [Terminologyのnpmパッケージ(ver1.2.0)](https://jpfhir.jp/fhir/core/terminology/jpfhir-terminology.r4-1.2.0.tgz)
-
-    - ~~診療情報提供書の文書情報プロファイル~~
-        - ~~[診療情報提供書FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eReferral/igv1/)にnpmパッケージがあります。~~
-            - ~~診療情報提供のnpmパッケージ(ver1.1.6)~~
-                - ~~[snapshot形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6-snap.tgz)~~
-                - ~~[diff形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6.tgz)~~
-    - ~~退院時サマリーの文書情報プロファイル~~
-        - ~~[退院時サマリーFHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eDischargeSummary/igv1/)~~
-            - ~~退院時サマリのnpmパッケージ(ver1.1.6)~~
-                - ~~[snapshot形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6-snap.tgz)~~
-                - ~~[diff形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6.tgz)~~
-    - ~~臨床情報（6情報、JP-CLINS）の文書情報プロファイル~~
-        - ~~[臨床情報（6情報、JP-CLINS）FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/clins/igv1/)~~
-            - ~~臨床情報（6情報、JP-CLINS）のnpmパッケージ(ver0.9.13)~~
-                - ~~[snapshot形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-0.9.13-snap.tgz)~~
-                - ~~[diff形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-0.9.13.tgz)~~
     - JP-CLINS（電子カルテ情報共有サービス2文書5情報+患者サマリー　FHIR仕様）の文書情報プロファイル
         - [電子カルテ情報共有サービス2文書5情報+患者サマリー FHIR実装ガイド](https://jpfhir.jp/fhir/clins/igv1/)
             - JP-CLINSのnpmパッケージ(ver0.9.13)
@@ -82,7 +65,21 @@
             - 健康診断結果報告書のnpmパッケージ(ver1.1.2)
                 - [snapshot形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2-snap.tgz)
                 - [diff形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2.tgz)
-
+    - ~~診療情報提供書の文書情報プロファイル~~
+        - ~~[診療情報提供書FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eReferral/igv1/)にnpmパッケージがあります。~~
+            - ~~診療情報提供のnpmパッケージ(ver1.1.6)~~
+                - ~~[snapshot形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6-snap.tgz)~~
+                - ~~[diff形式](https://jpfhir.jp/fhir/eReferral/jp-eReferral.r4-1.1.6.tgz)~~
+    - ~~退院時サマリーの文書情報プロファイル~~
+        - ~~[退院時サマリーFHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eDischargeSummary/igv1/)~~
+            - ~~退院時サマリのnpmパッケージ(ver1.1.6)~~
+                - ~~[snapshot形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6-snap.tgz)~~
+                - ~~[diff形式](https://jpfhir.jp/fhir/eDischargeSummary/jp-eDischargeSummary.r4-1.1.6.tgz)~~
+    - ~~JP-CLINS（臨床情報=6情報）の文書情報プロファイル~~
+        - ~~[JP-CLINS FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/clins/igv1/)~~
+            - ~~JP-CLINSのnpmパッケージ(ver0.9.13)~~
+                - ~~[snapshot形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-0.9.13-snap.tgz)~~
+                - ~~[diff形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-0.9.13.tgz)~~
 - サンプルデータ
   - [本実装ガイドに準拠したデータのサンプルの一覧](https://jpfhir.jp/fhir/clins/igv1.3-rc3/artifacts.html#example-example-instances)
 
@@ -95,11 +92,11 @@
 
 ## 3. simplehapiフォルダのサンプルAP実行方法
 - 検証・パースするサンプルAPの使い方
-    - 「simplehapi」フォルダの「ParsingSampleMain」クラスを実行してください。
+    - 「simplehapi」フォルダの「[ParsingSampleMain](simplehapi/src/main/java/hapisample/ParsingSampleMain.java)」クラスを実行してください。
     - 「simplehapi」フォルダがMavenプロジェクトになっていますので、通常は、Eclipse等のIDEを使ってインポートし実行するのが簡単です。    
 
 - シリアライズするサンプルAPの使い方
-    - 「simplehapiフォルダ」の「SerializingSampleMain」クラスを実行してください。
+    - 「simplehapiフォルダ」の「[SerializingSampleMain](simplehapi/src/main/java/hapisample/SerializingSampleMain.java)」クラスを実行してください。
     - 「simplehapi」フォルダがMavenプロジェクトになっていますので、通常は、Eclipse等のIDEを使ってインポートし実行するのが簡単です。
 
 ## 4. simplehapiフォルダのサンプルAP実行結果
@@ -324,77 +321,62 @@
 
 
     ```
-    2024-04-19T05:56:19.135+09:00  INFO 28176 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Starting SpringBootHapiApplication using Java 21.0.2 with PID 28176 …
-    2024-04-19T05:56:19.137+09:00 DEBUG 28176 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Running with Spring Boot v3.2.4, Spring v6.1.5
-    2024-04-19T05:56:19.138+09:00  INFO 28176 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : The following 2 profiles are active: "dev", "log_default"
-    …    
-    2024-04-19T05:56:20.390+09:00  INFO 28176 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-    2024-04-19T05:56:20.403+09:00  INFO 28176 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-    2024-04-19T05:56:20.404+09:00  INFO 28176 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.19]
-    2024-04-19T05:56:20.483+09:00  INFO 28176 --- [demo] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-    2024-04-19T05:56:20.483+09:00  INFO 28176 --- [demo] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1290 ms 
+    2024-07-28T23:03:32.104+09:00  INFO 7820 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Starting SpringBootHapiApplication using Java 21.0.3 with PID 7820 (…)
+    2024-07-28T23:03:32.106+09:00 DEBUG 7820 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Running with Spring Boot v3.3.2, Spring v6.1.11
+    2024-07-28T23:03:32.107+09:00  INFO 7820 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : The following 2 profiles are active: "dev", "log_default"
 
+    …    
+    2024-07-28T23:03:33.356+09:00  INFO 7820 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+    2024-07-28T23:03:33.369+09:00  INFO 7820 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+    2024-07-28T23:03:33.370+09:00  INFO 7820 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+    2024-07-28T23:03:33.447+09:00  INFO 7820 --- [demo] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+    2024-07-28T23:03:33.448+09:00  INFO 7820 --- [demo] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1287 ms
+ 
     # Bean定義によるHAPIのFHIRContextの作成
-    2024-04-19T05:56:20.560+09:00  INFO 28176 --- [demo] [restartedMain] ca.uhn.fhir.util.VersionUtil             : HAPI FHIR version 7.0.2 - Rev 95beaec894
-    2024-04-19T05:56:20.566+09:00  INFO 28176 --- [demo] [restartedMain] ca.uhn.fhir.context.FhirContext          : Creating new FHIR context for FHIR version [R4]
-    2024-04-19T05:56:20.566+09:00 DEBUG 28176 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : FHIRContext作成：27ms
+    2024-07-28T23:03:33.527+09:00  INFO 7820 --- [demo] [restartedMain] ca.uhn.fhir.util.VersionUtil             : HAPI FHIR version 7.2.2 - Rev d8c89128bc
+    2024-07-28T23:03:33.534+09:00  INFO 7820 --- [demo] [restartedMain] ca.uhn.fhir.context.FhirContext          : Creating new FHIR context for FHIR version [R4]
+    2024-07-28T23:03:33.535+09:00  INFO 7820 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : FHIRContext作成：28.303ms
     
     # Bean定義によるHAPIのFHIRValidatorの作成（プロファイルの読み込み等があるため、20秒程度と、かなり時間がかかっている）
-    2024-04-19T05:56:24.012+09:00  INFO 28176 --- [demo] [restartedMain] ca.uhn.fhir.util.XmlUtil                 : Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
-    2024-04-19T05:56:44.052+09:00  INFO 28176 --- [demo] [restartedMain] ca.uhn.fhir.validation.FhirValidator     : Ph-schematron library not found on classpath, will not attempt to perform schematron validation
-    2024-04-19T05:56:44.055+09:00 DEBUG 28176 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : FHIRValidator作成：23480ms
+    2024-07-28T23:03:34.956+09:00  INFO 7820 --- [demo] [restartedMain] ca.uhn.fhir.util.XmlUtil                 : Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
+    2024-07-28T23:03:56.551+09:00  INFO 7820 --- [demo] [restartedMain] ca.uhn.fhir.validation.FhirValidator     : Ph-schematron library not found on classpath, will not attempt to perform schematron validation
+    2024-07-28T23:03:56.553+09:00  INFO 7820 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : JP-CLINS FHIRValidator作成：23007.723ms
+    2024-07-28T23:04:17.392+09:00  INFO 7820 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : 健康診断結果報告書FHIRValidator作成：20835.253ms
 
-    # バリデーション処理は初回実行時だけ時間がかかるため、AP起動時あらかじめ@PostConstructに記載した処理でダミーデータで暖機処理実行（11秒と、かなり時間がかかっている）
-    2024-04-19T05:56:44.065+09:00 DEBUG 28176 --- [demo] [restartedMain] c.e.h.domain.FhirValidationServiceImpl   : バリデーション暖機処理実行開始
-    2024-04-19T05:56:44.140+09:00  INFO 28176 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
-    2024-04-19T05:56:47.173+09:00  INFO 28176 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
-    2024-04-19T05:56:47.434+09:00  INFO 28176 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
-    2024-04-19T05:56:48.371+09:00  INFO 28176 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
-    2024-04-19T05:56:51.586+09:00  INFO 28176 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
-    2024-04-19T05:56:52.891+09:00  WARN 28176 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
-    2024-04-19T05:56:52.892+09:00  INFO 28176 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
-    2024-04-19T05:56:53.868+09:00  WARN 28176 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
-    2024-04-19T05:56:53.868+09:00  INFO 28176 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
-    2024-04-19T05:56:54.380+09:00  WARN 28176 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
-    2024-04-19T05:56:55.532+09:00 DEBUG 28176 --- [demo] [restartedMain] c.e.h.domain.FhirValidationServiceImpl   : バリデーション暖機処理実行完了：11467ms
+    # バリデーション処理は初回実行時だけ時間がかかるため、AP起動時あらかじめ@PostConstructに記載した処理でダミーデータで暖機処理実行（JP-CLINSの場合42秒と、かなり時間がかかっている）
+    2024-07-28T23:04:17.403+09:00 DEBUG 7820 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行開始
+    2024-07-28T23:04:17.480+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
+    2024-07-28T23:04:20.601+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
+    2024-07-28T23:04:20.833+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
+    2024-07-28T23:04:21.850+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
+    2024-07-28T23:04:54.500+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
+    2024-07-28T23:04:55.638+09:00  WARN 7820 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
+    2024-07-28T23:04:55.640+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
+    2024-07-28T23:04:56.603+09:00  WARN 7820 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
+    2024-07-28T23:04:56.603+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
+    2024-07-28T23:04:57.081+09:00  WARN 7820 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
+    # JP-CLINSの暖機処理
+    2024-07-28T23:05:00.125+09:00  INFO 7820 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行完了：42721.105ms
+    # 健康診断結果報告書の暖機処理
+    2024-07-28T23:05:00.125+09:00 DEBUG 7820 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行開始
+    2024-07-28T23:05:02.911+09:00  INFO 7820 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行完了：2784.232ms
 
-    # 上のHAPIの初期化に時間がかかるので、Spring Boot起動までに37秒程度かかっている
-    2024-04-19T05:56:55.874+09:00  INFO 28176 --- [demo] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-    2024-04-19T05:56:55.916+09:00  INFO 28176 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path ''
-    2024-04-19T05:56:55.926+09:00  INFO 28176 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Started SpringBootHapiApplication in 37.416 seconds (process running for 38.319)
-    2024-04-19T05:57:02.902+09:00  INFO 28176 --- [demo] [tomcat-handler-0] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-    2024-04-19T05:57:02.903+09:00  INFO 28176 --- [demo] [tomcat-handler-0] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-    2024-04-19T05:57:02.904+09:00  INFO 28176 --- [demo] [tomcat-handler-0] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+    # 上のHAPIの初期化に時間がかかるので、Spring Boot起動までに92秒程度かかっている
+    2024-07-28T23:05:03.276+09:00  INFO 7820 --- [demo] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+    2024-07-28T23:05:03.320+09:00  INFO 7820 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+    2024-07-28T23:05:03.331+09:00  INFO 7820 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Started SpringBootHapiApplication in 91.841 seconds (process running for 92.71)
+    …
 
-    # バリデーション処理の実行（正常終了）　400～700msと、比較的高速に処理されている
-    # 経験則的に分かったとこととして、3回連続実行したときには一時的に高速に動作するように見える（400ms程度まで速くなり、少し時間を置いて実行すると700ms程度に戻っている）
-    2024-04-19T05:57:02.964+09:00 DEBUG 28176 --- [demo] [tomcat-handler-0] c.e.h.domain.FhirValidationServiceImpl   : FHIRバリデーション開始[FHIRバージョン 4.0.1]
-    2024-04-19T05:57:03.704+09:00 DEBUG 28176 --- [demo] [tomcat-handler-0] c.e.h.domain.FhirValidationServiceImpl   : バリデーション実行完了：739ms
-    2024-04-19T05:57:03.705+09:00  INFO 28176 --- [demo] [tomcat-handler-0] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
-    2024-04-19T05:57:05.397+09:00 DEBUG 28176 --- [demo] [tomcat-handler-1] c.e.h.domain.FhirValidationServiceImpl   : FHIRバリデーション開始[FHIRバージョン 4.0.1]
-    2024-04-19T05:57:06.108+09:00 DEBUG 28176 --- [demo] [tomcat-handler-1] c.e.h.domain.FhirValidationServiceImpl   : バリデーション実行完了：711ms
-    2024-04-19T05:57:06.109+09:00  INFO 28176 --- [demo] [tomcat-handler-1] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
-    2024-04-19T05:57:07.351+09:00 DEBUG 28176 --- [demo] [tomcat-handler-3] c.e.h.domain.FhirValidationServiceImpl   : FHIRバリデーション開始[FHIRバージョン 4.0.1]
-    2024-04-19T05:57:07.855+09:00 DEBUG 28176 --- [demo] [tomcat-handler-3] c.e.h.domain.FhirValidationServiceImpl   : バリデーション実行完了：502ms
-    2024-04-19T05:57:07.855+09:00  INFO 28176 --- [demo] [tomcat-handler-3] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
-    2024-04-19T05:57:10.474+09:00 DEBUG 28176 --- [demo] [tomcat-handler-5] c.e.h.domain.FhirValidationServiceImpl   : FHIRバリデーション開始[FHIRバージョン 4.0.1]
-    2024-04-19T05:57:10.869+09:00 DEBUG 28176 --- [demo] [tomcat-handler-5] c.e.h.domain.FhirValidationServiceImpl   : バリデーション実行完了：395ms
-    2024-04-19T05:57:10.870+09:00  INFO 28176 --- [demo] [tomcat-handler-5] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
-    2024-04-19T05:57:19.010+09:00 DEBUG 28176 --- [demo] [tomcat-handler-7] c.e.h.domain.FhirValidationServiceImpl   : FHIRバリデーション開始[FHIRバージョン 4.0.1]
-    2024-04-19T05:57:19.719+09:00 DEBUG 28176 --- [demo] [tomcat-handler-7] c.e.h.domain.FhirValidationServiceImpl   : バリデーション実行完了：708ms
-    2024-04-19T05:57:19.719+09:00  INFO 28176 --- [demo] [tomcat-handler-7] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
-    2024-04-19T05:57:23.087+09:00 DEBUG 28176 --- [demo] [tomcat-handler-9] c.e.h.domain.FhirValidationServiceImpl   : FHIRバリデーション開始[FHIRバージョン 4.0.1]
-    2024-04-19T05:57:23.556+09:00 DEBUG 28176 --- [demo] [tomcat-handler-9] c.e.h.domain.FhirValidationServiceImpl   : バリデーション実行完了：469ms
-    2024-04-19T05:57:23.557+09:00  INFO 28176 --- [demo] [tomcat-handler-9] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
-    2024-04-19T05:57:24.700+09:00 DEBUG 28176 --- [demo] [tomcat-handler-11] c.e.h.domain.FhirValidationServiceImpl   : FHIRバリデーション開始[FHIRバージョン 4.0.1]
-    2024-04-19T05:57:25.114+09:00 DEBUG 28176 --- [demo] [tomcat-handler-11] c.e.h.domain.FhirValidationServiceImpl   : バリデーション実行完了：414ms
-    2024-04-19T05:57:25.114+09:00  INFO 28176 --- [demo] [tomcat-handler-11] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
-    2024-04-19T05:57:26.459+09:00 DEBUG 28176 --- [demo] [tomcat-handler-13] c.e.h.domain.FhirValidationServiceImpl   : FHIRバリデーション開始[FHIRバージョン 4.0.1]
-    2024-04-19T05:57:26.895+09:00 DEBUG 28176 --- [demo] [tomcat-handler-13] c.e.h.domain.FhirValidationServiceImpl   : バリデーション実行完了：435ms
-    2024-04-19T05:57:26.896+09:00  INFO 28176 --- [demo] [tomcat-handler-13] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
-    2024-04-19T05:57:32.369+09:00 DEBUG 28176 --- [demo] [tomcat-handler-14] c.e.h.domain.FhirValidationServiceImpl   : FHIRバリデーション開始[FHIRバージョン 4.0.1]
-    2024-04-19T05:57:33.152+09:00 DEBUG 28176 --- [demo] [tomcat-handler-14] c.e.h.domain.FhirValidationServiceImpl   : バリデーション実行完了：783ms
-    2024-04-19T05:57:33.152+09:00  INFO 28176 --- [demo] [tomcat-handler-14] c.e.h.domain.FhirValidationServiceImpl   : ドキュメントは有効です
+    # バリデーション処理の実行（正常終了）　500ms前後と、比較的高速に処理されている
+    2024-07-28T23:12:55.323+09:00 DEBUG 7820 --- [demo] [tomcat-handler-0] c.e.h.d.s.FhirValidationServiceImpl      : FHIRバリデーション開始[FHIRバージョン 4.0.1]
+    2024-07-28T23:12:56.430+09:00  INFO 7820 --- [demo] [tomcat-handler-0] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション実行完了：1106.683ms
+    2024-07-28T23:12:56.431+09:00  INFO 7820 --- [demo] [tomcat-handler-0] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です
+    2024-07-28T23:12:57.676+09:00 DEBUG 7820 --- [demo] [tomcat-handler-1] c.e.h.d.s.FhirValidationServiceImpl      : FHIRバリデーション開始[FHIRバージョン 4.0.1]
+    2024-07-28T23:12:58.221+09:00  INFO 7820 --- [demo] [tomcat-handler-1] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション実行完了：545.552ms
+    2024-07-28T23:12:58.221+09:00  INFO 7820 --- [demo] [tomcat-handler-1] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です
+    2024-07-28T23:12:59.375+09:00 DEBUG 7820 --- [demo] [tomcat-handler-3] c.e.h.d.s.FhirValidationServiceImpl      : FHIRバリデーション開始[FHIRバージョン 4.0.1]
+    2024-07-28T23:12:59.953+09:00  INFO 7820 --- [demo] [tomcat-handler-3] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション実行完了：578.144ms
+    2024-07-28T23:12:59.953+09:00  INFO 7820 --- [demo] [tomcat-handler-3] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です
     ```    
 
     - 臨床情報（5情報）のFHIRデータを送信する場合
@@ -402,7 +384,8 @@
     ```sh
     # curlコマンド実行
     curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-Bundle-CLINS-PCS-Example-01.json http://localhost:8080/api/v1/fhir/validate/clins
-    
+
+    # TODO: 現状、このサンプルデータだとバリデーションエラーが出る
     curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-Bundle-CLINS-Observations-Example-01.json http://localhost:8080/api/v1/fhir/validate/clins    
 
     # 実行結果は省略    
@@ -415,10 +398,7 @@
     curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-Bundle-eCheckupReport-Sample-01.json http://localhost:8080/api/v1/fhir/validate/checkup-report
 
     # 実行結果は省略    
-    ```
-
-    
-
+    ``` 
 
 ## 7. SpringBootサンプルAPでのFHIRバリデーションの回帰テスト自動化の例
 - FHIRプロファイルの改訂、HAPIのバージョンアップ等の際、FHIRバリデーションが以前と変わりなく同じように動作すること確認する回帰テストが自動でできる仕組みが必要になることが想像されます。
