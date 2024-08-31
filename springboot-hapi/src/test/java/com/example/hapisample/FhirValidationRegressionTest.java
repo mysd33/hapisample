@@ -116,8 +116,9 @@ class FhirValidationRegressionTest {
 						FhirValidationResult.OK, null),
 				// テストケース2
 				arguments("testdata/Bundle-Bundle-CLINS-PCS-Example-01.json",
-						FhirValidationResult.OK, null),
+						FhirValidationResult.OK, null),				
 				// テストケース3
+				// HAPI ver7.2.2ではバリデーションエラーだったが、バリデーションOKになる
 				arguments("testdata/Bundle-Bundle-CLINS-Observations-Example-01.json",
 						FhirValidationResult.OK, null)				
 		// TODO: 以降に、テストケースを追加していく

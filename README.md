@@ -2,7 +2,7 @@
 
 - [HAPI FHIR](https://hapifhir.io/)を使って、[FHIR厚生労働省標準規格](https://std.jpfhir.jp/)に基づくサンプルデータに対して検証（FHIRバリデーション）し、Bundleリソースとしてパースするサンプルプログラムです。
 
-- HAPI FHIRのバージョンは、7.2.2を使用しています。
+- HAPI FHIRのバージョンは、7.4.0を使用しています。
 
 - 各フォルダに、以下の2つのサンプルAPプロジェクトを作成しています。HAPIはJava11以上で動作すると書かれていますが、本サンプルは最新のLTSのJava21で作成しています。
     - simplehapiフォルダ
@@ -15,16 +15,20 @@
 
 - [FHIR IGポータル](https://std.jpfhir.jp/)のサイトから、公式バリデータを使った[バリデーションガイド](https://jpfhir.jp/fhir/eReferral/igv1/validationGuide.html)が公開されていますが、ここでは、[HAPI FHIR](https://hapifhir.io)を使って、同様のバリデーションを行うサンプルプログラムを作成しています。
 
-    - 【注意】公式バリデータ（org.hl7.fhir.validation）の個別バージョンアップ
-        - HAPIのバリデーション機能（hapi-fhir-validaiton）は、内部で使用しているHL7が管理する公式バリデータ含む[HL7 FHIR Core Artifacts(org.hl7.fhir.core)](https://github.com/hapifhir/org.hl7.fhir.core)バージョンは、[hapi-fhir-validaitonのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/hapi-fhir-validation/pom.xml#L38)を見ると、${fhir_core_version}のプロパティで定義されており、[hapi-fhirの最上位プロジェクトのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/v7.2.2/pom.xml#L928)でバージョン（現在は6.1.2.2）に統制されています。
-            - [開発中の最新版（7.5.0-SNAPSHOT）](https://github.com/hapifhir/hapi-fhir/blob/master/pom.xml#L941)は、6.3.18にバージョンアップされていますので、7.5.0系ではコアバージョンもアップされると思われます。
+    - ~~【注意】公式バリデータ（org.hl7.fhir.validation）の個別バージョンアップ~~
+        - ~~HAPIのバリデーション機能（hapi-fhir-validaiton）は、内部で使用しているHL7が管理する公式バリデータ含む[HL7 FHIR Core Artifacts(org.hl7.fhir.core)](https://github.com/hapifhir/org.hl7.fhir.core)バージョンは、[hapi-fhir-validaitonのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/master/hapi-fhir-validation/pom.xml#L38)を見ると、${fhir_core_version}のプロパティで定義されており、[hapi-fhirの最上位プロジェクトのpom.xml](https://github.com/hapifhir/hapi-fhir/blob/v7.2.2/pom.xml#L928)でバージョン（現在は6.1.2.2）に統制されています。~~
+            - ~~[開発中の最新版（7.5.0-SNAPSHOT）](https://github.com/hapifhir/hapi-fhir/blob/master/pom.xml#L941)は、6.3.18にバージョンアップされていますので、7.5.0系ではコアバージョンもアップされると思われます。~~
 
-        - このため、バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョンが6.1.8となっており、HAPIが利用するバージョンと齟齬があります。
+        - バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョンが6.1.8となっており、HAPIが利用するバージョンと齟齬があります。
 
-        - 健診結果報告書のサンプルデータがうまく動作するよう、entry.resourceに複数のプロファイルがあるバンドルをバリデーションできなかった不具合に対応した[6.1.4](https://github.com/hapifhir/org.hl7.fhir.core/releases/tag/6.1.4)のバージョンで実行できるよう、このサンプルでは、HAPI FHIRが内部で使用するバージョンをバリデーションガイドでの公式バリデータのバージョンと合わせる個別対応を行っています。
-            - [pom.xml](simplehapi/pom.xml)
-            - [pom.xml](springboot-hapi/pom.xml)    
-        - なお、同様の方法で、バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョン6.1.8にしてしまうと、APIの互換性がないため、実行時エラー（java.lang.NoSuchMethodError）が発生してしまいます。
+        - ~~健診結果報告書のサンプルデータがうまく動作するよう、entry.resourceに複数のプロファイルがあるバンドルをバリデーションできなかった不具合に対応した[6.1.4](https://github.com/hapifhir/org.hl7.fhir.core/releases/tag/6.1.4)のバージョンで実行できるよう、このサンプルでは、HAPI FHIRが内部で使用するバージョンをバリデーションガイドでの公式バリデータのバージョンと合わせる個別対応を行っています。~~
+            - ~~[pom.xml](simplehapi/pom.xml)~~
+            - ~~[pom.xml](springboot-hapi/pom.xml)~~
+        - ~~なお、同様の方法で、バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョン6.1.8にしてしまうと、APIの互換性がないため、実行時エラー（java.lang.NoSuchMethodError）が発生してしまいます。~~
+
+> [!NOTE]
+> HAPI ver7.4.0より、org.hl7.fhir.validationのバージョンは6.3.11に上がりました。  
+> このため、上記のorg.hl7.fhir.validationの個別バージョンアップ対応は不要になりました。
 
 - また、FHIRリソース(Bundle)として作成したオブジェクトを、FHIRのJSON文字列で出力（シリアライズ）するサンプルプログラムもあります。
     - [処方情報のFHIR記述仕様書](https://jpfhir.jp/fhir/ePrescriptionData/igv1/)に従い、JSONのほんの一部分を生成しています。
@@ -104,55 +108,70 @@
 
 #### 4.1.1 処理結果
 ```
-21:50:54.341 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 7.2.2 - Rev d8c89128bc
-21:50:54.351 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
-21:50:56.031 [main] INFO  ca.uhn.fhir.util.XmlUtil - Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
-21:51:03.568 [main] INFO  c.uhn.fhir.validation.FhirValidator - Ph-schematron library not found on classpath, will not attempt to perform schematron validation
-21:51:03.571 [main] INFO  hapisample.ParsingSampleMain - バリデーション初回
-21:51:03.666 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
-21:51:05.020 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
-21:51:05.093 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
-21:51:05.350 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
-21:51:14.346 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
-21:51:14.864 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-21:51:14.865 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
-21:51:15.292 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-21:51:15.293 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
-21:51:15.456 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
-21:51:17.513 [main] INFO  hapisample.ParsingSampleMain - バリデーション2回目
-21:51:18.202 [main] INFO  hapisample.ParsingSampleMain - ドキュメントは有効です
-21:51:18.266 [main] INFO  hapisample.ParsingSampleMain - Bundle type:Document
-21:51:18.271 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Composition
-21:51:18.272 [main] INFO  hapisample.ParsingSampleMain - 文書名: 診療情報提供書
-21:51:18.273 [main] INFO  hapisample.ParsingSampleMain - subject display: 患者リソースPatient
-21:51:18.273 [main] INFO  hapisample.ParsingSampleMain - subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
-21:51:18.273 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Patient
-21:51:18.273 [main] INFO  hapisample.ParsingSampleMain - Composition.subjectの参照先のPatient:urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
-21:51:18.274 [main] INFO  hapisample.ParsingSampleMain - 患者番号:000999739
-21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - 患者氏名:牧野 爛漫
-21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - 患者カナ氏名:マキノ ランマン
-21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
-21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
-21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
-21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
-21:51:18.275 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
-21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
-21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
-21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
-21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
-21:51:18.276 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
-21:51:18.277 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
+18:32:38.574 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 7.4.0 - Rev 71e9af61cf
+18:32:38.584 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
+18:32:40.088 [main] INFO  ca.uhn.fhir.util.XmlUtil - Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
+18:32:44.998 [main] INFO  c.uhn.fhir.validation.FhirValidator - Ph-schematron library not found on classpath, will not attempt to perform schematron validation
+18:32:45.001 [main] INFO  hapisample.ParsingSampleMain - バリデーション初回
+18:32:45.204 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
+18:32:46.472 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
+18:32:46.546 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
+18:32:46.818 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
+18:32:55.810 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
+18:32:56.134 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+18:32:56.136 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
+18:32:56.423 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+18:32:56.424 [main] INFO  c.u.f.c.s.DefaultProfileValidationSupport - Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
+18:32:56.542 [main] WARN  c.u.fhir.parser.LenientErrorHandler - Unknown element 'author' found while parsing
+18:32:56.576 [main] INFO  o.h.f.c.h.v.s.CommonCodeSystemsTerminologyService - Loading BCP47 Language Registry
+18:32:56.602 [main] INFO  o.h.f.c.h.v.s.CommonCodeSystemsTerminologyService - Have 8178 languages and 304 regions
+18:32:58.956 [main] INFO  hapisample.ParsingSampleMain - バリデーション2回目
+18:33:00.334 [main] INFO  hapisample.ParsingSampleMain - ドキュメントは有効です
+18:33:00.369 [main] INFO  hapisample.ParsingSampleMain - Bundle type:Document
+18:33:00.373 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Composition
+18:33:00.374 [main] INFO  hapisample.ParsingSampleMain - 文書名: 診療情報提供書
+18:33:00.374 [main] INFO  hapisample.ParsingSampleMain - subject display: 患者リソースPatient
+18:33:00.374 [main] INFO  hapisample.ParsingSampleMain - subject reference Id: urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+18:33:00.374 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Patient
+18:33:00.374 [main] INFO  hapisample.ParsingSampleMain - Composition.subjectの参照先のPatient:urn:uuid:0a48a4bf-0d87-4efb-aafd-d45e0842a4dd
+18:33:00.375 [main] INFO  hapisample.ParsingSampleMain - 患者番号:000999739
+18:33:00.376 [main] INFO  hapisample.ParsingSampleMain - 患者氏名:牧野 爛漫
+18:33:00.376 [main] INFO  hapisample.ParsingSampleMain - 患者カナ氏名:マキノ ランマン
+18:33:00.376 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
+18:33:00.376 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
+18:33:00.376 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Practitioner
+18:33:00.376 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+18:33:00.377 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Organization
+18:33:00.377 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Encounter
+18:33:00.377 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+18:33:00.377 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+18:33:00.377 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+18:33:00.377 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+18:33:00.377 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Condition
+18:33:00.377 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
+18:33:00.377 [main] INFO  hapisample.ParsingSampleMain - Resource Type: AllergyIntolerance
+18:33:00.377 [main] INFO  hapisample.ParsingSampleMain - Resource Type: Observation
+18:33:00.378 [main] INFO  hapisample.ParsingSampleMain - Resource Type: DocumentReference
 ```
 
 #### 4.1.2 処理時間
 - Validator作成などの初期化、Validationの初回実行に時間がかかるのが分かります。
 - 2回目以降のValidation実行は、高速にできているのが分かりますので、実際にアプリケーションを作成する際は一度ダミーデータでValidationを実行しておくと良いことが分かりました。
 
-    - HAPI FHIRのバージョン(7.2.2)の場合
+    - HAPI FHIRのバージョン(7.4.0)の場合
+        - コアライブラリのバージョンアップ対応がされているためか、HAPI 7.2.2と比較して、Validatorの作成時間やValidation、Parseの処理時間が短縮されているように見えます。
+
+    ```
+    18:33:00.378 [main] INFO  hapisample.ParsingSampleMain - Context作成時間：53.866ms
+    18:33:00.378 [main] INFO  hapisample.ParsingSampleMain - Validator作成時間：6415.631ms
+    18:33:00.378 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（初回）：13955.223ms
+    18:33:00.378 [main] INFO  hapisample.ParsingSampleMain - Validation処理時間（2回目）：1377.876ms
+    18:33:00.379 [main] INFO  hapisample.ParsingSampleMain - Parser作成時間：0.008ms
+    18:33:00.379 [main] INFO  hapisample.ParsingSampleMain - Parse処理時間：34.319ms
+    18:33:00.379 [main] INFO  hapisample.ParsingSampleMain - モデル処理時間：9.392ms
+    ```
+
+    - （比較参考）HAPI FHIRのバージョン(7.2.2)の場合        
 
     ```
     21:51:18.277 [main] INFO  hapisample.ParsingSampleMain - Context作成時間：54.685ms
@@ -169,24 +188,24 @@
 - このサンプルを応用すると、FHIRの形式変換や、FHIRデータの生成等ができることが分かります。
 
 ```sh
-09:01:06.520 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 7.0.2 - Rev 95beaec894
-09:01:06.529 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
-09:01:08.058 [main] INFO  hapisample.SerializingSampleMain - 実行結果:
+18:38:32.533 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 7.4.0 - Rev 71e9af61cf
+18:38:32.541 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
+18:38:34.037 [main] INFO  hapisample.SerializingSampleMain - 実行結果:
 {
   "resourceType": "Bundle",
   "meta": {
-    "lastUpdated": "2024-04-13T09:01:06.489+09:00",
+    "lastUpdated": "2024-08-31T18:38:32.490+09:00",
     "profile": [ "http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Bundle_ePrescriptionData" ]
   },
   "type": "document",
-  "timestamp": "2024-04-13T09:01:06.489+09:00",
+  "timestamp": "2024-08-31T18:38:32.490+09:00",
   "entry": [ {
-    "fullUrl": "urn:uuid:a7f274ff-a212-4084-945f-ac87a329a8a2",
+    "fullUrl": "urn:uuid:f8314496-de7f-4965-ae34-501c594063fb",
     "resource": {
       "resourceType": "Composition",
       "id": "compositionReferralExample01Inline",
       "meta": {
-        "lastUpdated": "2024-04-13T09:01:06.489+09:00",
+        "lastUpdated": "2024-08-31T18:38:32.490+09:00",
         "profile": [ "http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Composition_ePrescriptionData" ]
       },
       "text": {
@@ -217,17 +236,17 @@
         } ]
       } ],
       "subject": {
-        "reference": "urn:uuid:1d830fe6-1b0f-43c7-a256-62988ea75539"
+        "reference": "urn:uuid:6423e117-8129-490d-86dd-ff31dd40b4ba"
       },
-      "date": "2024-04-13T09:01:06+09:00",
+      "date": "2024-08-31T18:38:32+09:00",
       "title": "処方箋"
     }
   }, {
-    "fullUrl": "urn:uuid:1d830fe6-1b0f-43c7-a256-62988ea75539",
+    "fullUrl": "urn:uuid:6423e117-8129-490d-86dd-ff31dd40b4ba",
     "resource": {
       "resourceType": "Patient",
       "meta": {
-        "lastUpdated": "2024-04-13T09:01:06.489+09:00",
+        "lastUpdated": "2024-08-31T18:38:32.490+09:00",
         "profile": [ "http://jpfhir.jp/fhir/ePrescription/StructureDefinition/JP_Patient_ePrescriptionData" ]
       },
       "text": {
@@ -321,53 +340,80 @@
 
 
     ```
-    2024-07-28T23:03:32.104+09:00  INFO 7820 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Starting SpringBootHapiApplication using Java 21.0.3 with PID 7820 (…)
-    2024-07-28T23:03:32.106+09:00 DEBUG 7820 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Running with Spring Boot v3.3.2, Spring v6.1.11
-    2024-07-28T23:03:32.107+09:00  INFO 7820 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : The following 2 profiles are active: "dev", "log_default"
-
+    2024-08-31T18:46:55.993+09:00  INFO 7740 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Starting SpringBootHapiApplication using Java 21.0.3 with PID 7740 (D:\git\hapisample\springboot-hapi\target\classes started by dell in D:\git\hapisample\springboot-hapi)
+    2024-08-31T18:46:56.006+09:00 DEBUG 7740 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Running with Spring Boot v3.3.2, Spring v6.1.11
+    2024-08-31T18:46:56.008+09:00  INFO 7740 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : The following 2 profiles are active: "dev", "log_default"
     …    
-    2024-07-28T23:03:33.356+09:00  INFO 7820 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
-    2024-07-28T23:03:33.369+09:00  INFO 7820 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-    2024-07-28T23:03:33.370+09:00  INFO 7820 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
-    2024-07-28T23:03:33.447+09:00  INFO 7820 --- [demo] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-    2024-07-28T23:03:33.448+09:00  INFO 7820 --- [demo] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1287 ms
+    2024-08-31T18:46:57.278+09:00  INFO 7740 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+    2024-08-31T18:46:57.293+09:00  INFO 7740 --- [demo] [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+    2024-08-31T18:46:57.293+09:00  INFO 7740 --- [demo] [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.26]
+    2024-08-31T18:46:57.368+09:00  INFO 7740 --- [demo] [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+    2024-08-31T18:46:57.369+09:00  INFO 7740 --- [demo] [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1300 ms
  
     # Bean定義によるHAPIのFHIRContextの作成
-    2024-07-28T23:03:33.527+09:00  INFO 7820 --- [demo] [restartedMain] ca.uhn.fhir.util.VersionUtil             : HAPI FHIR version 7.2.2 - Rev d8c89128bc
-    2024-07-28T23:03:33.534+09:00  INFO 7820 --- [demo] [restartedMain] ca.uhn.fhir.context.FhirContext          : Creating new FHIR context for FHIR version [R4]
-    2024-07-28T23:03:33.535+09:00  INFO 7820 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : FHIRContext作成：28.303ms
+    2024-08-31T18:46:57.461+09:00  INFO 7740 --- [demo] [restartedMain] ca.uhn.fhir.util.VersionUtil             : HAPI FHIR version 7.4.0 - Rev 71e9af61cf
+    2024-08-31T18:46:57.468+09:00  INFO 7740 --- [demo] [restartedMain] ca.uhn.fhir.context.FhirContext          : Creating new FHIR context for FHIR version [R4]
+    2024-08-31T18:46:57.469+09:00  INFO 7740 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : FHIRContext作成：36.216ms
     
-    # Bean定義によるHAPIのFHIRValidatorの作成（プロファイルの読み込み等があるため、20秒程度と、かなり時間がかかっている）
-    2024-07-28T23:03:34.956+09:00  INFO 7820 --- [demo] [restartedMain] ca.uhn.fhir.util.XmlUtil                 : Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
-    2024-07-28T23:03:56.551+09:00  INFO 7820 --- [demo] [restartedMain] ca.uhn.fhir.validation.FhirValidator     : Ph-schematron library not found on classpath, will not attempt to perform schematron validation
-    2024-07-28T23:03:56.553+09:00  INFO 7820 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : JP-CLINS FHIRValidator作成：23007.723ms
-    2024-07-28T23:04:17.392+09:00  INFO 7820 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : 健康診断結果報告書FHIRValidator作成：20835.253ms
+    # Bean定義によるHAPIのFHIRValidatorの作成（プロファイルの読み込み等があるため、かなり時間がかかっているが、HAPI 7.2.2の時はJP-CLINSのValidator作成、健康診断結果報告書のValidator作成、それぞれに20秒程度かかっていたのが、10秒程度に短縮されている）
+    2024-08-31T18:46:58.485+09:00  INFO 7740 --- [demo] [restartedMain] ca.uhn.fhir.util.XmlUtil                 : Unable to determine StAX implementation: java.xml/META-INF/MANIFEST.MF not found
+    2024-08-31T18:47:08.893+09:00  INFO 7740 --- [demo] [restartedMain] ca.uhn.fhir.validation.FhirValidator     : Ph-schematron library not found on classpath, will not attempt to perform schematron validation
+    2024-08-31T18:47:08.896+09:00  INFO 7740 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : JP-CLINS FHIRValidator作成：11418.573ms
+    2024-08-31T18:47:18.714+09:00  INFO 7740 --- [demo] [restartedMain] com.example.hapisample.FhirConfig        : 健康診断結果報告書FHIRValidator作成：9813.902ms
 
-    # バリデーション処理は初回実行時だけ時間がかかるため、AP起動時あらかじめ@PostConstructに記載した処理でダミーデータで暖機処理実行（JP-CLINSの場合42秒と、かなり時間がかかっている）
-    2024-07-28T23:04:17.403+09:00 DEBUG 7820 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行開始
-    2024-07-28T23:04:17.480+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
-    2024-07-28T23:04:20.601+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
-    2024-07-28T23:04:20.833+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
-    2024-07-28T23:04:21.850+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
-    2024-07-28T23:04:54.500+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
-    2024-07-28T23:04:55.638+09:00  WARN 7820 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
-    2024-07-28T23:04:55.640+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
-    2024-07-28T23:04:56.603+09:00  WARN 7820 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
-    2024-07-28T23:04:56.603+09:00  INFO 7820 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
-    2024-07-28T23:04:57.081+09:00  WARN 7820 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
+    # バリデーション処理は初回実行時だけ時間がかかるため、AP起動時あらかじめ@PostConstructに記載した処理でダミーデータで暖機処理実行（JP-CLINSの場合46秒と、かなり時間がかかっている）
+    2024-08-31T18:47:18.722+09:00 DEBUG 7740 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行開始
+    2024-08-31T18:47:18.799+09:00  INFO 7740 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-resources.xml
+    2024-08-31T18:47:22.016+09:00  INFO 7740 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-types.xml
+    2024-08-31T18:47:22.276+09:00  INFO 7740 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/profile/profiles-others.xml
+    2024-08-31T18:47:23.237+09:00  INFO 7740 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading structure definitions from classpath: /org/hl7/fhir/r4/model/extension/extension-definitions.xml
+    2024-08-31T18:47:59.221+09:00  INFO 7740 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/valuesets.xml
+    2024-08-31T18:48:00.364+09:00  WARN 7740 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
+    2024-08-31T18:48:00.365+09:00  INFO 7740 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v2-tables.xml
+    2024-08-31T18:48:01.265+09:00  WARN 7740 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
+    2024-08-31T18:48:01.265+09:00  INFO 7740 --- [demo] [restartedMain] .u.f.c.s.DefaultProfileValidationSupport : Loading CodeSystem/ValueSet from classpath: /org/hl7/fhir/r4/model/valueset/v3-codesystems.xml
+    2024-08-31T18:48:01.692+09:00  WARN 7740 --- [demo] [restartedMain] ca.uhn.fhir.parser.LenientErrorHandler   : Unknown element 'author' found while parsing
+    2024-08-31T18:48:01.730+09:00  INFO 7740 --- [demo] [restartedMain] .v.s.CommonCodeSystemsTerminologyService : Loading BCP47 Language Registry
+    2024-08-31T18:48:01.808+09:00  INFO 7740 --- [demo] [restartedMain] .v.s.CommonCodeSystemsTerminologyService : Have 8178 languages and 304 regions
+
     # JP-CLINSの暖機処理
-    2024-07-28T23:05:00.125+09:00  INFO 7820 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行完了：42721.105ms
-    # 健康診断結果報告書の暖機処理
-    2024-07-28T23:05:00.125+09:00 DEBUG 7820 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行開始
-    2024-07-28T23:05:02.911+09:00  INFO 7820 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行完了：2784.232ms
+    2024-08-31T18:48:05.430+09:00  INFO 7740 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行完了：46707.333ms
+    2024-08-31T18:48:05.431+09:00 DEBUG 7740 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行開始
+    2024-08-31T18:48:07.020+09:00  INFO 7740 --- [demo] [restartedMain] .v.s.CommonCodeSystemsTerminologyService : Loading BCP47 Language Registry
+    2024-08-31T18:48:07.046+09:00  INFO 7740 --- [demo] [restartedMain] .v.s.CommonCodeSystemsTerminologyService : Have 8178 languages and 304 regions
 
-    # 上のHAPIの初期化に時間がかかるので、Spring Boot起動までに92秒程度かかっている
-    2024-07-28T23:05:03.276+09:00  INFO 7820 --- [demo] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
-    2024-07-28T23:05:03.320+09:00  INFO 7820 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
-    2024-07-28T23:05:03.331+09:00  INFO 7820 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Started SpringBootHapiApplication in 91.841 seconds (process running for 92.71)
+    # 健康診断結果報告書の暖機処理    
+    2024-08-31T18:48:11.985+09:00  INFO 7740 --- [demo] [restartedMain] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション暖機処理実行完了：6553.376ms
+
+    # 上のHAPIの初期化に時間がかかるので、Spring Boot起動までに78秒程度かかっている（HAPI 7.2.2の時は、92秒程度かかっていたので、短縮されている）
+    2024-08-31T18:48:12.341+09:00  INFO 7740 --- [demo] [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+    2024-08-31T18:48:12.383+09:00  INFO 7740 --- [demo] [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+    2024-08-31T18:48:12.393+09:00  INFO 7740 --- [demo] [restartedMain] c.e.h.SpringBootHapiApplication          : Started SpringBootHapiApplication in 77.02 seconds (process running for 77.908)   
     …
+    ```
 
-    # バリデーション処理の実行（正常終了）　500ms前後と、比較的高速に処理されている
+    - バリデーション処理時間
+        - HAPI7.4.0では、あまり高速に処理できず、1.5秒前後かかっている。
+            - HAPI7.4.0では、コアライブラリのバージョンアップ等、内部の実装が大きく変わったせいか、データによっては遅くなるケースが出ているようです。
+            - 実際、臨床情報は、数100ms程度で返却されたが、健診結果報告書は、4秒以上かかるようになってしまっていました。
+            - HAPI 最新版の今後の性能改善が期待されます。
+
+    ```    
+    2024-08-31T18:48:41.330+09:00 DEBUG 7740 --- [demo] [tomcat-handler-0] c.e.h.d.s.FhirValidationServiceImpl      : FHIRバリデーション開始[FHIRバージョン 4.0.1]
+    2024-08-31T18:48:43.306+09:00  INFO 7740 --- [demo] [tomcat-handler-0] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション実行完了：1974.671ms
+    2024-08-31T18:48:43.306+09:00  INFO 7740 --- [demo] [tomcat-handler-0] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です
+    2024-08-31T18:48:45.530+09:00 DEBUG 7740 --- [demo] [tomcat-handler-1] c.e.h.d.s.FhirValidationServiceImpl      : FHIRバリデーション開始[FHIRバージョン 4.0.1]
+    2024-08-31T18:48:47.068+09:00  INFO 7740 --- [demo] [tomcat-handler-1] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション実行完了：1537.248ms
+    2024-08-31T18:48:47.069+09:00  INFO 7740 --- [demo] [tomcat-handler-1] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です
+    2024-08-31T18:48:48.246+09:00 DEBUG 7740 --- [demo] [tomcat-handler-3] c.e.h.d.s.FhirValidationServiceImpl      : FHIRバリデーション開始[FHIRバージョン 4.0.1]
+    2024-08-31T18:48:49.898+09:00  INFO 7740 --- [demo] [tomcat-handler-3] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション実行完了：1652.509ms
+    2024-08-31T18:48:49.899+09:00  INFO 7740 --- [demo] [tomcat-handler-3] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です  
+    ```    
+
+    - （比較参考）HAPI FHIRのバージョン(7.2.2)の場合
+        - 診療情報提供書のFHIRデータは、バリデーション処理の実行（正常終了）500ms前後と、比較的高速に処理されていた。
+
+    ```    
     2024-07-28T23:12:55.323+09:00 DEBUG 7820 --- [demo] [tomcat-handler-0] c.e.h.d.s.FhirValidationServiceImpl      : FHIRバリデーション開始[FHIRバージョン 4.0.1]
     2024-07-28T23:12:56.430+09:00  INFO 7820 --- [demo] [tomcat-handler-0] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション実行完了：1106.683ms
     2024-07-28T23:12:56.431+09:00  INFO 7820 --- [demo] [tomcat-handler-0] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です
@@ -377,7 +423,8 @@
     2024-07-28T23:12:59.375+09:00 DEBUG 7820 --- [demo] [tomcat-handler-3] c.e.h.d.s.FhirValidationServiceImpl      : FHIRバリデーション開始[FHIRバージョン 4.0.1]
     2024-07-28T23:12:59.953+09:00  INFO 7820 --- [demo] [tomcat-handler-3] c.e.h.d.s.FhirValidationServiceImpl      : バリデーション実行完了：578.144ms
     2024-07-28T23:12:59.953+09:00  INFO 7820 --- [demo] [tomcat-handler-3] c.e.h.d.s.FhirValidationServiceImpl      : ドキュメントは有効です
-    ```    
+    ```        
+
 
     - 臨床情報（5情報）のFHIRデータを送信する場合
 
@@ -385,7 +432,7 @@
     # curlコマンド実行
     curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-Bundle-CLINS-PCS-Example-01.json http://localhost:8080/api/v1/fhir/validate/clins
 
-    # TODO: 現状、このサンプルデータだとバリデーションエラーが出る
+    # このサンプルデータは、HAPI 7.2.2だとバリデーションエラーが出ていただ、HAPI 7.4.0だとバリデーションが正常になるようになった
     curl -H "Content-Type: application/json" -d @src\main\resources\file\Bundle-Bundle-CLINS-Observations-Example-01.json http://localhost:8080/api/v1/fhir/validate/clins    
 
     # 実行結果は省略    
