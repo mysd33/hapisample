@@ -482,3 +482,7 @@
 
 - ~~以下のテストコードを使うと、通常版と、8.のパフォーマンス改善版のバリデーション結果を比較できる~~
     - ~~[FhirValidationCompareTest.java](springboot-hapi/src/test/java/com/example/hapisample/deprecated/FhirValidationCompareTest.java)~~
+
+## 11. SpringBootサンプルAPでのFHIRバリデーションのマルチスレッドテスト
+- 以下のテストコードを使うと、マルチスレッド化でのFHIRバリデーションの実行が正しいかのテストができる
+    - [FhirValidationMultiThreadTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationMultiThreadTest.java)    

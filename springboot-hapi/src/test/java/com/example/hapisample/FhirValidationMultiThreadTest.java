@@ -1,12 +1,17 @@
 package com.example.hapisample;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -25,14 +30,18 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 
 /**
- * FhirValidationの自動回帰テストコードの例<br>
+ * FhirValidationのマルチスレッド化でも問題なく動作するかのテストコードの例<br>
  * 
- * プロファイルの改訂やHAPIのバージョンアップ等の際、SpringBootを起動することなく、バリデーションのロジックのみを高速に自動回帰テストできるようにする仕組みを想定したテストコード
  */
-class FhirValidationRegressionTest {
+class FhirValidationMultiThreadTest {
 	// 暖機処理用のFHIRのデータファイル
 	private static final String INIT_FOR_FHIR_CLINS_FILE_PATH = "file/Bundle-Bundle-CLINS-Referral-Example-01.json";
 	private static final String INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH = "file/Bundle-Bundle-eCheckupReport-Sample-01.json";
+	// スレッドプールのサイズ
+	private static final int THREAD_POOL_SIZE = 10;
+	// 1テストメソッド当たりのマルチスレッドでのテスト実行回数
+	private static final int NUMBER_OF_THREADS = 100;
+	private final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
 	// テスト対象
 	private static FhirValidationServiceImpl sut;
@@ -63,12 +72,11 @@ class FhirValidationRegressionTest {
 		sut.init();
 	}
 
-
 	// データドリブンテスト
 	@ParameterizedTest
 	@MethodSource
 	void testValidateCheckupReport(String inputFilePath, String expectedResult, List<String> errorMessages)
-			throws IOException {
+			throws IOException, InterruptedException {
 		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
 		FhirValidationResult expected;
 		if (FhirValidationResult.OK.equals(expectedResult)) {
@@ -76,10 +84,25 @@ class FhirValidationRegressionTest {
 		} else {
 			expected = FhirValidationResult.builder().result(expectedResult).details(errorMessages).build();
 		}
-		// FHIRバリデーション実行
-		FhirValidationResult actual = sut.validateCheckupReport(jsonString);
-		// バリデーション結果の検証
-		assertEquals(expected, actual);
+		List<FhirValidationResult> expecteds = Collections.nCopies(NUMBER_OF_THREADS, expected);
+		CountDownLatch latch = new CountDownLatch(NUMBER_OF_THREADS);
+		List<FhirValidationResult> actuals = Collections.synchronizedList(new ArrayList<>());
+		// マルチスレッドでのテスト実行
+		for (int i = 0; i < NUMBER_OF_THREADS; i++) {
+			executor.submit(() -> {
+				try {
+					// FHIRバリデーション実行
+					FhirValidationResult actual = sut.validateCheckupReport(jsonString);
+					actuals.add(actual);
+				} finally {
+					latch.countDown();
+				}
+			});
+		}
+		latch.await();
+		// テスト結果の検証
+		assertIterableEquals(expecteds, actuals);
+
 	}
 
 	// テストケース
@@ -94,7 +117,8 @@ class FhirValidationRegressionTest {
 	// JP-CLINSのデータドリブンテスト
 	@ParameterizedTest
 	@MethodSource
-	void testValidateClins(String inputFilePath, String expectedResult, List<String> errorMessages) throws IOException {
+	void testValidateClins(String inputFilePath, String expectedResult, List<String> errorMessages)
+			throws IOException, InterruptedException {
 		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
 		FhirValidationResult expected;
 		if (FhirValidationResult.OK.equals(expectedResult)) {
@@ -102,24 +126,36 @@ class FhirValidationRegressionTest {
 		} else {
 			expected = FhirValidationResult.builder().result(expectedResult).details(errorMessages).build();
 		}
-		// FHIRバリデーション実行
-		FhirValidationResult actual = sut.validateClins(jsonString);
-		// バリデーション結果の検証
-		assertEquals(expected, actual);
+		List<FhirValidationResult> expecteds = Collections.nCopies(NUMBER_OF_THREADS, expected);
+		CountDownLatch latch = new CountDownLatch(NUMBER_OF_THREADS);
+		List<FhirValidationResult> actuals = Collections.synchronizedList(new ArrayList<>());
+		// マルチスレッドでのテスト実行
+		for (int i = 0; i < NUMBER_OF_THREADS; i++) {
+			executor.submit(() -> {
+				try {
+					// FHIRバリデーション実行
+					FhirValidationResult actual = sut.validateClins(jsonString);
+					// バリデーション結果の格納
+                    actuals.add(actual);
+				} finally {
+					latch.countDown();
+				}
+			});
+		}
+		latch.await();
+		// テスト結果の検証
+		assertIterableEquals(expecteds, actuals);	
 	}
 
 	// テストケース
 	static Stream<Arguments> testValidateClins() {
 		return Stream.of(
 				// テストケース1
-				arguments("testdata/Bundle-Bundle-CLINS-Referral-Example-01.json",
-						FhirValidationResult.OK, null),
+				arguments("testdata/Bundle-Bundle-CLINS-Referral-Example-01.json", FhirValidationResult.OK, null),
 				// テストケース2
-				arguments("testdata/Bundle-Bundle-CLINS-PCS-Example-01.json",
-						FhirValidationResult.OK, null)//,
+				arguments("testdata/Bundle-Bundle-CLINS-PCS-Example-01.json", FhirValidationResult.OK, null)//,
 				// TODO: テストケース3 HAPI 7.2.2ではエラーになるのでコメントアウト
-				//arguments("testdata/Bundle-Bundle-CLINS-Observations-Example-01.json",
-				//		FhirValidationResult.OK, null)				
+				// arguments("testdata/Bundle-Bundle-CLINS-Observations-Example-01.json", FhirValidationResult.OK, null)
 		// TODO: 以降に、テストケースを追加していく
 		);
 	}
