@@ -530,8 +530,12 @@
 - ~~以下のテストコードを使うと、通常版と、8.のパフォーマンス改善版のバリデーション結果を比較できる~~
     - ~~[FhirValidationCompareTest.java](springboot-hapi/src/test/java/com/example/hapisample/deprecated/FhirValidationCompareTest.java)~~
 
-## 11. SpringBootサンプルAPでのFHIRバリデーションのマルチスレッドテスト
+## 11. FHIRバリデーションのマルチスレッドテスト
 - 以下のテストコードを使うと、マルチスレッド化でのFHIRバリデーションの実行が正しいかのテストができる
-    - [FhirValidationMultiThreadTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationMultiThreadTest.java)
+    - SpringBootサンプルAPでのFHIRバリデーションのマルチスレッドテスト
+        - [FhirValidationMultiThreadTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationMultiThreadTest.java)    
+    - 簡単なHAPIサンプルAPでのFHIRバリデーションのマルチスレッド実行のサンプルコード
+        - [FhirValidationMultiThreadTest.java](simplehapi/src/main/java/hapisample/ValidationInMultiThreads.java)        
     - 現状、HAPI 7.4.0にバージョンアップしたところ、テストに失敗、マルチスレッド化での実行結果が、スレッドによって異なる結果が返却されることがあり、不具合がある可能性がある。
         - HAPI 7.2.2の時には同じテストでの問題が発生しなかったため、HAPIのそれ以降のバージョンからの何らかの変更により、マルチスレッド化での実行に問題がある可能性がある。
+        - マルチスレッド化でいきなりValidatorを実行すると、SnapshotGeneratingValidationSupportでjava.util.ConcurrentModificationExceptionのエラーが発生するので、これも関係している可能性がある。
