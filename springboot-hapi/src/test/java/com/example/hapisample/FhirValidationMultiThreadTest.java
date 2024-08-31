@@ -41,6 +41,7 @@ class FhirValidationMultiThreadTest {
 	private static final int THREAD_POOL_SIZE = 10;
 	// 1テストメソッド当たりのマルチスレッドでのテスト実行回数
 	private static final int NUMBER_OF_THREADS = 100;
+	// スレッドプール
 	private final ExecutorService executor = Executors.newFixedThreadPool(THREAD_POOL_SIZE);
 
 	// テスト対象
@@ -72,7 +73,7 @@ class FhirValidationMultiThreadTest {
 		sut.init();
 	}
 
-	// データドリブンテスト
+	// 健康診断結果報告書のデータドリブンテスト
 	@ParameterizedTest
 	@MethodSource
 	void testValidateCheckupReport(String inputFilePath, String expectedResult, List<String> errorMessages)

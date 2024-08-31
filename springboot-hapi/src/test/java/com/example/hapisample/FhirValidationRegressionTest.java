@@ -64,7 +64,7 @@ class FhirValidationRegressionTest {
 	}
 
 
-	// データドリブンテスト
+	// 健康診断結果報告書のデータドリブンテスト
 	@ParameterizedTest
 	@MethodSource
 	void testValidateCheckupReport(String inputFilePath, String expectedResult, List<String> errorMessages)
