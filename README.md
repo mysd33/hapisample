@@ -486,3 +486,5 @@
 ## 11. SpringBootサンプルAPでのFHIRバリデーションのマルチスレッドテスト
 - 以下のテストコードを使うと、マルチスレッド化でのFHIRバリデーションの実行が正しいかのテストができる
     - [FhirValidationMultiThreadTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationMultiThreadTest.java)    
+    - 簡単なHAPIサンプルAPでのFHIRバリデーションのマルチスレッド実行のサンプルコード
+        - [FhirValidationMultiThreadTest.java](simplehapi/src/main/java/hapisample/ValidationInMultiThreads.java)       
