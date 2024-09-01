@@ -484,7 +484,9 @@
     - ~~[FhirValidationCompareTest.java](springboot-hapi/src/test/java/com/example/hapisample/deprecated/FhirValidationCompareTest.java)~~
 
 ## 11. FHIRバリデーションのマルチスレッドテスト
- 以下のテストコードを使うと、マルチスレッド化でのFHIRバリデーションの実行が正しいかのテストができる
-    - [FhirValidationMultiThreadTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationMultiThreadTest.java)    
+- 以下のテストコードを使うと、マルチスレッド化でのFHIRバリデーションの実行が正しいかのテストができる
+    - SpringBootサンプルAPでのFHIRバリデーションのマルチスレッドテスト
+        - [FhirValidationMultiThreadTest.java](springboot-hapi/src/test/java/com/example/hapisample/FhirValidationMultiThreadTest.java)    
     - 簡単なHAPIサンプルAPでのFHIRバリデーションのマルチスレッド実行のサンプルコード
-        - [FhirValidationMultiThreadTest.java](simplehapi/src/main/java/hapisample/ValidationInMultiThreads.java)       
+        - [ValidationInMultiThreads.java](simplehapi/src/main/java/hapisample/ValidationInMultiThreads.java)        
+        - マルチスレッド化でいきなりValidatorを実行すると、SnapshotGeneratingValidationSupportでjava.util.ConcurrentModificationExceptionのエラーが発生するので、初回シングルスレッド化での暖機処理を行うようにしている。
