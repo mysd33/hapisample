@@ -3,7 +3,7 @@
   "id" : "Bundle-CLINS-Observations-Example-01",
   "meta" : {
     "lastUpdated" : "2023-11-12T10:00:00+09:00",
-    "profile" : ["http://jpfhir.jp/fhir/clins/StructureDefinition/JP_Bundle_CLINS"],
+    "profile" : ["http://jpfhir.jp/fhir/clins/StructureDefinition/JP_Bundle_CLINS|1.6.0"],
     "tag" : [{
       "system" : "http://jpfhir.jp/fhir/clins/CodeSystem/BundleResourceType_CS",
       "code" : "Observation"
@@ -22,12 +22,13 @@
       "resourceType" : "Patient",
       "id" : "InlineExample-JP-Patient-standard",
       "meta" : {
-        "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Patient_eCS"]
+        "lastUpdated" : "2023-11-12T10:00:00+09:00",
+        "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Patient_eCS|1.6.0"]
       },
       "language" : "ja",
       "text" : {
         "status" : "additional",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>患者ID：000999739</p><p>被保険者患者番号：00012345:あいう:１８７:05</p><p>漢字氏名：マキノ ランマン</p><p>カナ氏名：牧野 爛漫</p><p>電話：03-123-1234</p><p>性別：female</p><p>生年月日：1930-06-28</p><p>高知県高知市五台山4200-6</p></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"ja\" xml:lang=\"ja\"><p>患者ID：000999739</p><p>被保険者患者番号：00012345:あいう:１８７:05</p><p>漢字氏名：マキノ ランマン</p><p>カナ氏名：牧野 爛漫</p><p>電話：03-123-1234</p><p>性別：female</p><p>生年月日：1930-06-28</p><p>高知県高知市五台山4200-6</p></div>"
       },
       "identifier" : [{
         "system" : "urn:oid:1.2.392.100495.20.3.51.11318814790",
@@ -35,7 +36,7 @@
       },
       {
         "system" : "http://jpfhir.jp/fhir/clins/Idsystem/JP_Insurance_memberID",
-        "value" : "00012345:あいう:１８７:05"
+        "value" : "00012345:あいう:１８７:01"
       }],
       "name" : [{
         "extension" : [{
@@ -86,18 +87,17 @@
       "id" : "InlineExample-JP-Obs-LabResult-eCS-Alb",
       "meta" : {
         "lastUpdated" : "2021-07-09T14:11:13.000+09:00",
-        "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Observation_LabResult_eCS"]
+        "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Observation_LabResult_eCS|1.6.0"]
       },
-      "language" : "ja",
       "text" : {
         "status" : "extensions",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"ja\" lang=\"ja\"><a name=\"Observation_InlineExample-JP-Obs-LabResult-eCS-Alb\"> </a><p><b>Generated Narrative: Observation </b><a name=\"InlineExample-JP-Obs-LabResult-eCS-Alb\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-Alb\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceObservation &quot;InlineExample-JP-Obs-LabResult-eCS-Alb&quot; Updated&quot;2021-07-09 14:11:13+0900&quot;  (Language&quot;ja&quot;) </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Observation-LabResult-eCS.html\">eCS/CLINS:JP_Observation_LabResult_eCS</a></p></div><p><b>JP eCS InstitutionNumber Extension</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no</code>/1318814790</p><p><b>JP eCS Department Extension</b>: 循環器診療科 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.0&amp;canonical=urn:oid:1.2.392.200250.2.2.2\">JP Core Department SS-MIX CodeSystem</a>#08 &quot;循環器科&quot;)</span></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/1318814790-9990767-OBSLAB13883807672021070909210705-2</p><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-jp-simpleobservationcategory-cs.html\">JP Core Simple Observation Category CodeSystem</a>#laboratory)</span></p><p><b>code</b>: アルブミン <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (JP_CLINS_ObsLabResult_LocalCode_CS#0000181800; <a href=\"CodeSystem-jp-clins-codesystem-corelabo-cs.html\">CLINS 電子カルテ共有サービス用:検体検査項目セット</a>#3A015000001827101 &quot;ALB&quot;)</span></p><p><b>subject</b>: See on this page: urn:uuid:b76ef6f6-f6e3-c110-5039-eee64ef6ab6a</p><p><b>encounter</b>: <a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><blockquote><p/><p><a name=\"Example-Contained-JP-Encounter-AMB\"> </a></p><p><a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: finished</p><p><b>class</b>: 外来 (Details: ActCode code AMB  = ' ambulatory ', stated as ' 外来 ')</p></blockquote><p><b>effective</b>: 2021-07-05 11:19:41+0900</p><p><b>issued</b>: Jul 5, 2021, 6:38:59 AM</p><p><b>value</b>: 3.9 mg/L</p><p><b>specimen</b>: <a name=\"hcExample-Contained-JP-Specimen-Serum\"> </a></p><blockquote><p/><p><a name=\"Example-Contained-JP-Specimen-Serum\"> </a></p><p><a name=\"hcExample-Contained-JP-Specimen-Serum\"> </a></p><p><b>type</b>: 血清 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.0&amp;canonical=http://jpfhir.jp/fhir/core/CodeSystem/JP_ObservationSampleMaterialCode_CS\">JP Core Observation Sample-Material Code CodeSystem</a>#023; <a href=\"http://terminology.hl7.org/6.0.0/CodeSystem-v2-0487.html\">specimenType</a>#SER &quot;Serum&quot;)</span></p></blockquote><hr/><blockquote><p><b>Generated Narrative: Encounter  #Example-Contained-JP-Encounter-AMB</b><a name=\"Example-Contained-JP-Encounter-AMB\"> </a><a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: finished</p><p><b>class</b>: 外来 (Details: ActCode code AMB  = ' ambulatory ', stated as ' 外来 ')</p></blockquote><hr/><blockquote><p><b>Generated Narrative: Specimen  #Example-Contained-JP-Specimen-Serum</b><a name=\"Example-Contained-JP-Specimen-Serum\"> </a><a name=\"hcExample-Contained-JP-Specimen-Serum\"> </a></p><p><b>type</b>: 血清 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.0&amp;canonical=http://jpfhir.jp/fhir/core/CodeSystem/JP_ObservationSampleMaterialCode_CS\">JP Core Observation Sample-Material Code CodeSystem</a>#023; <a href=\"http://terminology.hl7.org/6.0.0/CodeSystem-v2-0487.html\">specimenType</a>#SER &quot;Serum&quot;)</span></p></blockquote></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\"><a name=\"Observation_InlineExample-JP-Obs-LabResult-eCS-Alb\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation InlineExample-JP-Obs-LabResult-eCS-Alb</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-Alb\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-Alb\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-Alb-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Last updated: 2021-07-09 14:11:13+0900</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Observation-LabResult-eCS.html\">JP_Observation_LabResult_eCSversion: null1.6.0)</a></p></div><p><b>JP eCS InstitutionNumber Extension</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no</code>/1318814790</p><p><b>JP eCS Department Extension</b>: <span title=\"Codes:{http://jami.jp/SS-MIX2/CodeSystem/ClinicalDepartment 08}\">循環器診療科</span></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/1318814790-9990767-OBSLAB13883807672021070909210705-2</p><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://jpfhir.jp/fhir/clins/CodeSystem/JP_CLINS_ObsLabResult_LocalCode_CS 0000181800}, {http://jpfhir.jp/fhir/clins/CodeSystem/JLAC10/JP_CLINS_ObsLabResult_CoreLabo_CS 3A015000001827101}\">アルブミン</span></p><p><b>subject</b>: <a href=\"Bundle-Bundle-CLINS-Observations-Example-01.html#urn-uuid-b76ef6f6-f6e3-c110-5039-eee64ef6ab6a\">Bundle: identifier = http://jpfhir.jp/fhir/clins/bundle-identifier#1318814790^2024^0123-IDa-203949583949; type = collection; timestamp = 2023-11-12 10:00:00+0900</a></p><p><b>encounter</b>: <a href=\"#hcInlineExample-JP-Obs-LabResult-eCS-Alb/Example-Contained-JP-Encounter-AMB\">Encounter: identifier = http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier#192844; status = finished; class = 外来 (ActCode#AMB)</a></p><p><b>effective</b>: 2021-07-05 11:19:41+0900</p><p><b>issued</b>: 2021-07-05 15:38:59+0900</p><p><b>performer</b>: <a href=\"#hcInlineExample-JP-Obs-LabResult-eCS-Alb/Example-Contained-JP-Practitioner-minimun-D002\">Practitioner 田中 宏</a></p><p><b>value</b>: 3.9 mg/L</p><p><b>note</b>: Observationリソース（検体検査結果）アルブミン\u30003.9\u3000mg/L\u3000\u3000ローカルコード=0000181800 臨床検査項目基本コードJLAC10=3A015000001827101 検体：血清(埋込みリソース）\u3000診療科：循環器診療科</p><p><b>specimen</b>: <a href=\"#hcInlineExample-JP-Obs-LabResult-eCS-Alb/Example-Contained-JP-Specimen-Serum\">Specimen: type = 血清</a></p><hr/><blockquote><p class=\"res-header-id\"><b>Generated Narrative: Encounter  #Example-Contained-JP-Encounter-AMB</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-Alb/Example-Contained-JP-Encounter-AMB\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-Alb/Example-Contained-JP-Encounter-AMB\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-Alb/Example-Contained-JP-Encounter-AMB-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Language: ja</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Encounter-eCS.html\">JP_Encounter-eCS</a></p></div><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: Finished</p><p><b>class</b>: <a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.4-url&amp;canonical=http://terminology.hl7.org/CodeSystem/v3-ActCode#v3-ActCode-AMB\">ActCode AMB</a>: 外来</p></blockquote><hr/><blockquote><p class=\"res-header-id\"><b>Generated Narrative: Specimen  #Example-Contained-JP-Specimen-Serum</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-Alb/Example-Contained-JP-Specimen-Serum\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-Alb/Example-Contained-JP-Specimen-Serum\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-Alb/Example-Contained-JP-Specimen-Serum-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Language: ja</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"https://simplifier.net/resolve?scope=jp-core.r4@1.1.2-clins&amp;canonical=http://jpfhir.jp/fhir/core/StructureDefinition/JP_Specimen\">JP_Specimen</a></p></div><p><b>type</b>: <span title=\"Codes:{http://jpfhir.jp/fhir/core/CodeSystem/JP_ObservationSampleMaterialCode_CS 023}, {http://terminology.hl7.org/CodeSystem/v2-0487 SER}\">血清</span></p></blockquote><hr/><blockquote><p class=\"res-header-id\"><b>Generated Narrative: Practitioner  #Example-Contained-JP-Practitioner-minimun-D002</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-Alb/Example-Contained-JP-Practitioner-minimun-D002\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-Alb/Example-Contained-JP-Practitioner-minimun-D002\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-Alb/Example-Contained-JP-Practitioner-minimun-D002-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Language: ja</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"https://simplifier.net/resolve?scope=jp-core.r4@1.1.2-clins&amp;canonical=http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner\">JP Core Practitioner Profile</a></p></div><p><b>identifier</b>: <code>urn:oid:1.2.392.100495.20.3.41.11311234567</code>/D001</p><p><b>name</b>: 田中 宏</p></blockquote></div>"
       },
       "contained" : [{
         "resourceType" : "Encounter",
         "id" : "Example-Contained-JP-Encounter-AMB",
         "meta" : {
-          "profile" : ["http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter"]
+          "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Encounter_eCS"]
         },
         "language" : "ja",
         "identifier" : [{
@@ -131,6 +131,25 @@
           }],
           "text" : "血清"
         }
+      },
+      {
+        "resourceType" : "Practitioner",
+        "id" : "Example-Contained-JP-Practitioner-minimun-D002",
+        "meta" : {
+          "profile" : ["http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner"]
+        },
+        "language" : "ja",
+        "identifier" : [{
+          "system" : "urn:oid:1.2.392.100495.20.3.41.11311234567",
+          "value" : "D001"
+        }],
+        "name" : [{
+          "extension" : [{
+            "url" : "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+            "valueCode" : "IDE"
+          }],
+          "text" : "田中 宏"
+        }]
       }],
       "extension" : [{
         "url" : "http://jpfhir.jp/fhir/clins/Extension/StructureDefinition/JP_eCS_InstitutionNumber",
@@ -143,7 +162,7 @@
         "url" : "http://jpfhir.jp/fhir/eCS/Extension/StructureDefinition/JP_eCS_Department",
         "valueCodeableConcept" : {
           "coding" : [{
-            "system" : "urn:oid:1.2.392.200250.2.2.2",
+            "system" : "http://jami.jp/SS-MIX2/CodeSystem/ClinicalDepartment",
             "code" : "08",
             "display" : "循環器科"
           }],
@@ -168,7 +187,7 @@
           "display" : "アルブミン"
         },
         {
-          "system" : "http://jpfhir.jp/fhir/clins/CodeSystem/JP_CLINS_ObsLabResult_CoreLabo_CS",
+          "system" : "http://jpfhir.jp/fhir/clins/CodeSystem/JLAC10/JP_CLINS_ObsLabResult_CoreLabo_CS",
           "code" : "3A015000001827101",
           "display" : "ALB"
         }],
@@ -182,10 +201,16 @@
       },
       "effectiveDateTime" : "2021-07-05T11:19:41+09:00",
       "issued" : "2021-07-05T15:38:59.000+09:00",
+      "performer" : [{
+        "reference" : "#Example-Contained-JP-Practitioner-minimun-D002"
+      }],
       "valueQuantity" : {
         "value" : 3.9,
         "unit" : "mg/L"
       },
+      "note" : [{
+        "text" : "Observationリソース（検体検査結果）アルブミン\u30003.9\u3000mg/L\u3000\u3000ローカルコード=0000181800 臨床検査項目基本コードJLAC10=3A015000001827101 検体：血清(埋込みリソース）\u3000診療科：循環器診療科"
+      }],
       "specimen" : {
         "reference" : "#Example-Contained-JP-Specimen-Serum",
         "type" : "Specimen"
@@ -204,13 +229,13 @@
       "language" : "ja",
       "text" : {
         "status" : "extensions",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"ja\" lang=\"ja\"><a name=\"Observation_InlineExample-JP-Obs-LabResult-eCS-K\"> </a><p><b>Generated Narrative: Observation </b><a name=\"InlineExample-JP-Obs-LabResult-eCS-K\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-K\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceObservation &quot;InlineExample-JP-Obs-LabResult-eCS-K&quot; Updated&quot;2021-07-09 14:11:13+0900&quot;  (Language&quot;ja&quot;) </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Observation-LabResult-eCS.html\">eCS/CLINS:JP_Observation_LabResult_eCS</a></p></div><p><b>JP eCS InstitutionNumber Extension</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no</code>/1318814790</p><p><b>JP eCS Department Extension</b>: 循環器診療科 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.0&amp;canonical=urn:oid:1.2.392.200250.2.2.2\">JP Core Department SS-MIX CodeSystem</a>#08 &quot;循環器科&quot;)</span></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/1318814790-9990767-OBSLAB13883807672021070909210705-2</p><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-jp-simpleobservationcategory-cs.html\">JP Core Simple Observation Category CodeSystem</a>#laboratory)</span></p><p><b>code</b>: カリウム <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (JP_CLINS_ObsLabResult_LocalCode_CS#10000181802; <a href=\"CodeSystem-jp-clins-codesystem-corelabo-cs.html\">CLINS 電子カルテ共有サービス用:検体検査項目セット</a>#3H015000002326101 &quot;K&quot;; <a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.0&amp;canonical=urn:oid:1.2.392.200119.4.504\">JP Core Observation LabResult Code CodeSystem</a>#3H015000002326101 &quot;K&quot;)</span></p><p><b>subject</b>: See on this page: urn:uuid:b76ef6f6-f6e3-c110-5039-eee64ef6ab6a</p><p><b>encounter</b>: <a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><blockquote><p/><p><a name=\"Example-Contained-JP-Encounter-AMB\"> </a></p><p><a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: finished</p><p><b>class</b>: 外来 (Details: ActCode code AMB  = ' ambulatory ', stated as ' 外来 ')</p></blockquote><p><b>effective</b>: 2021-07-05 11:19:41+0900</p><p><b>issued</b>: Jul 5, 2021, 6:38:59 AM</p><p><b>value</b>: 3.5 mEq/L</p><p><b>specimen</b>: <span>: 血清</span></p><hr/><blockquote><p><b>Generated Narrative: Encounter  #Example-Contained-JP-Encounter-AMB</b><a name=\"Example-Contained-JP-Encounter-AMB\"> </a><a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: finished</p><p><b>class</b>: 外来 (Details: ActCode code AMB  = ' ambulatory ', stated as ' 外来 ')</p></blockquote></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"ja\" lang=\"ja\"><a name=\"Observation_InlineExample-JP-Obs-LabResult-eCS-K\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation InlineExample-JP-Obs-LabResult-eCS-K</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-K\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-K\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-K-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Last updated: 2021-07-09 14:11:13+0900; Language: ja</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Observation-LabResult-eCS.html\">JP_Observation_LabResult_eCS</a></p></div><p><b>JP eCS InstitutionNumber Extension</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no</code>/1318814790</p><p><b>JP eCS Department Extension</b>: <span title=\"Codes:{http://jami.jp/SS-MIX2/CodeSystem/ClinicalDepartment 08}\">循環器診療科</span></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/1318814790-9990767-OBSLAB13883807672021070909210705-2</p><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://jpfhir.jp/fhir/clins/CodeSystem/JP_CLINS_ObsLabResult_LocalCode_CS 10000181802}, {http://jpfhir.jp/fhir/clins/CodeSystem/JLAC10/JP_CLINS_ObsLabResult_CoreLabo_CS 3H015000002326101}, {http://medis.or.jp/CodeSystem/master-JLAC10-17digits 3H015000002326101}\">カリウム</span></p><p><b>subject</b>: <a href=\"Bundle-Bundle-CLINS-Observations-Example-01.html#urn-uuid-b76ef6f6-f6e3-c110-5039-eee64ef6ab6a\">Bundle: identifier = http://jpfhir.jp/fhir/clins/bundle-identifier#1318814790^2024^0123-IDa-203949583949; type = collection; timestamp = 2023-11-12 10:00:00+0900</a></p><p><b>encounter</b>: <a href=\"#hcInlineExample-JP-Obs-LabResult-eCS-K/Example-Contained-JP-Encounter-AMB\">Encounter: identifier = http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier#192844; status = finished; class = 外来 (ActCode#AMB)</a></p><p><b>effective</b>: 2021-07-05 11:19:41+0900</p><p><b>issued</b>: 2021-07-05 15:38:59+0900</p><p><b>performer</b>: <a href=\"#hcInlineExample-JP-Obs-LabResult-eCS-K/Example-Contained-JP-Practitioner-minimun-D002\">Practitioner 田中 宏</a></p><p><b>value</b>: 3.5 mEq/L</p><p><b>specimen</b>: 血清</p><hr/><blockquote><p class=\"res-header-id\"><b>Generated Narrative: Encounter  #Example-Contained-JP-Encounter-AMB</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-K/Example-Contained-JP-Encounter-AMB\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-K/Example-Contained-JP-Encounter-AMB\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-K/Example-Contained-JP-Encounter-AMB-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Language: ja</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Encounter-eCS.html\">JP_Encounter-eCS</a></p></div><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: Finished</p><p><b>class</b>: <a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.4-url&amp;canonical=http://terminology.hl7.org/CodeSystem/v3-ActCode#v3-ActCode-AMB\">ActCode AMB</a>: 外来</p></blockquote><hr/><blockquote><p class=\"res-header-id\"><b>Generated Narrative: Practitioner  #Example-Contained-JP-Practitioner-minimun-D002</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-K/Example-Contained-JP-Practitioner-minimun-D002\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-K/Example-Contained-JP-Practitioner-minimun-D002\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-K/Example-Contained-JP-Practitioner-minimun-D002-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Language: ja</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"https://simplifier.net/resolve?scope=jp-core.r4@1.1.2-clins&amp;canonical=http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner\">JP Core Practitioner Profile</a></p></div><p><b>identifier</b>: <code>urn:oid:1.2.392.100495.20.3.41.11311234567</code>/D001</p><p><b>name</b>: 田中 宏</p></blockquote></div>"
       },
       "contained" : [{
         "resourceType" : "Encounter",
         "id" : "Example-Contained-JP-Encounter-AMB",
         "meta" : {
-          "profile" : ["http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter"]
+          "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Encounter_eCS"]
         },
         "language" : "ja",
         "identifier" : [{
@@ -223,6 +248,25 @@
           "code" : "AMB",
           "display" : "外来"
         }
+      },
+      {
+        "resourceType" : "Practitioner",
+        "id" : "Example-Contained-JP-Practitioner-minimun-D002",
+        "meta" : {
+          "profile" : ["http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner"]
+        },
+        "language" : "ja",
+        "identifier" : [{
+          "system" : "urn:oid:1.2.392.100495.20.3.41.11311234567",
+          "value" : "D001"
+        }],
+        "name" : [{
+          "extension" : [{
+            "url" : "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+            "valueCode" : "IDE"
+          }],
+          "text" : "田中 宏"
+        }]
       }],
       "extension" : [{
         "url" : "http://jpfhir.jp/fhir/clins/Extension/StructureDefinition/JP_eCS_InstitutionNumber",
@@ -235,7 +279,7 @@
         "url" : "http://jpfhir.jp/fhir/eCS/Extension/StructureDefinition/JP_eCS_Department",
         "valueCodeableConcept" : {
           "coding" : [{
-            "system" : "urn:oid:1.2.392.200250.2.2.2",
+            "system" : "http://jami.jp/SS-MIX2/CodeSystem/ClinicalDepartment",
             "code" : "08",
             "display" : "循環器科"
           }],
@@ -260,14 +304,14 @@
           "display" : "カリウム"
         },
         {
-          "system" : "http://jpfhir.jp/fhir/clins/CodeSystem/JP_CLINS_ObsLabResult_CoreLabo_CS",
+          "system" : "http://jpfhir.jp/fhir/clins/CodeSystem/JLAC10/JP_CLINS_ObsLabResult_CoreLabo_CS",
           "code" : "3H015000002326101",
           "display" : "K"
         },
         {
-          "system" : "urn:oid:1.2.392.200119.4.504",
+          "system" : "http://medis.or.jp/CodeSystem/master-JLAC10-17digits",
           "code" : "3H015000002326101",
-          "display" : "K"
+          "display" : "カリウム_血清_電位差測定_定量値"
         }],
         "text" : "カリウム"
       },
@@ -279,6 +323,9 @@
       },
       "effectiveDateTime" : "2021-07-05T11:19:41+09:00",
       "issued" : "2021-07-05T15:38:59.000+09:00",
+      "performer" : [{
+        "reference" : "#Example-Contained-JP-Practitioner-minimun-D002"
+      }],
       "valueQuantity" : {
         "value" : 3.5,
         "unit" : "mEq/L"
@@ -301,13 +348,13 @@
       "language" : "ja",
       "text" : {
         "status" : "extensions",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"ja\" lang=\"ja\"><a name=\"Observation_InlineExample-JP-Obs-LabResult-eCS-eGFR\"> </a><p><b>Generated Narrative: Observation </b><a name=\"InlineExample-JP-Obs-LabResult-eCS-eGFR\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-eGFR\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceObservation &quot;InlineExample-JP-Obs-LabResult-eCS-eGFR&quot; Updated&quot;2021-07-09 14:11:13+0900&quot;  (Language&quot;ja&quot;) </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Observation-LabResult-eCS.html\">eCS/CLINS:JP_Observation_LabResult_eCS</a></p></div><p><b>JP eCS InstitutionNumber Extension</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no</code>/1318814790</p><p><b>JP eCS Department Extension</b>: 循環器診療科 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.0&amp;canonical=urn:oid:1.2.392.200250.2.2.2\">JP Core Department SS-MIX CodeSystem</a>#08 &quot;循環器科&quot;)</span></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/1318814790-9990767-OBSLAB13883807672021070909210705-2</p><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-jp-simpleobservationcategory-cs.html\">JP Core Simple Observation Category CodeSystem</a>#laboratory)</span></p><p><b>code</b>: eGFR <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (JP_CLINS_ObsLabResult_LocalCode_CS#0000181910; <a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.0&amp;canonical=urn:oid:1.2.392.200119.4.504\">JP Core Observation LabResult Code CodeSystem</a>#8A065000002391901 &quot;推算GFR&quot;)</span></p><p><b>subject</b>: See on this page: urn:uuid:b76ef6f6-f6e3-c110-5039-eee64ef6ab6a</p><p><b>encounter</b>: <a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><blockquote><p/><p><a name=\"Example-Contained-JP-Encounter-AMB\"> </a></p><p><a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: finished</p><p><b>class</b>: 外来 (Details: ActCode code AMB  = ' ambulatory ', stated as ' 外来 ')</p></blockquote><p><b>effective</b>: 2021-07-05 11:19:41+0900</p><p><b>issued</b>: Jul 5, 2021, 6:38:59 AM</p><p><b>value</b>: 75 ml/min/1.73m2</p><p><b>specimen</b>: <span>: 血清</span></p><hr/><blockquote><p><b>Generated Narrative: Encounter  #Example-Contained-JP-Encounter-AMB</b><a name=\"Example-Contained-JP-Encounter-AMB\"> </a><a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: finished</p><p><b>class</b>: 外来 (Details: ActCode code AMB  = ' ambulatory ', stated as ' 外来 ')</p></blockquote></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"ja\" lang=\"ja\"><a name=\"Observation_InlineExample-JP-Obs-LabResult-eCS-eGFR\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation InlineExample-JP-Obs-LabResult-eCS-eGFR</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-eGFR\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-eGFR\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-eGFR-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Last updated: 2021-07-09 14:11:13+0900; Language: ja</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Observation-LabResult-eCS.html\">JP_Observation_LabResult_eCS</a></p></div><p><b>JP eCS InstitutionNumber Extension</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no</code>/1318814790</p><p><b>JP eCS Department Extension</b>: <span title=\"Codes:{http://jami.jp/SS-MIX2/CodeSystem/ClinicalDepartment 08}\">循環器診療科</span></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/1318814790-9990767-OBSLAB13883807672021070909210705-2</p><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://jpfhir.jp/fhir/clins/CodeSystem/JP_CLINS_ObsLabResult_LocalCode_CS 0000181910}, {http://medis.or.jp/CodeSystem/master-JLAC10-17digits 8A065000002391901}\">eGFR</span></p><p><b>subject</b>: <a href=\"Bundle-Bundle-CLINS-Observations-Example-01.html#urn-uuid-b76ef6f6-f6e3-c110-5039-eee64ef6ab6a\">Bundle: identifier = http://jpfhir.jp/fhir/clins/bundle-identifier#1318814790^2024^0123-IDa-203949583949; type = collection; timestamp = 2023-11-12 10:00:00+0900</a></p><p><b>encounter</b>: <a href=\"#hcInlineExample-JP-Obs-LabResult-eCS-eGFR/Example-Contained-JP-Encounter-AMB\">Encounter: identifier = http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier#192844; status = finished; class = 外来 (ActCode#AMB)</a></p><p><b>effective</b>: 2021-07-05 11:19:41+0900</p><p><b>issued</b>: 2021-07-05 15:38:59+0900</p><p><b>performer</b>: <a href=\"#hcInlineExample-JP-Obs-LabResult-eCS-eGFR/Example-Contained-JP-Practitioner-minimun-D002\">Practitioner 田中 宏</a></p><p><b>value</b>: 75 ml/min/1.73m2</p><p><b>specimen</b>: 血清</p><hr/><blockquote><p class=\"res-header-id\"><b>Generated Narrative: Encounter  #Example-Contained-JP-Encounter-AMB</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-eGFR/Example-Contained-JP-Encounter-AMB\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-eGFR/Example-Contained-JP-Encounter-AMB\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-eGFR/Example-Contained-JP-Encounter-AMB-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Language: ja</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Encounter-eCS.html\">JP_Encounter-eCS</a></p></div><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: Finished</p><p><b>class</b>: <a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.4-url&amp;canonical=http://terminology.hl7.org/CodeSystem/v3-ActCode#v3-ActCode-AMB\">ActCode AMB</a>: 外来</p></blockquote><hr/><blockquote><p class=\"res-header-id\"><b>Generated Narrative: Practitioner  #Example-Contained-JP-Practitioner-minimun-D002</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-eGFR/Example-Contained-JP-Practitioner-minimun-D002\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-eGFR/Example-Contained-JP-Practitioner-minimun-D002\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-eGFR/Example-Contained-JP-Practitioner-minimun-D002-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Language: ja</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"https://simplifier.net/resolve?scope=jp-core.r4@1.1.2-clins&amp;canonical=http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner\">JP Core Practitioner Profile</a></p></div><p><b>identifier</b>: <code>urn:oid:1.2.392.100495.20.3.41.11311234567</code>/D001</p><p><b>name</b>: 田中 宏</p></blockquote></div>"
       },
       "contained" : [{
         "resourceType" : "Encounter",
         "id" : "Example-Contained-JP-Encounter-AMB",
         "meta" : {
-          "profile" : ["http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter"]
+          "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Encounter_eCS"]
         },
         "language" : "ja",
         "identifier" : [{
@@ -320,6 +367,25 @@
           "code" : "AMB",
           "display" : "外来"
         }
+      },
+      {
+        "resourceType" : "Practitioner",
+        "id" : "Example-Contained-JP-Practitioner-minimun-D002",
+        "meta" : {
+          "profile" : ["http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner"]
+        },
+        "language" : "ja",
+        "identifier" : [{
+          "system" : "urn:oid:1.2.392.100495.20.3.41.11311234567",
+          "value" : "D001"
+        }],
+        "name" : [{
+          "extension" : [{
+            "url" : "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+            "valueCode" : "IDE"
+          }],
+          "text" : "田中 宏"
+        }]
       }],
       "extension" : [{
         "url" : "http://jpfhir.jp/fhir/clins/Extension/StructureDefinition/JP_eCS_InstitutionNumber",
@@ -332,7 +398,7 @@
         "url" : "http://jpfhir.jp/fhir/eCS/Extension/StructureDefinition/JP_eCS_Department",
         "valueCodeableConcept" : {
           "coding" : [{
-            "system" : "urn:oid:1.2.392.200250.2.2.2",
+            "system" : "http://jami.jp/SS-MIX2/CodeSystem/ClinicalDepartment",
             "code" : "08",
             "display" : "循環器科"
           }],
@@ -357,7 +423,7 @@
           "display" : "eGFR"
         },
         {
-          "system" : "urn:oid:1.2.392.200119.4.504",
+          "system" : "http://medis.or.jp/CodeSystem/master-JLAC10-17digits",
           "code" : "8A065000002391901",
           "display" : "推算GFR"
         }],
@@ -371,6 +437,9 @@
       },
       "effectiveDateTime" : "2021-07-05T11:19:41+09:00",
       "issued" : "2021-07-05T15:38:59.000+09:00",
+      "performer" : [{
+        "reference" : "#Example-Contained-JP-Practitioner-minimun-D002"
+      }],
       "valueQuantity" : {
         "value" : 75,
         "unit" : "ml/min/1.73m2"
@@ -393,13 +462,13 @@
       "language" : "ja",
       "text" : {
         "status" : "extensions",
-        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"ja\" lang=\"ja\"><a name=\"Observation_InlineExample-JP-Obs-LabResult-eCS-UTP\"> </a><p><b>Generated Narrative: Observation </b><a name=\"InlineExample-JP-Obs-LabResult-eCS-UTP\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-UTP\"> </a></p><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">ResourceObservation &quot;InlineExample-JP-Obs-LabResult-eCS-UTP&quot; Updated&quot;2021-07-09 14:11:13+0900&quot;  (Language&quot;ja&quot;) </p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Observation-LabResult-eCS.html\">eCS/CLINS:JP_Observation_LabResult_eCS</a></p></div><p><b>JP eCS InstitutionNumber Extension</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no</code>/1318814790</p><p><b>JP eCS Department Extension</b>: 循環器診療科 <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.0&amp;canonical=urn:oid:1.2.392.200250.2.2.2\">JP Core Department SS-MIX CodeSystem</a>#08 &quot;循環器科&quot;)</span></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/1318814790-9990767-OBSLAB13883807672021070909210705-2</p><p><b>status</b>: final</p><p><b>category</b>: Laboratory <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (<a href=\"CodeSystem-jp-simpleobservationcategory-cs.html\">JP Core Simple Observation Category CodeSystem</a>#laboratory)</span></p><p><b>code</b>: 尿蛋⽩(定性) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (JP_CLINS_ObsLabResult_LocalCode_CS#1A990000000190153; <a href=\"CodeSystem-jp-clins-codesystem-corelabo-cs.html\">CLINS 電子カルテ共有サービス用:検体検査項目セット</a>#1A990000000190153 &quot;U-TP-定性半定量&quot;)</span></p><p><b>subject</b>: See on this page: urn:uuid:b76ef6f6-f6e3-c110-5039-eee64ef6ab6a</p><p><b>encounter</b>: <a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><blockquote><p/><p><a name=\"Example-Contained-JP-Encounter-AMB\"> </a></p><p><a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: finished</p><p><b>class</b>: 外来 (Details: ActCode code AMB  = ' ambulatory ', stated as ' 外来 ')</p></blockquote><p><b>effective</b>: 2021-07-05 11:19:41+0900</p><p><b>issued</b>: Jul 5, 2021, 6:38:59 AM</p><p><b>value</b>: (±) <span style=\"background: LightGoldenRodYellow; margin: 4px; border: 1px solid khaki\"> (unknown#2 &quot;±&quot;)</span></p><p><b>specimen</b>: <span>: 尿</span></p><hr/><blockquote><p><b>Generated Narrative: Encounter  #Example-Contained-JP-Encounter-AMB</b><a name=\"Example-Contained-JP-Encounter-AMB\"> </a><a name=\"hcExample-Contained-JP-Encounter-AMB\"> </a></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: finished</p><p><b>class</b>: 外来 (Details: ActCode code AMB  = ' ambulatory ', stated as ' 外来 ')</p></blockquote></div>"
+        "div" : "<div xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"ja\" lang=\"ja\"><a name=\"Observation_InlineExample-JP-Obs-LabResult-eCS-UTP\"> </a><p class=\"res-header-id\"><b>Generated Narrative: Observation InlineExample-JP-Obs-LabResult-eCS-UTP</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-UTP\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-UTP\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-UTP-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Last updated: 2021-07-09 14:11:13+0900; Language: ja</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Observation-LabResult-eCS.html\">JP_Observation_LabResult_eCS</a></p></div><p><b>JP eCS InstitutionNumber Extension</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/insurance-medical-institution-no</code>/1318814790</p><p><b>JP eCS Department Extension</b>: <span title=\"Codes:{http://jami.jp/SS-MIX2/CodeSystem/ClinicalDepartment 08}\">循環器診療科</span></p><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/1318814790-9990767-OBSLAB13883807672021070909210705-2</p><p><b>status</b>: Final</p><p><b>category</b>: <span title=\"Codes:{http://jpfhir.jp/fhir/core/CodeSystem/JP_SimpleObservationCategory_CS laboratory}\">Laboratory</span></p><p><b>code</b>: <span title=\"Codes:{http://jpfhir.jp/fhir/clins/CodeSystem/JP_CLINS_ObsLabResult_LocalCode_CS 1A990000000190153}, {http://jpfhir.jp/fhir/clins/CodeSystem/JLAC10/JP_CLINS_ObsLabResult_CoreLabo_CS 1A990000000190153}\">尿蛋⽩(定性)</span></p><p><b>subject</b>: <a href=\"Bundle-Bundle-CLINS-Observations-Example-01.html#urn-uuid-b76ef6f6-f6e3-c110-5039-eee64ef6ab6a\">Bundle: identifier = http://jpfhir.jp/fhir/clins/bundle-identifier#1318814790^2024^0123-IDa-203949583949; type = collection; timestamp = 2023-11-12 10:00:00+0900</a></p><p><b>encounter</b>: <a href=\"#hcInlineExample-JP-Obs-LabResult-eCS-UTP/Example-Contained-JP-Encounter-AMB\">Encounter: identifier = http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier#192844; status = finished; class = 外来 (ActCode#AMB)</a></p><p><b>effective</b>: 2021-07-05 11:19:41+0900</p><p><b>issued</b>: 2021-07-05 15:38:59+0900</p><p><b>performer</b>: <a href=\"#hcInlineExample-JP-Obs-LabResult-eCS-UTP/Example-Contained-JP-Practitioner-minimun-D002\">Practitioner 田中 宏</a></p><p><b>value</b>: <span title=\"Codes:{urn:oid:1.2.392.200119.6.2102 2}\">(±)</span></p><p><b>specimen</b>: 尿</p><hr/><blockquote><p class=\"res-header-id\"><b>Generated Narrative: Encounter  #Example-Contained-JP-Encounter-AMB</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-UTP/Example-Contained-JP-Encounter-AMB\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-UTP/Example-Contained-JP-Encounter-AMB\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-UTP/Example-Contained-JP-Encounter-AMB-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Language: ja</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"StructureDefinition-JP-Encounter-eCS.html\">JP_Encounter-eCS</a></p></div><p><b>identifier</b>: <code>http://jpfhir.jp/fhir/core/IdSystem/resourceInstance-identifier</code>/192844</p><p><b>status</b>: Finished</p><p><b>class</b>: <a href=\"https://simplifier.net/resolve?scope=jpfhir-terminology@1.2.4-url&amp;canonical=http://terminology.hl7.org/CodeSystem/v3-ActCode#v3-ActCode-AMB\">ActCode AMB</a>: 外来</p></blockquote><hr/><blockquote><p class=\"res-header-id\"><b>Generated Narrative: Practitioner  #Example-Contained-JP-Practitioner-minimun-D002</b></p><a name=\"InlineExample-JP-Obs-LabResult-eCS-UTP/Example-Contained-JP-Practitioner-minimun-D002\"> </a><a name=\"hcInlineExample-JP-Obs-LabResult-eCS-UTP/Example-Contained-JP-Practitioner-minimun-D002\"> </a><a name=\"InlineExample-JP-Obs-LabResult-eCS-UTP/Example-Contained-JP-Practitioner-minimun-D002-ja-JP\"> </a><div style=\"display: inline-block; background-color: #d9e0e7; padding: 6px; margin: 4px; border: 1px solid #8da1b4; border-radius: 5px; line-height: 60%\"><p style=\"margin-bottom: 0px\">Language: ja</p><p style=\"margin-bottom: 0px\">Profile: <a href=\"https://simplifier.net/resolve?scope=jp-core.r4@1.1.2-clins&amp;canonical=http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner\">JP Core Practitioner Profile</a></p></div><p><b>identifier</b>: <code>urn:oid:1.2.392.100495.20.3.41.11311234567</code>/D001</p><p><b>name</b>: 田中 宏</p></blockquote></div>"
       },
       "contained" : [{
         "resourceType" : "Encounter",
         "id" : "Example-Contained-JP-Encounter-AMB",
         "meta" : {
-          "profile" : ["http://jpfhir.jp/fhir/core/StructureDefinition/JP_Encounter"]
+          "profile" : ["http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Encounter_eCS"]
         },
         "language" : "ja",
         "identifier" : [{
@@ -412,6 +481,25 @@
           "code" : "AMB",
           "display" : "外来"
         }
+      },
+      {
+        "resourceType" : "Practitioner",
+        "id" : "Example-Contained-JP-Practitioner-minimun-D002",
+        "meta" : {
+          "profile" : ["http://jpfhir.jp/fhir/core/StructureDefinition/JP_Practitioner"]
+        },
+        "language" : "ja",
+        "identifier" : [{
+          "system" : "urn:oid:1.2.392.100495.20.3.41.11311234567",
+          "value" : "D001"
+        }],
+        "name" : [{
+          "extension" : [{
+            "url" : "http://hl7.org/fhir/StructureDefinition/iso21090-EN-representation",
+            "valueCode" : "IDE"
+          }],
+          "text" : "田中 宏"
+        }]
       }],
       "extension" : [{
         "url" : "http://jpfhir.jp/fhir/clins/Extension/StructureDefinition/JP_eCS_InstitutionNumber",
@@ -424,7 +512,7 @@
         "url" : "http://jpfhir.jp/fhir/eCS/Extension/StructureDefinition/JP_eCS_Department",
         "valueCodeableConcept" : {
           "coding" : [{
-            "system" : "urn:oid:1.2.392.200250.2.2.2",
+            "system" : "http://jami.jp/SS-MIX2/CodeSystem/ClinicalDepartment",
             "code" : "08",
             "display" : "循環器科"
           }],
@@ -446,12 +534,12 @@
         "coding" : [{
           "system" : "http://jpfhir.jp/fhir/clins/CodeSystem/JP_CLINS_ObsLabResult_LocalCode_CS",
           "code" : "1A990000000190153",
-          "display" : "尿蛋⽩(定性)"
+          "display" : "尿蛋白(定性)"
         },
         {
-          "system" : "http://jpfhir.jp/fhir/clins/CodeSystem/JP_CLINS_ObsLabResult_CoreLabo_CS",
+          "system" : "http://jpfhir.jp/fhir/clins/CodeSystem/JLAC10/JP_CLINS_ObsLabResult_CoreLabo_CS",
           "code" : "1A990000000190153",
-          "display" : "U-TP-定性半定量"
+          "display" : "尿蛋白(定性)"
         }],
         "text" : "尿蛋⽩(定性)"
       },
@@ -463,6 +551,9 @@
       },
       "effectiveDateTime" : "2021-07-05T11:19:41+09:00",
       "issued" : "2021-07-05T15:38:59.000+09:00",
+      "performer" : [{
+        "reference" : "#Example-Contained-JP-Practitioner-minimun-D002"
+      }],
       "valueCodeableConcept" : {
         "coding" : [{
           "system" : "urn:oid:1.2.392.200119.6.2102",

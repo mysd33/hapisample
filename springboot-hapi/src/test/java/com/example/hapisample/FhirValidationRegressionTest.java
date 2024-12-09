@@ -30,98 +30,95 @@ import ch.qos.logback.classic.Logger;
  * プロファイルの改訂やHAPIのバージョンアップ等の際、SpringBootを起動することなく、バリデーションのロジックのみを高速に自動回帰テストできるようにする仕組みを想定したテストコード
  */
 class FhirValidationRegressionTest {
-	// 暖機処理用のFHIRのデータファイル
-	private static final String INIT_FOR_FHIR_CLINS_FILE_PATH = "file/Bundle-Bundle-CLINS-Referral-Example-01.json";
-	private static final String INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH = "file/Bundle-Bundle-eCheckupReport-Sample-01.json";
+    // 暖機処理用のFHIRのデータファイル
+    private static final String INIT_FOR_FHIR_CLINS_FILE_PATH = "file/Bundle-Bundle-CLINS-Referral-Example-01.json";
+    private static final String INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH = "file/Bundle-Bundle-eCheckupReport-Sample-01.json";
 
-	// テスト対象
-	private static FhirValidationServiceImpl sut;
+    // テスト対象
+    private static FhirValidationServiceImpl sut;
 
-	// テスト対象を高速に起動できるように@BeforeAllで初期化しておく
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-		// ログをデバックレベルに設定
-		((Logger) LoggerFactory.getLogger(FhirConfig.class)).setLevel(Level.DEBUG);
-		((Logger) LoggerFactory.getLogger(FhirValidationServiceImpl.class)).setLevel(Level.DEBUG);
-		// FhirConfigのBean定義通りに、FhirValidationServiceImplインスタンスを作成
-		FhirConfig fhirConfig = new FhirConfig();
-		FhirContext ctx = fhirConfig.fhirContext();
-		sut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirClinsValidator(ctx),
-				fhirConfig.fhirCheckupReportValidator(ctx));
-		// 暖機処理
-		// JP-CLINS
-		Resource initClinsDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_CLINS_FILE_PATH);
-		Field initClinsDataResourceField = sut.getClass().getDeclaredField("initClinsDataResource");
-		initClinsDataResourceField.setAccessible(true);
-		initClinsDataResourceField.set(sut, initClinsDataResourceValue);
-		// 健康診断結果報告書
-		Resource initCheckupReportDataResourcValue = new ClassPathResource(INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH);
-		Field initCheckupReportDataResourceField = sut.getClass().getDeclaredField("initCheckupReportDataResource");
-		initCheckupReportDataResourceField.setAccessible(true);
-		initCheckupReportDataResourceField.set(sut, initCheckupReportDataResourcValue);
-		// 暖機処理（initメソッド）を呼び出しておく
-		sut.init();
-	}
+    // テスト対象を高速に起動できるように@BeforeAllで初期化しておく
+    @BeforeAll
+    static void setUpBeforeClass() throws Exception {
+        // ログをデバックレベルに設定
+        ((Logger) LoggerFactory.getLogger(FhirConfig.class)).setLevel(Level.DEBUG);
+        ((Logger) LoggerFactory.getLogger(FhirValidationServiceImpl.class)).setLevel(Level.DEBUG);
+        // FhirConfigのBean定義通りに、FhirValidationServiceImplインスタンスを作成
+        FhirConfig fhirConfig = new FhirConfig();
+        FhirContext ctx = fhirConfig.fhirContext();
+        sut = new FhirValidationServiceImpl(ctx, fhirConfig.fhirClinsValidator(ctx),
+                fhirConfig.fhirCheckupReportValidator(ctx));
+        // 暖機処理
+        // JP-CLINS
+        Resource initClinsDataResourceValue = new ClassPathResource(INIT_FOR_FHIR_CLINS_FILE_PATH);
+        Field initClinsDataResourceField = sut.getClass().getDeclaredField("initClinsDataResource");
+        initClinsDataResourceField.setAccessible(true);
+        initClinsDataResourceField.set(sut, initClinsDataResourceValue);
+        // 健康診断結果報告書
+        Resource initCheckupReportDataResourcValue = new ClassPathResource(INIT_FOR_FHIR_CHECKUP_REPORT_FILE_PATH);
+        Field initCheckupReportDataResourceField = sut.getClass().getDeclaredField("initCheckupReportDataResource");
+        initCheckupReportDataResourceField.setAccessible(true);
+        initCheckupReportDataResourceField.set(sut, initCheckupReportDataResourcValue);
+        // 暖機処理（initメソッド）を呼び出しておく
+        sut.init();
+    }
 
+    // 健康診断結果報告書のデータドリブンテスト
+    @ParameterizedTest
+    @MethodSource
+    void testValidateCheckupReport(String inputFilePath, String expectedResult, List<String> errorMessages)
+            throws IOException {
+        String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
+        FhirValidationResult expected;
+        if (FhirValidationResult.OK.equals(expectedResult)) {
+            expected = FhirValidationResult.builder().result(expectedResult).build();
+        } else {
+            expected = FhirValidationResult.builder().result(expectedResult).details(errorMessages).build();
+        }
+        // FHIRバリデーション実行
+        FhirValidationResult actual = sut.validateCheckupReport(jsonString);
+        // バリデーション結果の検証
+        assertEquals(expected, actual);
+    }
 
-	// 健康診断結果報告書のデータドリブンテスト
-	@ParameterizedTest
-	@MethodSource
-	void testValidateCheckupReport(String inputFilePath, String expectedResult, List<String> errorMessages)
-			throws IOException {
-		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
-		FhirValidationResult expected;
-		if (FhirValidationResult.OK.equals(expectedResult)) {
-			expected = FhirValidationResult.builder().result(expectedResult).build();
-		} else {
-			expected = FhirValidationResult.builder().result(expectedResult).details(errorMessages).build();
-		}
-		// FHIRバリデーション実行
-		FhirValidationResult actual = sut.validateCheckupReport(jsonString);
-		// バリデーション結果の検証
-		assertEquals(expected, actual);
-	}
+    // テストケース
+    static Stream<Arguments> testValidateCheckupReport() {
+        return Stream.of(
+                // テストケース1
+                // org.hl7.fhir.validationのバージョンを6.1.4に変更することで、健診結果報告書のバリデーションがOKになる
+                arguments("testdata/Bundle-Bundle-eCheckupReport-Sample-01.json", FhirValidationResult.OK, null));
 
-	// テストケース
-	static Stream<Arguments> testValidateCheckupReport() {
-		return Stream.of(
-				// テストケース1
-				// org.hl7.fhir.validationのバージョンを6.1.4に変更することで、健診結果報告書のバリデーションがOKになる
-				arguments("testdata/Bundle-Bundle-eCheckupReport-Sample-01.json", FhirValidationResult.OK, null));
+    }
 
-	}
+    // JP-CLINSのデータドリブンテスト
+    @ParameterizedTest
+    @MethodSource
+    void testValidateClins(String inputFilePath, String expectedResult, List<String> errorMessages) throws IOException {
+        String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
+        FhirValidationResult expected;
+        if (FhirValidationResult.OK.equals(expectedResult)) {
+            expected = FhirValidationResult.builder().result(expectedResult).build();
+        } else {
+            expected = FhirValidationResult.builder().result(expectedResult).details(errorMessages).build();
+        }
+        // FHIRバリデーション実行
+        FhirValidationResult actual = sut.validateClins(jsonString);
+        // バリデーション結果の検証
+        assertEquals(expected, actual);
+    }
 
-	// JP-CLINSのデータドリブンテスト
-	@ParameterizedTest
-	@MethodSource
-	void testValidateClins(String inputFilePath, String expectedResult, List<String> errorMessages) throws IOException {
-		String jsonString = Files.readString(new ClassPathResource(inputFilePath).getFile().toPath());
-		FhirValidationResult expected;
-		if (FhirValidationResult.OK.equals(expectedResult)) {
-			expected = FhirValidationResult.builder().result(expectedResult).build();
-		} else {
-			expected = FhirValidationResult.builder().result(expectedResult).details(errorMessages).build();
-		}
-		// FHIRバリデーション実行
-		FhirValidationResult actual = sut.validateClins(jsonString);
-		// バリデーション結果の検証
-		assertEquals(expected, actual);
-	}
-
-	// テストケース
-	static Stream<Arguments> testValidateClins() {
-		return Stream.of(
-				// テストケース1
-				arguments("testdata/Bundle-Bundle-CLINS-Referral-Example-01.json",
-						FhirValidationResult.OK, null),
-				// テストケース2
-				arguments("testdata/Bundle-Bundle-CLINS-PCS-Example-01.json",
-						FhirValidationResult.OK, null),				
-				// テストケース3
-				// HAPI ver7.2.2ではバリデーションエラーだったが、バリデーションOKになる
-				arguments("testdata/Bundle-Bundle-CLINS-Observations-Example-01.json",
-						FhirValidationResult.OK, null)				
-		// TODO: 以降に、テストケースを追加していく
-		);
-	}
+    // テストケース
+    static Stream<Arguments> testValidateClins() {
+        return Stream.of(
+                // TODO: 新しいプロファイルではエラーになってしまう。
+                // テストケース1
+                arguments("testdata/Bundle-Bundle-CLINS-Referral-Example-01.json", FhirValidationResult.OK, null),
+                // テストケース2
+                arguments("testdata/Bundle-Bundle-CLINS-PCS-Example-01.json", FhirValidationResult.OK, null),
+                // テストケース3
+                // HAPI ver7.2.2ではバリデーションエラーだったが、バリデーションOKになる
+                arguments("testdata/Bundle-Bundle-CLINS-Observations-Example-01.json", FhirValidationResult.OK, null)
+        // TODO: 以降に、テストケースを追加していく
+        );
+    }
 }

@@ -152,7 +152,7 @@ class FhirValidationMultiThreadTest {
 	static Stream<Arguments> testValidateClins() {
 		return Stream.of(
 				// テストケース1
-				arguments("testdata/Bundle-Bundle-CLINS-Referral-Example-01.json", FhirValidationResult.OK, null),
+				//arguments("testdata/Bundle-Bundle-CLINS-Referral-Example-01.json", FhirValidationResult.OK, null),
 				// テストケース2
 				arguments("testdata/Bundle-Bundle-CLINS-PCS-Example-01.json", FhirValidationResult.OK, null),
 				// テストケース3

@@ -54,25 +54,28 @@
 - サンプルAPで利用する各種プロファイル
     - JPCoreのプロファイル
         - [JPCore実装ガイド](https://jpfhir.jp/fhir/core/)のサイトにJPCoreの実装ガイドがあります。
-            - JPCoreのnpmパッケージ(ver1.1.2)
-                - [snapshot形式](https://jpfhir.jp/fhir/core/1.1.2/jp-core.r4-1.1.2-snap.tgz)
-                - [diff形式](https://jpfhir.jp/fhir/core/1.1.2/jp-core.r4-1.1.2.tgz)         
+            - JPCoreのnpmパッケージ(ver1.1.2-url)
+                - [snapshot形式](https://jpfhir.jp/fhir/core/1.1.2-url/jp-core.r4-1.1.2-url-snap.tgz)
+                - [diff形式](https://jpfhir.jp/fhir/core/1.1.2-url/jp-core.r4-1.1.2-url.tgz)         
     - Terminologyのプロファイル
-        - [JP-FHIR-Terminology](https://jpfhir.jp/fhir/core/terminology/ig/)のサイトにJP FHIR Terminologyの実装ガイドがあります。
-            - [Terminologyのnpmパッケージ(ver1.2.0)](https://jpfhir.jp/fhir/core/terminology/jpfhir-terminology.r4-1.2.0.tgz)
+        - [JP-FHIR-Terminology](https://jpfhir.jp/fhir/core/terminology/url/)のサイトにJP FHIR Terminologyの実装ガイドがあります。
+            - [Terminologyのnpmパッケージ(ver1.2.5-url)](https://jpfhir.jp/fhir/core/terminology/jpfhir-terminology.r4-1.2.5-url.tgz)
     - JP-CLINS（電子カルテ情報共有サービス2文書5情報+患者サマリー　FHIR仕様）の文書情報プロファイル
         - [電子カルテ情報共有サービス2文書5情報+患者サマリー FHIR実装ガイド](https://jpfhir.jp/fhir/clins/igv1/)
-            - JP-CLINSのnpmパッケージ(ver0.9.13)
-                - [snapshot形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-1.3.0-rc3.tgz)
-                - [diff形式](https://jpfhir.jp/fhir/clins/jp-clins.r4-1.3.0-rc3-snap.tgz)
+            - JP-CLINSのnpmパッケージ(ver1.6.0)
+                - [snapshot形式](https://jpfhir.jp/fhir/clins/jp-eCSCLINS.r4-1.6.0.tgz)
+                - [diff形式](https://jpfhir.jp/fhir/clins/jp-eCSCLINS.r4-1.6.0.tgz)
     - 健康診断診断結果報告書の文書情報プロファイル
         - [健康診断結果報告書FHIR記述仕様実装ガイド](https://jpfhir.jp/fhir/eCheckup/igv1/)
-            - 健康診断結果報告書のnpmパッケージ(ver1.1.2)
-                - [snapshot形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2-snap.tgz)
-                - [diff形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.1.2.tgz)
+            - 健康診断結果報告書のnpmパッケージ(ver1.3.2)
+                - [snapshot形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.3.2-snap.tgz)
+                - [diff形式](https://jpfhir.jp/fhir/eCheckup/jp-eCheckupReport.r4-1.3.2.tgz)
 
 - サンプルデータ
-  - [本実装ガイドに準拠したデータのサンプルの一覧](https://jpfhir.jp/fhir/clins/igv1.3-rc3/artifacts.html#example-example-instances)
+    - JP-CLINS
+        - [本実装ガイドに準拠したデータのサンプルの一覧](https://jpfhir.jp/fhir/clins/igv1/artifacts.html#example-example-instances)
+    - 健康診断結果報告書
+        - [本実装ガイドに準拠したデータのサンプルの一覧](https://jpfhir.jp/fhir/eCheckup/igv1/artifacts.html#example-example-instances)
 
 ### 1.2. FHIRデータのパース
 - [HAPI FHIRのパーサ](https://hapifhir.io/hapi-fhir/docs/model/parsers.html)を使って、パースをしています。    
@@ -94,6 +97,10 @@
 ### 4.1 FHIRバリデーション・パース
 
 #### 4.1.1 処理結果
+> [!WARNING]
+> 最新のプロファイルおよびサンプルデータに変更したところ、Bundle-Bundle-CLINS-Referral-Example-01.jsonに対するバリデーションがエラーになってしまう。
+> 以下は、ひとつ前のバージョンの時の結果。
+
 ```
 21:15:19.187 [main] INFO  ca.uhn.fhir.util.VersionUtil - HAPI FHIR version 7.6.0 - Rev 90237f70ff
 21:15:19.243 [main] INFO  ca.uhn.fhir.context.FhirContext - Creating new FHIR context for FHIR version [R4]
@@ -306,8 +313,13 @@
 ## 6. springboot-hapiフォルダのSpringBootサンプルAP実行結果
 
 - REST APIの呼び出し
-    - curlコマンド等で、以下のコマンドを呼び出します。テスト用FHIRデータを送信し、バリデーション結果を取得します。
 
+> [!WARNING]
+> 最新のプロファイルおよびサンプルデータに変更したところ、Bundle-Bundle-CLINS-Referral-Example-01.jsonに対するバリデーションがエラーになってしまう。
+> 以下は、ひとつ前のバージョンの時の結果。
+
+    - curlコマンド等で、以下のコマンドを呼び出します。テスト用FHIRデータを送信し、バリデーション結果を取得します。
+    
     - 診療情報提供書のFHIRデータを送信する場合
 
     ```sh

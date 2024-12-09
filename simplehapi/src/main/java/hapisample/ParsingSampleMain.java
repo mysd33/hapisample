@@ -103,6 +103,7 @@ public class ParsingSampleMain {
 			long createValidatorTime = System.nanoTime();
 
 			// 診療情報提供書のHL7 FHIRのサンプルデータを読み込み
+			// TODO: 最新のプロファイルだとエラー
 			String filePath = "file/input/Bundle-Bundle-CLINS-Referral-Example-01.json";			
 
 			// 生のFHIRデータ(json文字列）に対して、直接FHIRバリデーション実行
