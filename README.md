@@ -22,8 +22,6 @@
         - バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョンが6.1.8となっており、HAPIが利用するバージョンと齟齬があります。
 
         - ~~健診結果報告書のサンプルデータがうまく動作するよう、entry.resourceに複数のプロファイルがあるバンドルをバリデーションできなかった不具合に対応した[6.1.4](https://github.com/hapifhir/org.hl7.fhir.core/releases/tag/6.1.4)のバージョンで実行できるよう、このサンプルでは、HAPI FHIRが内部で使用するバージョンをバリデーションガイドでの公式バリデータのバージョンと合わせる個別対応を行っています。~~
-            - ~~[pom.xml](simplehapi/pom.xml)~~
-            - ~~[pom.xml](springboot-hapi/pom.xml)~~
         - ~~なお、同様の方法で、バリデーションガイドが使用している公式バリデータ（org.hl7.fhir.validation）のバージョン6.1.8にしてしまうと、APIの互換性がないため、実行時エラー（java.lang.NoSuchMethodError）が発生してしまいます。~~
 
 > [!NOTE]
@@ -312,12 +310,11 @@
 
 ## 6. springboot-hapiフォルダのSpringBootサンプルAP実行結果
 
-- REST APIの呼び出し
-
 > [!WARNING]
 > 最新のプロファイルおよびサンプルデータに変更したところ、Bundle-Bundle-CLINS-Referral-Example-01.jsonに対するバリデーションがエラーになってしまう。
 > 以下は、ひとつ前のバージョンの時の結果。
 
+- REST APIの呼び出し
     - curlコマンド等で、以下のコマンドを呼び出します。テスト用FHIRデータを送信し、バリデーション結果を取得します。
     
     - 診療情報提供書のFHIRデータを送信する場合
@@ -340,7 +337,6 @@
             "[ERROR]:[Bundle] Bundle.type: minimum required = 1, but only found 0 (from http://jpfhir.jp/fhir/eReferral/StructureDefinition/JP_Bundle_eReferral)"
         ]
     }
-
     ```
 
     - APログ
