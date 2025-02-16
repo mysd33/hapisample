@@ -23,7 +23,10 @@
 		<!-- Console Appender in a JSON format -->
 		<appender name="CONSOLE"
 			class="ch.qos.logback.core.ConsoleAppender">
-			<encoder class="net.logstash.logback.encoder.LogstashEncoder"/>
+			<encoder class="org.springframework.boot.logging.logback.StructuredLogEncoder">
+				<format>logstash</format>
+				<charset>utf-8</charset>
+			</encoder>
 		</appender>
 		<root level="INFO">
 			<appender-ref ref="CONSOLE" />

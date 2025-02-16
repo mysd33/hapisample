@@ -10,7 +10,8 @@
         - 実行には[simplehapiフォルダのサンプルAP実行方法](#3-simplehapiフォルダのサンプルap実行方法)を参照してください。
     - springboot-hapiフォルダ
         - REST APIでFHIRバリデーションを実施する応用編のSpringBootアプリケーション
-            - SpringBoot3.3で作成しており、SpringBoot3.xよりJava17以上が必要です。またSpringBoot3.2からはJava21を利用すると仮想スレッド機能が使用できることから、Java21を利用しています。
+            - SpringBoot3.4で作成しています。
+            - SpringBoot3.xよりJava17以上が必要です。またSpringBoot3.2からはJava21を利用すると仮想スレッド機能が使用できることから、Java21を利用しています。
         - 実行には[springboot-hapiフォルダのSpringBootサンプルAP実行方法](#5-springboot-hapiフォルダのspringbootサンプルap実行方法)を参照してください。
 
 - [FHIR IGポータル](https://std.jpfhir.jp/)のサイトから、公式バリデータを使った[バリデーションガイド](https://jpfhir.jp/fhir/eReferral/igv1/validationGuide.html)が公開されていますが、ここでは、[HAPI FHIR](https://hapifhir.io)を使って、同様のバリデーションを行うサンプルプログラムを作成しています。
