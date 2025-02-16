@@ -89,13 +89,14 @@ public class ValidationOthers {
 
 			// FHIRのサンプルデータを読み込み
 			
-			// String filePath = "file/input/Bundle-Bundle-CLINS-PCS-Example-01.json";			
+			String filePath = "file/input/Bundle-Bundle-CLINS-PCS-Example-01.json";
 			
-			// HAPIのver7.2.2だと、以下のエラーが発生していたが、ver7.4.0ではエラーが解消された		
+			// HAPIのver7.2.2だと、以下のエラーが発生していたが、ver7.4.0ではエラーが解消された
 			// [Bundle.entry[2]] This element does not match any known slice  defined in the profile http://jpfhir.jp/fhir/clins/StructureDefinition/JP_Bundle_CLINS|1.3.0-rc3 and slicing is CLOSED: Bundle.entry[2]: Does not match slice 'patient' (discriminator: resource.conformsTo('http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Patient_eCS')), Bundle.entry[2]: Details for Bundle matching against profile http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Patient_eCS|1.3.0-rc3, Bundle.entry[2]: Does not match slice 'allergyIntolerance' (discriminator: resource.conformsTo('http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_AllergyIntolerance_eCS')), Bundle.entry[2]: Details for Bundle matching against profile http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_AllergyIntolerance_eCS|1.3.0-rc3, Bundle.entry[2]: Does not match slice 'condition' (discriminator: resource.conformsTo('http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Condition_eCS')), Bundle.entry[2]: Details for Bundle matching against profile http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Condition_eCS|1.3.0-rc3, Bundle.entry[2]: Does not match slice 'medicationRequest' (discriminator: resource.conformsTo('http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_MedicationRequest_eCS')), Bundle.entry[2]: Details for Bundle matching against profile http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_MedicationRequest_eCS|1.3.0-rc3, Bundle.entry[2]: Does not match slice 'observationLaboResult' (discriminator: resource.conformsTo('http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Observation_LabResult_eCS')), Bundle.entry[2]: Details for Bundle matching against profile http://jpfhir.jp/fhir/eCS/StructureDefinition/JP_Observation_LabResult_eCS|1.3.0-rc3
 			// [Bundle.entry[0].resource/*Patient/InlineExample-JP-Patient-standard*/] Resource has a language, but the XHTML does not have an lang or an xml:lang tag (needs both - see https://www.w3.org/TR/i18n-html-tech-lang/#langvalues)
 			// [Bundle.entry[2].resource.code] Unknown code 'http://jpfhir.jp/fhir/clins/CodeSystem/JP_CLINS_ObsLabResult_CoreLabo_CS#3H015000002326101' for in-memory expansion of ValueSet 'http://jpfhir.jp/fhir/core/ValueSet/JP_ObservationLabResultCode_VS'
-			String filePath = "file/input/Bundle-Bundle-CLINS-Observations-Example-01.json";
+			
+			//String filePath = "file/input/Bundle-Bundle-CLINS-Observations-Example-01.json";
 					
 			// 生のFHIRデータ(json文字列）に対して、直接FHIRバリデーション実行
 			String jsonString = Files.readString(Paths.get(filePath));
